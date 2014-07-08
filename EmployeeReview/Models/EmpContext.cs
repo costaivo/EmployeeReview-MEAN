@@ -11,8 +11,8 @@ namespace EmployeeReview.Models
         public Context()
         { }
 
-        public DbSet<RegisterModel> NewUser { get; set; }
-        public DbSet<LogOnModel> User { get; set; }
+        public DbSet<Users> User { get; set; }
+       
 
     }
 }

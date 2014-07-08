@@ -20,6 +20,24 @@ namespace EmployeeReview.Controllers
         }
         public ActionResult LogOn()
         {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult LogOn(LogOnModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var ctx = new Context();
+                Users Usr = ctx.User.First(i => i.Email == model.Email && i.Password == model.Password);
+                if (Usr == null)
+                { return RedirectToAction("LogOn"); }
+                else
+                { return RedirectToAction("Index"); }
+                
+
+            }
+
             return View();
         }
         
@@ -30,19 +48,20 @@ namespace EmployeeReview.Controllers
 
         }
         [HttpPost]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(Users model)
         {
             if (ModelState.IsValid)
             {
                 using (var ctx = new Context())
                 {
-                    RegisterModel NewUsr = new RegisterModel { Fname = model.Fname, Lname = model.Lname, Email = model.Email, Password = model.Password };
-                    ctx.NewUser.Add(NewUsr);
+                    Users NewUsr = new Users { Fname = model.Fname, Lname = model.Lname, Email = model.Email, Password = model.Password ,ConfirmPassword=model.ConfirmPassword,IsActive=true };
+                    ctx.User.Add(NewUsr);
                     ctx.SaveChanges();
                     return RedirectToAction("LogOn");
                 }
-            }
-            return View(model);
+           }
+            return View();
+            
 
         }
     }
