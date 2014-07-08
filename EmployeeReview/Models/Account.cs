@@ -13,35 +13,35 @@ namespace EmployeeReview.Models
     }
     public class LogOnModel
     {
-        [Required]
-        [Display(Name = "User ID")]
-        public string UserID { get; set; }
+        public int ID {get;set;}
+        
+        [Display(Name = "Email Address")]
+        public string Email { get; set; }
 
-        [Required]
+        
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
     }
     public class RegisterModel
     {
-        [Required]
-        [Display(Name = "User ID")]
-        public string UserID { get; set; }
+        
+        [Display(Name = "ID")]
+        public int ID { get; set; }
 
-        [Required]
+        
         [Display(Name = "First name")]
         public string Fname { get; set; }
 
-        [Required]
+        
         [Display(Name = "Last Name")]
         public string Lname { get; set; }
 
-        [Required]
-        [DataType(DataType.EmailAddress)]
+        
+        
         [Display(Name = "Email address")]
         public string Email { get; set; }
 
-        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

@@ -22,6 +22,7 @@ namespace EmployeeReview.Controllers
         {
             return View();
         }
+        
 
         public ActionResult Register()
         {
@@ -33,17 +34,12 @@ namespace EmployeeReview.Controllers
         {
             if (ModelState.IsValid)
             {
-                MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.UserID, model.Fname, model.Lname, model.Email, model.Password, model.IsActive,out createStatus);
-
-                if (createStatus == MembershipCreateStatus.Success)
+                using (var ctx = new Context())
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserID, false );
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("","Some error occured.");
+                    RegisterModel NewUsr = new RegisterModel { Fname = model.Fname, Lname = model.Lname, Email = model.Email, Password = model.Password };
+                    ctx.NewUser.Add(NewUsr);
+                    ctx.SaveChanges();
+                    return RedirectToAction("LogOn");
                 }
             }
             return View(model);
