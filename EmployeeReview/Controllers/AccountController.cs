@@ -16,12 +16,30 @@ namespace EmployeeReview.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            
+            if (Session["LoggedUserId"] != null)
+            { 
+                return View();
+            }
+            else 
+            {
+                return RedirectToAction("LogOn");
+
+            }
         }
         public ActionResult LogOn()
         {
 
             return View();
+        }
+        
+        public ActionResult LogOff()
+        {
+            Session["LoggedUserId"] = null;
+            Session["LoggedFname"] = null;
+            Session["LoggedLname"] = null;
+            return RedirectToAction("LogOn");
+
         }
         [HttpPost]
         public ActionResult LogOn(LogOnModel model)
@@ -31,9 +49,15 @@ namespace EmployeeReview.Controllers
                 var ctx = new Context();
                 Users Usr = ctx.User.First(i => i.Email == model.Email && i.Password == model.Password);
                 if (Usr == null)
-                { return RedirectToAction("LogOn"); }
+                {
+                    return RedirectToAction("LogOn"); }
                 else
-                { return RedirectToAction("Index"); }
+                {
+                    Session["LoggedUserId"] = Usr.Email;
+                    Session["LoggedFname"] = Usr.Fname;
+                    Session["LoggedLname"] = Usr.Lname; 
+                    return RedirectToAction("Index");
+                }
                 
 
             }
