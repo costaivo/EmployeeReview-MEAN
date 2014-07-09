@@ -14,11 +14,17 @@ namespace EmployeeReview.Controllers
         //
         // GET: /Account/
 
-        public ActionResult Index()
+        public ActionResult Index(LogOnModel model)
         {
             
             if (Session["LoggedUserId"] != null)
             { 
+                var ctx = new Context();
+                var temp = Session["LoggedUserId"].ToString();
+                Users Usr = ctx.User.First(i => i.Email == temp);
+                ViewBag.fname = Usr.Fname;
+                ViewBag.lname = Usr.Lname;
+                
                 return View();
             }
             else 
@@ -36,8 +42,7 @@ namespace EmployeeReview.Controllers
         public ActionResult LogOff()
         {
             Session["LoggedUserId"] = null;
-            Session["LoggedFname"] = null;
-            Session["LoggedLname"] = null;
+            
             return RedirectToAction("LogOn");
 
         }
@@ -54,8 +59,7 @@ namespace EmployeeReview.Controllers
                 else
                 {
                     Session["LoggedUserId"] = Usr.Email;
-                    Session["LoggedFname"] = Usr.Fname;
-                    Session["LoggedLname"] = Usr.Lname; 
+                    
                     return RedirectToAction("Index");
                 }
                 
