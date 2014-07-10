@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using System.Web.Routing;
-using System.Web.Security;
 using EmployeeReview.Models;
 
 namespace EmployeeReview.Controllers
@@ -82,7 +77,15 @@ namespace EmployeeReview.Controllers
             {
                 using (var ctx = new Context())
                 {
-                    Users NewUsr = new Users { Fname = model.Fname, Lname = model.Lname, Email = model.Email, Password = model.Password ,ConfirmPassword=model.ConfirmPassword,IsActive=true };
+                    Users NewUsr = new Users
+                    {
+                        Fname = model.Fname,
+                        Lname = model.Lname,
+                        Email = model.Email,
+                        Password = model.Password,
+                        ConfirmPassword = model.ConfirmPassword,
+                        IsActive = true
+                    };
                     ctx.User.Add(NewUsr);
                     ctx.SaveChanges();
                     return RedirectToAction("LogOn");
