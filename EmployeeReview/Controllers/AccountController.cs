@@ -21,13 +21,13 @@ namespace EmployeeReview.Controllers
             { 
                 var ctx = new Context();
                 var temp = Session["LoggedUserId"].ToString();
-                //Users Usr = ctx.User.First(i => i.Email == temp);
-                //ViewBag.fname = Usr.Fname;
-                //ViewBag.lname = Usr.Lname;
+                Users Usr = ctx.User.FirstOrDefault(i => i.Email == temp);
+                ViewBag.fname = Usr.Fname;
+                ViewBag.lname = Usr.Lname;
 
-                var items = from s in ctx.User
+                var items = from s in ctx.Category
                             select s;
-                items = items.OrderBy(i => i.Fname);
+                items = items.OrderBy(i => i.CategoryValue);
 
                 return View(items);
             }
@@ -56,7 +56,7 @@ namespace EmployeeReview.Controllers
             if (ModelState.IsValid)
             {
                 var ctx = new Context();
-                Users Usr = ctx.User.First(i => i.Email == model.Email && i.Password == model.Password);
+                Users Usr = ctx.User.FirstOrDefault(i => i.Email == model.Email && i.Password == model.Password);
                 if (Usr == null)
                 {
                     return RedirectToAction("LogOn"); }
