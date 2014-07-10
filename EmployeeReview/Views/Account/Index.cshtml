@@ -1,18 +1,16 @@
-﻿
-
+﻿@model IEnumerable<EmployeeReview.Models.Users>
+@using GridMvc.Html
+@using EmployeeReview.Models
+@using GridMvc.Sorting
 
 @{
     ViewBag.Title = "Index";
 }
 
-@if (Session["LoggedUserId"] != null)
-{
-    <text>
-      <h1>  Welcome  @ViewBag.fname @ViewBag.lname !</h1>
-    </text>
-    
-    
-    @Html.ActionLink("LogOut", "LogOff", "Account");
-   
-}
+@Html.Grid(Model).Columns(columns =>
+           {
+               columns.Add(m => m.Fname).Sortable(true).Filterable(true);
+                 columns.Add(m => m.Lname).Sortable(true).Filterable(true);
+           }).WithPaging(20)
+
  

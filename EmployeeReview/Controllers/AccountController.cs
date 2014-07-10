@@ -21,11 +21,15 @@ namespace EmployeeReview.Controllers
             { 
                 var ctx = new Context();
                 var temp = Session["LoggedUserId"].ToString();
-                Users Usr = ctx.User.First(i => i.Email == temp);
-                ViewBag.fname = Usr.Fname;
-                ViewBag.lname = Usr.Lname;
-                
-                return View();
+                //Users Usr = ctx.User.First(i => i.Email == temp);
+                //ViewBag.fname = Usr.Fname;
+                //ViewBag.lname = Usr.Lname;
+
+                var items = from s in ctx.User
+                            select s;
+                items = items.OrderBy(i => i.Fname);
+
+                return View(items);
             }
             else 
             {
