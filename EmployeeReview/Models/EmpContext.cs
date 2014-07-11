@@ -6,9 +6,9 @@ using System.Data.Entity;
 
 namespace EmployeeReview.Models
 {
-    public class Context : DbContext
+    public class EmpContext : DbContext
     {
-        public Context()
+        public EmpContext()
         { }
 
         public DbSet<Users> User { get; set; }
@@ -16,5 +16,7 @@ namespace EmployeeReview.Models
         public DbSet<Responsibilities> Responsibility { get; set; }
         public DbSet<Ratings> Rating { get; set; }
         public DbSet<CategoryTypes> CategoryType { get; set; }
+        public DbSet<Teams> Team { get; set; }
+        public DbSet<CategoryTeams> CategoryTeam { get; set; }
     }
 }

@@ -17,11 +17,15 @@
  @Html.ActionLink("LogOut", "LogOff", "Account");
 
 }
-
+@{
 @Html.Grid(Model).Columns(columns =>
            {
                columns.Add(m => m.CategoryValue).Sortable(false).Filterable(true);
-               //columns.Add(m => m.Lname).Sortable(true).Filterable(true);
-           }).WithPaging(20)
-
+               columns.Add(m => m.RatingValue).Sortable(false).Filterable(true);
+           })
+  
+  
+  
+  //@Html.Grid(Model).AutoGenerateColumns();
+      }
  

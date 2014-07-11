@@ -18,6 +18,8 @@ namespace EmployeeReview
     {
         protected void Application_Start()
         {
+            System.Data.Entity.Database.SetInitializer(
+                new EmployeeReview.Models.RequiredData());
             AreaRegistration.RegisterAllAreas();
             
             WebApiConfig.Register(GlobalConfiguration.Configuration);

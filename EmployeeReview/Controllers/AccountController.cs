@@ -14,19 +14,26 @@ namespace EmployeeReview.Controllers
         //
         // GET: /Account/
 
+       
+
         public ActionResult Index(LogOnModel model)
         {
             
             if (Session["LoggedUserId"] != null)
             { 
-                var ctx = new Context();
+                var ctx = new EmpContext();
                 var temp = Session["LoggedUserId"].ToString();
                 Users Usr = ctx.User.FirstOrDefault(i => i.Email == temp);
                 ViewBag.fname = Usr.Fname;
                 ViewBag.lname = Usr.Lname;
 
-                var items = from s in ctx.Category
-                            select s;
+                var items = ctx.Responsibility.Include()
+
+               // var items = from s in ctx.Category
+                           // join t in ctx.CategoryType on s.CategoryType.TypeID equals t.TypeID
+                           // join x in ctx.Responsibility on s.Responsibility.ResponsibilityID equals x.ResponsibilityID
+                           // join r in ctx.Rating on s.Rating.RatingID equals r.RatingID
+                           // select new { t.TypeValue, s.CategoryValue, r.RatingValue, x.ResponsibilityValue };
                 items = items.OrderBy(i => i.CategoryValue);
 
                 return View(items);
@@ -37,6 +44,8 @@ namespace EmployeeReview.Controllers
 
             }
         }
+
+        #region login funtions
         public ActionResult LogOn()
         {
 
@@ -46,7 +55,6 @@ namespace EmployeeReview.Controllers
         public ActionResult LogOff()
         {
             Session["LoggedUserId"] = null;
-            
             return RedirectToAction("LogOn");
 
         }
@@ -55,7 +63,7 @@ namespace EmployeeReview.Controllers
         {
             if (ModelState.IsValid)
             {
-                var ctx = new Context();
+                var ctx = new EmpContext();
                 Users Usr = ctx.User.FirstOrDefault(i => i.Email == model.Email && i.Password == model.Password);
                 if (Usr == null)
                 {
@@ -66,13 +74,11 @@ namespace EmployeeReview.Controllers
                     
                     return RedirectToAction("Index");
                 }
-                
-
             }
-
             return View();
         }
-        
+        #endregion
+
 
         public ActionResult Register()
         {
@@ -84,7 +90,7 @@ namespace EmployeeReview.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var ctx = new Context())
+                using (var ctx = new EmpContext())
                 {
                     Users NewUsr = new Users { Fname = model.Fname, Lname = model.Lname, Email = model.Email, Password = model.Password ,ConfirmPassword=model.ConfirmPassword,IsActive=true };
                     ctx.User.Add(NewUsr);

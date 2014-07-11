@@ -14,6 +14,7 @@ namespace EmployeeReview.Models
     {
         [Key]
         public int ResponsibilityID { get; set; }
+        
         public string ResponsibilityValue { get; set; }
 
     }
@@ -23,8 +24,13 @@ namespace EmployeeReview.Models
         [Key]
         public int CategoryID { get; set; }
         public string CategoryValue { get; set; }
-        [ForeignKey("Responsibilities")]
-        public int ResponsibilityID { get; set; }
+        /*public int ResponsibilityID { get; set; }
+        public int CategoryTypeID { get; set; }
+        public int RatingID { get; set; }
+        */
+        public Responsibilities Responsibility { get; set; }
+        public CategoryTypes CategoryType { get; set; }
+        public Ratings Rating { get; set; }
 
 
     }
@@ -42,7 +48,22 @@ namespace EmployeeReview.Models
         [Key]
         public int TypeID { get; set; }
         public string TypeValue { get; set; }
-        //[ForeignKey("Categories")]
-        public int CategoryID { get; set; }
+        
+       
     }
+    public class Teams {
+        [Key]
+        public int TeamID { get; set; }
+        public string TeamValue { get; set; }
+
+      }
+
+    public class CategoryTeams { 
+        [Key]
+        public int CategoryTeamID { get; set; }
+        //public int TeamID {get;set; }
+       // public int CategoryID {get;set; }    
+        public Teams Team {get;set;}
+        public Categories Category { set; get; }
+}
 }
