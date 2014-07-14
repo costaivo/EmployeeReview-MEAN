@@ -95,11 +95,12 @@ namespace EmployeeReview.Models
                 context.Responsibility.Add(r);
                 context.SaveChanges();
             }
+            /*
             new List<Categories> { 
             new Categories{CategoryValue="Coding",CategoryType=category.Single(a=>a.TypeValue == "Project-related Category"),Responsibility = responsibility.Single(x=>x.ResponsibilityValue == "Develop enhancements to existing and/or new modules based on specifications and provide suitable solutions for issues/errors/new features based on the understanding of the system and client business processes"),Rating=rating.Single(x=>x.RatingValue==3)},
             new Categories{CategoryValue="Deployment",CategoryType=category.Single(a=>a.TypeValue == "General Category"),Responsibility = responsibility.Single(x=>x.ResponsibilityValue == "Understand and implement unit test cases for your code."),Rating=rating.Single(x=>x.RatingValue==3)}
             }.ForEach(a => context.Category.Add(a));
             context.SaveChanges();
-        }
+        */}
     }
 }

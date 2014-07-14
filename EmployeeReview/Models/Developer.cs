@@ -10,14 +10,8 @@ namespace EmployeeReview.Models
     public class Developer
     {
     }
-    public class Responsibilities
-    {
-        [Key]
-        public int ResponsibilityID { get; set; }
-        
-        public string ResponsibilityValue { get; set; }
-
-    }
+    
+   
 
     public class Categories
     {
@@ -28,9 +22,8 @@ namespace EmployeeReview.Models
         public int CategoryTypeID { get; set; }
         public int RatingID { get; set; }
         */
-        public Responsibilities Responsibility { get; set; }
         public CategoryTypes CategoryType { get; set; }
-        public Ratings Rating { get; set; }
+        
 
 
     }
