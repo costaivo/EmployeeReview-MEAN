@@ -1,0 +1,29 @@
+﻿@using GridMvc.Html
+@using EmployeeReview.Models
+@using GridMvc.Sorting
+
+@{
+    ViewBag.Title = "Home page";
+}
+
+
+@{
+/*@Html.Grid().Columns(columns =>
+           {
+               columns.Add(ViewBag.item.C).Sortable(false).Filterable(true);
+              // columns.Add(m => m.R).Sortable(false).Filterable(true);
+           })
+  */
+if(Request.IsAuthenticated) {
+    <text>Welcome <strong>@User.Identity.Name</strong>!
+    @Html.ActionLink("Log Off", "LogOff", "Account") </text>
+}
+else {
+    @Html.ActionLink("Log On", "LogOn", "Account")
+}
+
+  
+  
+  //@Html.Grid(Model).AutoGenerateColumns();
+      }
+ 
