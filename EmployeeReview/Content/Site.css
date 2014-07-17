@@ -1,5 +1,5 @@
 ﻿body {
-    font-size: .85em;
+    font-size: 1.5em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     color: #232323;
     background-color: #fff;
@@ -10,8 +10,73 @@ header, footer, nav, section {
 }
 
 
+#next {
+    
+    
+    padding: 10px 20px;
+    font-weight: bold;
+    background-color: #ddd;
+    width:70px;
+    position:relative;
+    left:1800px;
+    color: #000;
+    text-decoration:none;
+     border-radius: 4px 4px 4px 4px;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    text-align: right;
+}
+/* TAB MENU   
+----------------------------------------------------------*/
+ul#menu {
+    border-bottom: 1px #5C87B2 solid;
+    padding: 0 0 2px;
+    position: relative;
+    margin: 0;
+    text-align: right;
+}
+
+ul#menu li {
+    display: inline;
+    list-style: none;
+}
+
+
+ul#menu li a {
+    padding: 10px 20px;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 2.8em;
+    background-color: #ddd;
+    color: #000;
+    border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+}
+
+ul#menu li a:hover {
+    background-color: #fff;
+    text-decoration: none;
+}
+
+ul#menu li a:active {
+    background-color: #8a8a8a;
+    text-decoration: none;
+}
+
+ul#menu li.selected a {
+    background-color: #fff;
+    color: #000;
+}
+
+
 /* Styles for basic forms
 -----------------------------------------------------------*/
+#mid {
+    border: 1px solid #ddd;
+    padding: 1.4em 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;}
+
 fieldset {
     border: 1px solid #ddd;
     padding: 0 1.4em 1.4em 1.4em;
@@ -24,7 +89,7 @@ legend {
 }
 
 textarea {
-    min-height: 75px;
+    min-height: 1px;
 }
 
 .editor-label {
