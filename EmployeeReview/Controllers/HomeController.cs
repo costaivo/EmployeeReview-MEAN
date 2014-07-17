@@ -14,12 +14,13 @@ namespace EmployeeReview.Controllers
         // GET: /Home/
         private EmpContext db = new EmpContext();
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(int step=1)
         {
-            //var details = db.Responsibilities.Include(a => a.Category);
             var ctx = new EmpContext();
 
-            var cat = ctx.Categories.Include(a => a.Type);
+            var cat = ctx.Responsibilities.Include(a => a.Category).Include(a => a.Category.Type);
+
+            ViewBag.step = step;
 
             return View(cat.ToList());
 
