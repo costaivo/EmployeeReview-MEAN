@@ -1,0 +1,319 @@
+﻿@using GridMvc.Html
+@using EmployeeReview.Models
+@using GridMvc.Sorting
+@model IEnumerable<EmployeeReview.Models.Category>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+
+
+
+<script src="~/Scripts/jquery-ui.js"></script>
+
+
+ <script>
+$(function() {
+$( "#accordion" ).accordion();
+});
+</script>
+
+@{<link href="~/Content/stylesheet/stylesheet.css" rel="stylesheet" />
+    if(Request.IsAuthenticated) {
+    <h3>Welcome <strong>@User.Identity.Name</strong>!</h3>
+    @Html.ActionLink("Log Off", "LogOff", "Account") 
+}
+else {
+    @Html.ActionLink("Log On", "LogOn", "Account")
+}
+
+<br/>
+    <div id="menucontainer"> 
+                <ul id="menu">
+                    <li>@Html.ActionLink("Project-Related", "Index", "Home")</li>
+                    <li>@Html.ActionLink("General", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Technical", "Index", "Home")</li>
+                </ul>
+            </div>
+   <div id="accordion">
+<h3>Section 1</h3>
+<div>
+<p>
+Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+</p>
+</div>
+<h3>Section 2</h3>
+<div>
+<p>
+Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
+purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
+velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
+suscipit faucibus urna.
+</p>
+</div>
+<h3>Section 3</h3>
+<div>
+<p>
+Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
+Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
+ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
+lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
+</p>
+<ul>
+<li>List item one</li>
+<li>List item two</li>
+<li>List item three</li>
+</ul>
+</div>
+<h3>Section 4</h3>
+<div>
+<p>
+Cras dictum. Pellentesque habitant morbi tristique senectus et netus
+et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
+faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
+mauris vel est.
+</p>
+<p>
+Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
+Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+inceptos himenaeos.
+</p>
+</div>
+</div>
+    
+        /*   <div id="mid">
+
+       
+        <div id="accordion">
+<h3>Coding</h3>
+<div>
+
+    <table >
+        <tr ><th>Responsibilities</th><th>Rate Yourself</th><th>Comments</th></tr>
+        <tr >
+        <td style="width:45%">
+      Develop enhancements to existing and/or new modules based on specifications and provide suitable solutions for issues/errors/new features based on the understanding of the system and client business processes
+        </td>
+        <td>
+     <div class="starRating" >
+        <div>
+            <div>
+                <div>
+                    <div>
+                        <input id="rating1" type="radio" name="rating" value="1">
+                        <label for="rating1"><span>1</span></label>
+                      </div>
+                    <input id="rating2" type="radio" name="rating" value="2">
+                    <label for="rating2"><span>2</span></label>
+                </div>
+            <input id="rating3" type="radio" name="rating" value="3">
+            <label for="rating3"><span>3</span></label>
+        </div>
+    <input id="rating4" type="radio" name="rating" value="4">
+    <label for="rating4"><span>4</span></label>
+  </div>
+  <input id="rating5" type="radio" name="rating" value="5">
+  <label for="rating5"><span>5</span></label>
+</div>
+        </td>
+        <td>
+        <textarea rows="1" cols="50"></textarea>
+        </td>
+        </tr>
+        
+        <tr>
+        <td style="width:45%">
+     Understand and implement unit test cases for your code.
+        </td>
+        <td>
+     <div class="starRating" >
+        <div>
+            <div>
+                <div>
+                    <div>
+                        <input id="rating1" type="radio" name="rating" value="1">
+                        <label for="rating1"><span>1</span></label>
+                      </div>
+                    <input id="rating2" type="radio" name="rating" value="2">
+                    <label for="rating2"><span>2</span></label>
+                </div>
+            <input id="rating3" type="radio" name="rating" value="3">
+            <label for="rating3"><span>3</span></label>
+        </div>
+    <input id="rating4" type="radio" name="rating" value="4">
+    <label for="rating4"><span>4</span></label>
+  </div>
+  <input id="rating5" type="radio" name="rating" value="5">
+  <label for="rating5"><span>5</span></label>
+</div>
+        </td>
+        <td>
+        <textarea rows="1" cols="50"></textarea>
+        </td>
+        </tr>
+    </table>
+
+</div>
+<h3>Deployment
+</h3>
+<div>
+    <table>
+        <tr><th><p>Responsibilities</p></th><th><p>Rate Yourself</p></th><th><p>Comments</p></th></tr>
+        <tr>
+        <td style="width:45%">
+      Migrate changes into production environment, or client framework
+      </td>
+        <td>
+     <div class="starRating" >
+        <div>
+            <div>
+                <div>
+                    <div>
+                        <input id="rating1" type="radio" name="rating" value="1">
+                        <label for="rating1"><span>1</span></label>
+                      </div>
+                    <input id="rating2" type="radio" name="rating" value="2">
+                    <label for="rating2"><span>2</span></label>
+                </div>
+            <input id="rating3" type="radio" name="rating" value="3">
+            <label for="rating3"><span>3</span></label>
+        </div>
+    <input id="rating4" type="radio" name="rating" value="4">
+    <label for="rating4"><span>4</span></label>
+  </div>
+  <input id="rating5" type="radio" name="rating" value="5">
+  <label for="rating5"><span>5</span></label>
+</div>
+        </td>
+        <td>
+        <textarea rows="1" cols="50"></textarea>
+        </td>
+        </tr>
+    </table>
+</div>
+<h3>System support and maintenance
+</h3>
+<div>
+<table>
+        <tr><th><p>Responsibilities</p></th><th><p>Rate Yourself</p></th><th><p>Comments</p></th></tr>
+        <tr>
+        <td style="width:45%">
+      Troubleshoot issues and errors in applications under development and applications in production where you might have to work with someone's code and provide suitable solutions for issues/errors/new features based on the understanding of the system and client business processes
+      
+        <br />
+        </td>
+        <td>
+     <div class="starRating" >
+        <div>
+            <div>
+                <div>
+                    <div>
+                        <input id="rating1" type="radio" name="rating" value="1">
+                        <label for="rating1"><span>1</span></label>
+                      </div>
+                    <input id="rating2" type="radio" name="rating" value="2">
+                    <label for="rating2"><span>2</span></label>
+                </div>
+            <input id="rating3" type="radio" name="rating" value="3">
+            <label for="rating3"><span>3</span></label>
+        </div>
+    <input id="rating4" type="radio" name="rating" value="4">
+    <label for="rating4"><span>4</span></label>
+  </div>
+  <input id="rating5" type="radio" name="rating" value="5">
+  <label for="rating5"><span>5</span></label>
+</div>
+        </td>
+        <td>
+        <textarea rows="1" cols="50"></textarea>
+        </td>
+        </tr>
+  
+    <tr>
+        <td style="width:45%">
+     Review solutions/fixes for bugs and issues proposed/completed by other team members
+  </td>
+        <td>
+     <div class="starRating" >
+        <div>
+            <div>
+                <div>
+                    <div>
+                        <input id="rating1" type="radio" name="rating" value="1">
+                        <label for="rating1"><span>1</span></label>
+                      </div>
+                    <input id="rating2" type="radio" name="rating" value="2">
+                    <label for="rating2"><span>2</span></label>
+                </div>
+            <input id="rating3" type="radio" name="rating" value="3">
+            <label for="rating3"><span>3</span></label>
+        </div>
+    <input id="rating4" type="radio" name="rating" value="4">
+    <label for="rating4"><span>4</span></label>
+  </div>
+  <input id="rating5" type="radio" name="rating" value="5">
+  <label for="rating5"><span>5</span></label>
+</div>
+        </td>
+        <td>
+        <textarea rows="1" cols="50"></textarea>
+        </td>
+        </tr>
+    </table>
+
+</div>
+<h3>Quality Assurance
+</h3>
+<div>
+    <table>
+        <tr><th><p>Responsibility</p></th><th><p>Rate Yourself</p></th><th><p>Comments</p></th></tr>
+        <tr>
+        <td style="width:45%">
+     Perform  integration/functionality testing and work with QA on ensuring that application meets relevant QA standards by taking ownership to devise a plan for fixing bugs
+      </td>
+        <td>
+     <div class="starRating" >
+        <div>
+            <div>
+                <div>
+                    <div>
+                        <input id="rating1" type="radio" name="rating" value="1">
+                        <label for="rating1"><span>1</span></label>
+                      </div>
+                    <input id="rating2" type="radio" name="rating" value="2">
+                    <label for="rating2"><span>2</span></label>
+                </div>
+            <input id="rating3" type="radio" name="rating" value="3">
+            <label for="rating3"><span>3</span></label>
+        </div>
+    <input id="rating4" type="radio" name="rating" value="4">
+    <label for="rating4"><span>4</span></label>
+  </div>
+  <input id="rating5" type="radio" name="rating" value="5">
+  <label for="rating5"><span>5</span></label>
+</div>
+        </td>
+        <td>
+        <textarea rows="1" cols="50"></textarea>
+        </td>
+        </tr>
+    </table>
+</div>
+</div>
+
+     
+  
+    </div>*/
+     <div id="next">
+    @Html.ActionLink("Next", "Index", "Home")
+    </div>
+            
+  
+
+ 
+}
