@@ -206,7 +206,9 @@ namespace EmployeeReview.Infrastructure
                 }
             }
 
-            public static string GetMd5Hash(string value)
+#region Private Functions
+
+            private static string GetMd5Hash(string value)
             {
                 var md5Hasher = MD5.Create();
                 var data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(value));
@@ -217,6 +219,9 @@ namespace EmployeeReview.Infrastructure
                 }
                 return sBuilder.ToString();
             }
+
+#endregion
+            
         }
     
 }

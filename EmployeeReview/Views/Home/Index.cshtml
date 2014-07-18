@@ -1,6 +1,5 @@
-﻿@using GridMvc.Html
-@using EmployeeReview.Models
-@using GridMvc.Sorting
+﻿@using EmployeeReview.Models
+
 @model IEnumerable<EmployeeReview.Models.Responsibility>
 
 
@@ -20,22 +19,34 @@ $( "#accordion" ).accordion();
 });
 </script>
 
-<link href="~/Content/stylesheet/stylesheet.css" rel="stylesheet" />
-    @if(Request.IsAuthenticated) {
-    <h3>Welcome <strong>@User.Identity.Name</strong>!</h3>
-    @Html.ActionLink("Log Off", "LogOff", "Account") 
+@{
+    
+        <h2>Welcome @ViewBag.User!</h2>
+    
 }
-else {
-    @Html.ActionLink("Log On", "LogOn", "Account")
-}
+<div id="main">
+@Html.Partial("_LogOnPartial")
 
-<br/>
+<link href="~/Content/stylesheet/stylesheet.css" rel="stylesheet" />
+
 
     <div id="menucontainer"> 
                 <ul id="menu">
-                    <li>@Html.ActionLink("Project-Related","Index", new { step = 1 })</li>
-                    <li>@Html.ActionLink("General", "Index",  new { step = 2 })</li>
-                    <li>@Html.ActionLink("Technical", "Index", new { step = 3 })</li>
+                    @{
+                        int step = ViewBag.step;
+                    switch(step){
+                          case 1:<li>@Html.ActionLink("Project-Related", "Index", new { step = 1 }, new {id="current" })</li>
+                                 <li>@Html.ActionLink("General", "Index",  new { step = 2 })</li>
+                                 <li>@Html.ActionLink("Technical", "Index",  new { step = 3 })</li> break;
+                          case 2:<li>@Html.ActionLink("Project-Related", "Index", new { step = 1 })</li>
+                                 <li>@Html.ActionLink("General", "Index",  new { step = 2 }, new {id="current" })</li>
+                                 <li>@Html.ActionLink("Technical", "Index",  new { step = 3 })</li> break;
+                          case 3:<li>@Html.ActionLink("Project-Related", "Index", new { step = 1 })</li>
+                                 <li>@Html.ActionLink("General", "Index",  new { step = 2 })</li>
+                                 <li>@Html.ActionLink("Technical", "Index",  new { step = 3 }, new {id="current" })</li> break;     
+                    }
+                    }
+                    
                 </ul>
             </div>
    <div id="mid">
@@ -52,40 +63,47 @@ else {
             <div>
     
               <table>
-                <tr ><th>Responsibilities</th><th>Rate Yourself</th><th>Comments</th></tr>
+                <tr ><th style="width:45%;padding-top: .5em;padding-bottom: .5em">Responsibilities</th><th style="width:25%;padding-top: .5em;padding-bottom: .5em;">Comments</th>
+                    <th style="width:10%;padding-top: .5em;padding-bottom: .5em;">Rate Yourself</th></tr>
                 @foreach(var resp in Model){    
                 
                     if(resp.CategoryID==catgry.CategoryID)
                     {
+                        
                         <tr >
                         <td style="width:45%;padding-top: .5em;padding-bottom: .5em">
                        
                         @Html.DisplayFor(mod=>resp.ResponsibilityValue)  
                         </td>
                         
-                        <td style="width:25%;padding-top: .5em;padding-bottom: .5em">
+                        <td style="width:25%;padding-top: .5em;padding-bottom: .5em;">
                             <textarea rows="1" cols="50"></textarea>
                         </td>
-
-                            <td style="width:10%;padding-top: .5em;padding-bottom: .5em">
-                        <div class="starRating" >
+                            <td style="width:10%;padding-top: .5em;padding-bottom: .5em; padding-left:.5em;">
+                        
+                            @{
+                                var respID = @Html.ValueFor(mod=>resp.ResponsibilityID);
+                                }
+                                <div class="starRating" >
                             <div>
+                               
                                 <div>
                                     <div>
                                         <div>
-                                            <input id="rating1" type="radio" name="rating" value="1">
+                                
+                                            <input id="rating1" type="radio" name="rating+@respID;" value="1">
                                             <label for="rating1"><span>1</span></label>
                                         </div>
-                                    <input id="rating2" type="radio" name="rating" value="2">
+                                    <input id="rating2" type="radio" name="rating+@respID" value="2">
                                     <label for="rating2"><span>2</span></label>
                                     </div>
-                                <input id="rating3" type="radio" name="rating" value="3">
+                                <input id="rating3" type="radio" name="rating+@respID" value="3">
                                 <label for="rating3"><span>3</span></label>
                                 </div>
-                            <input id="rating4" type="radio" name="rating" value="4">
+                            <input id="rating4" type="radio" name="rating+@respID" value="4">
                             <label for="rating4"><span>4</span></label>
                            </div>
-                           <input id="rating5" type="radio" name="rating" value="5">
+                           <input id="rating5" type="radio" name="rating+@respID" value="5">
                            <label for="rating5"><span>5</span></label>
                     </div>
                     </td>
@@ -108,6 +126,8 @@ else {
      
     <div id="next">
     @Html.ActionLink("Next", "Index", new { step=ViewBag.step+1})
+    </div>
+
     </div>
             
   

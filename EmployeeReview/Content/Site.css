@@ -1,5 +1,5 @@
 ﻿body {
-    font-size: 1.5em;
+    font-size: 1em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     color: #232323;
     background-color: #fff;
@@ -9,6 +9,16 @@ header, footer, nav, section {
     display: block;
 }
 
+#login {
+    position:relative;
+    left:95%;
+    
+}
+#main {
+position:relative;
+top:0%;
+
+}
 
 #next {
     
@@ -16,9 +26,10 @@ header, footer, nav, section {
     padding: 10px 20px;
     font-weight: bold;
     background-color: #ddd;
-    width:70px;
+    width:40px;
     position:relative;
-    left:1800px;
+    top:80%;
+    left:90%;
     color: #000;
     text-decoration:none;
      border-radius: 4px 4px 4px 4px;
@@ -28,6 +39,16 @@ header, footer, nav, section {
 }
 /* TAB MENU   
 ----------------------------------------------------------*/
+#current{
+    padding: 11px 1px;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 2.8em;
+    background-color: #8a8a8a; 
+    color: #000;
+    border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;}
 ul#menu {
     border-bottom: 1px #5C87B2 solid;
     padding: 0 0 2px;
@@ -42,7 +63,7 @@ ul#menu li {
 }
 
 
-ul#menu li a {
+ ul a {
     padding: 10px 20px;
     font-weight: bold;
     text-decoration: none;
@@ -54,28 +75,25 @@ ul#menu li a {
     -moz-border-radius: 4px 4px 0 0;
 }
 
-ul#menu li a:hover {
+ul a:hover {
     background-color: #fff;
     text-decoration: none;
 }
 
-ul#menu li a:active {
+ul a:active {
     background-color: #8a8a8a;
     text-decoration: none;
 }
-
-ul#menu li.selected a {
-    background-color: #fff;
-    color: #000;
-}
-
-
 /* Styles for basic forms
 -----------------------------------------------------------*/
 #mid {
     border: 1px solid #ddd;
     padding: 1.4em 1.4em 1.4em 1.4em;
-    margin: 0 0 1.5em 0;}
+    margin: 0 0 1.5em 0;
+    position:relative;
+    top:-10%;
+    left:0%;
+}
 
 fieldset {
     border: 1px solid #ddd;
