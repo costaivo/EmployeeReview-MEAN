@@ -2,7 +2,7 @@
     ViewBag.Title = "Register";
 }
 @model EmployeeReview.Models.RegisterModel
-
+@Html.Partial("_LogOnPartial")
 <h2>Register new user</h2>
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")

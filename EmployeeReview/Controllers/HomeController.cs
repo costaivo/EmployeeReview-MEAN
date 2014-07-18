@@ -22,6 +22,11 @@ namespace EmployeeReview.Controllers
 
             ViewBag.step = step;
 
+            var t = ctx.Users.FirstOrDefault(a => a.Email == User.Identity.Name);
+            
+            
+            ViewBag.User = t.Fname + " " + t.Lname;
+
             return View(cat.ToList());
 
         }
