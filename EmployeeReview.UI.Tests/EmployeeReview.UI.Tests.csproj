@@ -54,6 +54,11 @@
       <DependentUpon>Login.feature</DependentUpon>
     </Compile>
     <Compile Include="LoginSteps.cs" />
+    <Compile Include="Logout.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Logout.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
@@ -63,6 +68,10 @@
     <None Include="Login.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Login.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Logout.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Logout.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
