@@ -1,0 +1,29 @@
+﻿@{
+    int temp = 0;
+    
+if(Request.IsAuthenticated) 
+{
+   
+    temp=1;
+    
+}
+else {
+    temp=0;
+    
+    }
+
+    <div id="login">
+ 
+        @if(temp==1){
+            <div style="position:relative;left:-14%;">Logged in as <strong>@User.Identity.Name</strong></div>
+            @Html.ActionLink("Log Off", "LogOff", "Account") 
+        }
+        else
+        {
+            <div style="position:relative;left:-4%;"><strong>Not Logged On?</strong><br /></div>
+            @Html.ActionLink("Log On", "LogOn", "Account") 
+     
+    }
+
+    </div>
+}

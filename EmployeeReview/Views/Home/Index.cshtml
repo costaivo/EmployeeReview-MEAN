@@ -1,0 +1,135 @@
+﻿@using EmployeeReview.Models
+
+@model IEnumerable<EmployeeReview.Models.Responsibility>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+
+
+
+<script src="~/Scripts/jquery-ui.js"></script>
+
+
+ <script>
+$(function() {
+$( "#accordion" ).accordion();
+});
+</script>
+
+@{
+    
+        <h2>Welcome @ViewBag.User!</h2>
+    
+}
+<div id="main">
+@Html.Partial("_LogOnPartial")
+
+<link href="~/Content/stylesheet/stylesheet.css" rel="stylesheet" />
+
+
+    <div id="menucontainer"> 
+                <ul id="menu">
+                    @{
+                        int step = ViewBag.step;
+                    switch(step){
+                          case 1:<li>@Html.ActionLink("Project-Related", "Index", new { step = 1 }, new {id="current" })</li>
+                                 <li>@Html.ActionLink("General", "Index",  new { step = 2 })</li>
+                                 <li>@Html.ActionLink("Technical", "Index",  new { step = 3 })</li> break;
+                          case 2:<li>@Html.ActionLink("Project-Related", "Index", new { step = 1 })</li>
+                                 <li>@Html.ActionLink("General", "Index",  new { step = 2 }, new {id="current" })</li>
+                                 <li>@Html.ActionLink("Technical", "Index",  new { step = 3 })</li> break;
+                          case 3:<li>@Html.ActionLink("Project-Related", "Index", new { step = 1 })</li>
+                                 <li>@Html.ActionLink("General", "Index",  new { step = 2 })</li>
+                                 <li>@Html.ActionLink("Technical", "Index",  new { step = 3 }, new {id="current" })</li> break;     
+                    }
+                    }
+                    
+                </ul>
+            </div>
+   <div id="mid">
+       <div id="accordion">
+          @{
+              
+          int temp=0;
+            foreach(var catgry in Model){
+    
+                if(temp!=catgry.CategoryID && ViewBag.step==catgry.Category.TypeID)
+                {
+                    temp = catgry.CategoryID;        
+            <h3>@Html.DisplayFor(mod=>catgry.Category.CategoryValue)</h3>
+            <div>
+    
+              <table>
+                <tr ><th style="width:45%;padding-top: .5em;padding-bottom: .5em">Responsibilities</th><th style="width:25%;padding-top: .5em;padding-bottom: .5em;">Comments</th>
+                    <th style="width:10%;padding-top: .5em;padding-bottom: .5em;">Rate Yourself</th></tr>
+                @foreach(var resp in Model){    
+                
+                    if(resp.CategoryID==catgry.CategoryID)
+                    {
+                        
+                        <tr >
+                        <td style="width:45%;padding-top: .5em;padding-bottom: .5em">
+                       
+                        @Html.DisplayFor(mod=>resp.ResponsibilityValue)  
+                        </td>
+                        
+                        <td style="width:25%;padding-top: .5em;padding-bottom: .5em;">
+                            <textarea rows="1" cols="50"></textarea>
+                        </td>
+                            <td style="width:10%;padding-top: .5em;padding-bottom: .5em; padding-left:.5em;">
+                        
+                            @{
+                                var respID = @Html.ValueFor(mod=>resp.ResponsibilityID);
+                                }
+                                <div class="starRating" >
+                            <div>
+                               
+                                <div>
+                                    <div>
+                                        <div>
+                                
+                                            <input id="rating1" type="radio" name="rating+@respID;" value="1">
+                                            <label for="rating1"><span>1</span></label>
+                                        </div>
+                                    <input id="rating2" type="radio" name="rating+@respID" value="2">
+                                    <label for="rating2"><span>2</span></label>
+                                    </div>
+                                <input id="rating3" type="radio" name="rating+@respID" value="3">
+                                <label for="rating3"><span>3</span></label>
+                                </div>
+                            <input id="rating4" type="radio" name="rating+@respID" value="4">
+                            <label for="rating4"><span>4</span></label>
+                           </div>
+                           <input id="rating5" type="radio" name="rating+@respID" value="5">
+                           <label for="rating5"><span>5</span></label>
+                    </div>
+                    </td>
+                        </tr>
+                       }
+                    }
+                  
+                  
+        </table>
+    </div>
+    
+          }     
+     
+          }
+    }
+  
+    </div>
+
+   </div>
+     
+    <div id="next">
+    @Html.ActionLink("Next", "Index", new { step=ViewBag.step+1})
+    </div>
+
+    </div>
+            
+  
+
+ 
