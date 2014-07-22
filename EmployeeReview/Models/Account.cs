@@ -30,9 +30,7 @@ namespace EmployeeReview.Models
     }
     public class RegisterModel
     {
-        [Required]
-        [Display(Name = "ID")]
-        public int ID { get; set; }
+       
 
         [Required]
         [Display(Name = "First name")]
@@ -42,10 +40,12 @@ namespace EmployeeReview.Models
         [Display(Name = "Last Name")]
         public string Lname { get; set; }
 
+        //public string role { get; set; }
 
         [Required]
         [Display(Name = "Email address")]
         public string Email { get; set; }
+
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
@@ -62,6 +62,7 @@ namespace EmployeeReview.Models
         public bool IsActive { get; set; }
 
     }
+    
     public class ChangePasswordModel
     {
         [Required]

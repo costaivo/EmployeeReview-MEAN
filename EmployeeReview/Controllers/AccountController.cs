@@ -8,6 +8,7 @@ using System.Web.Security;
 using EmployeeReview.Models;
 using EmployeeReview.Interfaces;
 using EmployeeReview.Services;
+using System.Globalization;
 
 namespace EmployeeReview.Controllers
 {
@@ -45,7 +46,7 @@ namespace EmployeeReview.Controllers
             {
                 if (MembershipService.ValidateUser(model.Email, model.Password))
                 {
-                    FormsService.SignIn(model.Email, model.RememberMe);
+                    SetupFormsAuthTicket(model.Email, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                     {
@@ -58,6 +59,27 @@ namespace EmployeeReview.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        private User SetupFormsAuthTicket(string userName, bool persistanceFlag)
+        {
+            User user;
+            using (var usersContext = new EmpContext())
+            {
+                user = usersContext.GetUser(userName);
+            }
+            var userId = user.UserID;
+            var userData = userId.ToString(CultureInfo.InvariantCulture);
+            var authTicket = new FormsAuthenticationTicket(1, //version
+                                userName, // user name
+                                DateTime.Now,             //creation
+                                DateTime.Now.AddMinutes(30), //Expiration
+                                persistanceFlag, //Persistent
+                                userData);
+
+            var encTicket = FormsAuthentication.Encrypt(authTicket);
+            Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
+            return user;
         }
 
         //
@@ -92,6 +114,17 @@ namespace EmployeeReview.Controllers
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     FormsService.SignIn(model.Email, false /* createPersistentCookie */);
+
+
+                    //var c = new EmpContext();
+                    //var r=new Role { RoleID = 1, RoleName = model.role };
+
+                    //c.Roles.Add(r);
+                    //c.SaveChanges();
+
+                    //var ur = new UserRole { UserRoleID=1,RoleID=r.RoleID,UserID=1};
+                    //c.UserRoles.Add(ur);
+                    //c.SaveChanges();
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", ErrorCodeToString(createStatus));

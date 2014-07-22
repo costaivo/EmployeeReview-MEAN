@@ -1,13 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 namespace EmployeeReview.Models
 {
     public class User
     {
         [Key]
-        public int ID { get; set; }
+        public int UserID { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string Fname { get; set; }
         public string Lname { get; set; }
+
+        public virtual ICollection<UserRole> UserRole { get; set; }
     }
 }
