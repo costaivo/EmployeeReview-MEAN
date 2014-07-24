@@ -280,6 +280,28 @@
   <ItemGroup>
     <Content Include="Scripts\jquery-1.9.1.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EmployeeReview.Application.Interfaces\EmployeeReview.Application.Interfaces.csproj">
+      <Project>{05cc1c8e-5340-4916-a27b-10e957bec059}</Project>
+      <Name>EmployeeReview.Application.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmployeeReview.Application.Services\EmployeeReview.Application.Services.csproj">
+      <Project>{a78c1afd-2b44-412a-8bd1-3d97ca68b313}</Project>
+      <Name>EmployeeReview.Application.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmployeeReview.Domain.Model\EmployeeReview.Domain.Model.csproj">
+      <Project>{e53933e5-b9d5-41da-b142-2c2b94c1b2c5}</Project>
+      <Name>EmployeeReview.Domain.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmployeeReview.Domain.Repository.Interfaces\EmployeeReview.Domain.Repository.Interfaces.csproj">
+      <Project>{e1611429-c70a-4737-a656-75a80b62f12d}</Project>
+      <Name>EmployeeReview.Domain.Repository.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmployeeReview.Domain.Repository.Services\EmployeeReview.Domain.Repository.Services.csproj">
+      <Project>{b0a2a4e7-e079-42c8-93a9-7dbd6cabb153}</Project>
+      <Name>EmployeeReview.Domain.Repository.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
