@@ -18,32 +18,38 @@ namespace EmployeeReview.Controllers
         [Authorize]
         public ActionResult Index(int step=1)
         {
-            var context = new EmpContext();
 
+            var tempCategory = db.Responsibilities.Include(a => a.Category).Include(a => a.Category.Type).Where(a => a.Category.TypeID == step);
             
-            
-            var tempCategory =context.Responsibilities.Include(a => a.Category).Include(a => a.Category.Type);
-            
-            var tempUser=context.Users.SingleOrDefault(a=>a.Email==User.Identity.Name).UserID;
+            var tempUser=db.Users.SingleOrDefault(a=>a.Email==User.Identity.Name).UserID;
 
             Home homeObj = new Home();
             homeObj.UserChoices = new List<UserChoice>();
+            homeObj.Responsibilities = tempCategory.ToList();
+            List<UserChoice> userChoice=db.UserChoices.Where(a=>a.UserID==tempUser).ToList();
+
             
-            List<UserChoice> userChoice=context.UserChoices.Where(a=>a.UserID==tempUser).ToList();
-            
+            int i=0;
             foreach (var cid in userChoice)
             {
-                UserChoice userChoiceObj = context.UserChoices.SingleOrDefault(a => a.ChoiceID == cid.ChoiceID);
-                userChoiceObj.Comment = context.Comments.SingleOrDefault(a => a.CommentID == cid.CommentID);
-                
-                homeObj.UserChoices.Add(userChoiceObj);
+                for (i = 0; i < homeObj.Responsibilities.Count; i++)
+                {
+                    if (cid.Responsibility.ResponsibilityID == homeObj.Responsibilities[i].ResponsibilityID)
+                    {
+                        
+                        UserChoice userChoiceObj = db.UserChoices.SingleOrDefault(a => a.ChoiceID == cid.ChoiceID);
+                        userChoiceObj.Comment = db.Comments.SingleOrDefault(a => a.CommentID == cid.CommentID);
+                        userChoiceObj.Rating = db.UserChoices.SingleOrDefault(a => a.ChoiceID == cid.ChoiceID).Rating;
+                        homeObj.UserChoices.Add(userChoiceObj);
+                    }
+                }
             }
 
-            homeObj.Responsibilities = tempCategory.ToList();
+            
               
             ViewBag.step = step;
 
-            var user = context.Users.FirstOrDefault(a => a.Email == User.Identity.Name);
+            var user = db.Users.FirstOrDefault(a => a.Email == User.Identity.Name);
             
             
             ViewBag.User = user.Fname + " " + user.Lname;
@@ -53,45 +59,50 @@ namespace EmployeeReview.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(Home model,int step=1)
+        public ActionResult Index(Home model)
         {
 
-           
-            var context = new EmpContext();
+
             
-            var tempCategory = context.Responsibilities.Include(a => a.Category).Include(a => a.Category.Type);
+
+            var tempCategory = db.Responsibilities.Include(a => a.Category).Include(a => a.Category.Type);
             var home = new Home
             {
                 Responsibilities = tempCategory.ToList()
             };
-            ViewBag.step = step;
-            var user = context.Users.FirstOrDefault(a => a.Email == User.Identity.Name);
-            ViewBag.User = user.Fname + " " + user.Lname;
+           
 
             for (int i = 0; i < model.comment.Count; i++)
             {
                 Comment c = new Comment { CommentValue = model.comment[i] };
-                context.Comments.Add(c);
-                context.SaveChanges();
-                var lastComment = context.Comments.Max(a=>a.CommentID);
+                db.Comments.Add(c);
+                db.SaveChanges();
+                var lastComment = db.Comments.Max(a => a.CommentID);
 
                 UserChoice newUser = new UserChoice
                 {
                     ResponsibilityID = model.Responsibilities[i].ResponsibilityID,
                     RatingID = model.rating[i],
-                    UserID = context.Users.SingleOrDefault(a => a.Email == User.Identity.Name).UserID,
-                    ForUserID = context.Users.SingleOrDefault(a => a.Email == User.Identity.Name).UserID,
+                    UserID = db.Users.SingleOrDefault(a => a.Email == User.Identity.Name).UserID,
+                    ForUserID = db.Users.SingleOrDefault(a => a.Email == User.Identity.Name).UserID,
                     CommentID = lastComment
                 };
-                context.UserChoices.Add(newUser);
-                context.SaveChanges();
+               
+                db.UserChoices.Add(newUser);
+                db.SaveChanges();
             }
-
-
-
-
+            int step=Convert.ToInt16(Session["step"]);
+            if (step < 3)
+            {
+                ViewBag.step = step + 1;
+            }
+            else 
+            {
+                ViewBag.step = step;
+            }
             
-            return View(home);
+
+            return RedirectToAction("Index", new {step=@ViewBag.step});
         }
 
     }
