@@ -23,19 +23,15 @@ top:0%;
 #next {
     
     
-    padding: 10px 20px;
-    font-weight: bold;
-    background-color: #ddd;
-    width:40px;
+    
+    
+    width:150px;
     position:relative;
     top:80%;
     left:90%;
-    color: #000;
-    text-decoration:none;
-     border-radius: 4px 4px 4px 4px;
-    -webkit-border-radius: 4px 4px 0 0;
-    -moz-border-radius: 4px 4px 0 0;
-    text-align: right;
+    
+    
+    
 }
 /* TAB MENU   
 ----------------------------------------------------------*/

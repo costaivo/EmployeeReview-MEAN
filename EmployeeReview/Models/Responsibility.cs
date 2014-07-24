@@ -6,8 +6,6 @@ using System.Web;
 
 namespace EmployeeReview.Models
 {
-   
-
          public class Responsibility
     {
         [Key]

@@ -99,6 +99,7 @@ $( "#accordion" ).accordion();
                                       {
                                       string co=Model.UserChoices[j].Comment.CommentValue;
                                       @Html.TextBoxFor(mod => Model.comment[j], new { @Value=co});
+                                      @Html.ValidationMessageFor(mod => mod.comment[j]);
                                       }
                                       </td>
                                   }
@@ -297,10 +298,10 @@ $( "#accordion" ).accordion();
    </div>
      
     <div id="next">
-    @Html.ActionLink("Next", "Index", new { step = ViewBag.step + 1 })
+    <button>Save & Proceed</button>
     </div>
 
-        <button>Save</button>
+       
 </form> 
  
     </div>

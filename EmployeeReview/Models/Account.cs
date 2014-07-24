@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ComponentModel.DataAnnotations;
-using System.Globalization;
-using System.Web.Mvc;
-using System.Web.Security;
-using EmployeeReview.Services;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeReview.Models
 {
@@ -30,8 +23,6 @@ namespace EmployeeReview.Models
     }
     public class RegisterModel
     {
-       
-
         [Required]
         [Display(Name = "First name")]
         public string Fname { get; set; }
@@ -39,8 +30,6 @@ namespace EmployeeReview.Models
         [Required]
         [Display(Name = "Last Name")]
         public string Lname { get; set; }
-
-        //public string role { get; set; }
 
         [Required]
         [Display(Name = "Email address")]

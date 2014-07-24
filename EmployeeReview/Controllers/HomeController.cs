@@ -15,6 +15,7 @@ namespace EmployeeReview.Controllers
         //
         // GET: /Home/
         private EmpContext db = new EmpContext();
+        
         [Authorize]
         public ActionResult Index(int step=1)
         {
@@ -61,9 +62,6 @@ namespace EmployeeReview.Controllers
         [HttpPost]
         public ActionResult Index(Home model)
         {
-
-
-            
 
             var tempCategory = db.Responsibilities.Include(a => a.Category).Include(a => a.Category.Type);
             var home = new Home
