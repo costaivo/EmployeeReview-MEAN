@@ -117,7 +117,7 @@ namespace EmployeeReview.Infrastructure
                 var user = usersContext.GetUser(email);
                 if (user != null)
                 {
-                    var memUser = new MembershipUser("CustomMembershipProvider", email, user.ID, user.Fname,
+                    var memUser = new MembershipUser("CustomMembershipProvider", email, user.UserID, user.Fname,
                                                                 string.Empty, string.Empty,
                                                                 true, false, DateTime.MinValue,
                                                                 DateTime.MinValue,

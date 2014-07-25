@@ -132,6 +132,52 @@ namespace EmployeeReview.Models
                 context.CategoryTeams.Add(ct);
                 context.SaveChanges();
             }
+            var role = new List<Role>
+            {
+                new Role{RoleID=1,RoleName="developer"},
+                new Role{RoleID=2,RoleName="team lead"}
+            };
+            foreach (var r in role)
+            {
+                context.Roles.Add(r);
+                context.SaveChanges();
+
+            }
+            /*
+            var user=new List<User>{
+            new User{UserID=1,Email="hello@mail.com",Password="hellobye",Fname="hello",Lname="bye"},
+            new User{UserID=2,Email="hello12@mail.com",Password="hellobye12",Fname="hello",Lname="bye"}};
+            foreach(var i in user){
+            context.Users.Add(i);
+            context.SaveChanges();
+            }
+           */
+            
+
+            //var userRole = new List<UserRole>{
+            //new UserRole{User=context.Users.SingleOrDefault(a=>a.UserID==1),Role=role.SingleOrDefault(a=>a.RoleName=="developer")},
+            //new UserRole{User=context.Users.SingleOrDefault(a=>a.UserID==2),Role=role.SingleOrDefault(a=>a.RoleName=="team lead")}
+            //};
+            //foreach(var t in userRole){
+            //    context.UserRoles.Add(t);
+            //    context.SaveChanges();
+            //}
+
+         
+            
+            //var rRMap = new List<ResponsibilityRoleMap> { 
+            //new ResponsibilityRoleMap{Role=role.SingleOrDefault(a=>a.RoleID==1),Responsibility=responsibility.SingleOrDefault(a=>a.ResponsibilityID==1),Supervision=true},
+            //new ResponsibilityRoleMap{Role=role.SingleOrDefault(a=>a.RoleID==1),Responsibility=responsibility.SingleOrDefault(a=>a.ResponsibilityID==2),Supervision=true},
+            //new ResponsibilityRoleMap{Role=role.SingleOrDefault(a=>a.RoleID==1),Responsibility=responsibility.SingleOrDefault(a=>a.ResponsibilityID==3),Supervision=true},
+            //new ResponsibilityRoleMap{Role=role.SingleOrDefault(a=>a.RoleID==1),Responsibility=responsibility.SingleOrDefault(a=>a.ResponsibilityID==4),Supervision=false},
+            //new ResponsibilityRoleMap{Role=role.SingleOrDefault(a=>a.RoleID==2),Responsibility=responsibility.SingleOrDefault(a=>a.ResponsibilityID==5),Supervision=false},
+            //new ResponsibilityRoleMap{Role=role.SingleOrDefault(a=>a.RoleID==2),Responsibility=responsibility.SingleOrDefault(a=>a.ResponsibilityID==6),Supervision=false},
+            //new ResponsibilityRoleMap{Role=role.SingleOrDefault(a=>a.RoleID==2),Responsibility=responsibility.SingleOrDefault(a=>a.ResponsibilityID==7),Supervision=false}
+            //};
+            //foreach(var rr in rRMap){
+            //    context.ResponsibilityRoles.Add(rr);
+            //    context.SaveChanges();
+            //}
         }
     }
 }

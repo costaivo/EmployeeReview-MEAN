@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeReview.Models
 {
@@ -10,6 +6,7 @@ namespace EmployeeReview.Models
     {
         [Key]
         public int RatingID { get; set; }
+        [Required]
         public int RatingValue { get; set; }
         public string Meaning { get; set; }
     }

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ComponentModel.DataAnnotations;
-using System.Globalization;
-using System.Web.Mvc;
-using System.Web.Security;
-using EmployeeReview.Services;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeReview.Models
 {
@@ -31,10 +24,6 @@ namespace EmployeeReview.Models
     public class RegisterModel
     {
         [Required]
-        [Display(Name = "ID")]
-        public int ID { get; set; }
-
-        [Required]
         [Display(Name = "First name")]
         public string Fname { get; set; }
 
@@ -42,10 +31,10 @@ namespace EmployeeReview.Models
         [Display(Name = "Last Name")]
         public string Lname { get; set; }
 
-
         [Required]
         [Display(Name = "Email address")]
         public string Email { get; set; }
+
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
@@ -62,6 +51,7 @@ namespace EmployeeReview.Models
         public bool IsActive { get; set; }
 
     }
+    
     public class ChangePasswordModel
     {
         [Required]
