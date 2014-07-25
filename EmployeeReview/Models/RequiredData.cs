@@ -22,6 +22,7 @@ namespace EmployeeReview.Models
             }
             var rating = new List<Rating>
             {
+                new Rating{RatingID=0,RatingValue=0,Meaning="Not entered"},
                 new Rating{RatingID=1,RatingValue=1,Meaning="Very Bad"},
                 new Rating{RatingID=2,RatingValue=2,Meaning="Bad"},
                 new Rating{RatingID=3,RatingValue=3,Meaning="Above Average"},

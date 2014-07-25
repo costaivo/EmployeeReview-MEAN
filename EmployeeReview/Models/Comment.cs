@@ -10,7 +10,7 @@ namespace EmployeeReview.Models
     {
         [Key]
         public int CommentID { get; set; }
-        [Required]
+        
         public string CommentValue { get; set; }
     }
 }

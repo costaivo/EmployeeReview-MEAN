@@ -17,7 +17,7 @@ namespace EmployeeReview.Controllers
         public IFormsAuthenticationService FormsService { get; set; }
         public IMembershipService MembershipService { get; set; }
 
-        private EmpContext db = new EmpContext();
+        public EmpContext db = new EmpContext();
 
 
         protected override void Initialize(RequestContext requestContext)
@@ -114,7 +114,7 @@ namespace EmployeeReview.Controllers
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     FormsService.SignIn(model.Email, false /* createPersistentCookie */);
-
+                    db.SaveChanges();
 
                     //var c = new EmpContext();
                     //var r=new Role { RoleID = 1, RoleName = model.role };
@@ -125,6 +125,29 @@ namespace EmployeeReview.Controllers
                     //var ur = new UserRole { UserRoleID=1,RoleID=r.RoleID,UserID=1};
                     //c.UserRoles.Add(ur);
                     //c.SaveChanges();
+                    
+                    for(int i=1;i<=db.Responsibilities.Count();i++)
+                    {
+                        Comment c = new Comment { CommentValue = " " };
+                        db.Comments.Add(c);
+                        db.SaveChanges();
+                        var lastComment = db.Comments.Max(a => a.CommentID);
+                        var lastUser = db.Users.Max(a=>a.UserID);
+                        var t = db.Users.SingleOrDefault(a => a.UserID==lastUser).UserID;
+                        
+                        UserChoice newUser = new UserChoice
+                        {
+                            ResponsibilityID = i,
+                            RatingID = 1,
+                            UserID=t,
+                            ForUserID = t,
+                            CommentID = lastComment,
+                            Entered=false
+                        };
+
+                        db.UserChoices.Add(newUser);
+                        db.SaveChanges();
+                    }
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", ErrorCodeToString(createStatus));
@@ -194,8 +217,7 @@ namespace EmployeeReview.Controllers
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {
-            // See http://go.microsoft.com/fwlink/?LinkID=177550 for
-            // a full list of status codes.
+            
             switch (createStatus)
             {
                 case MembershipCreateStatus.DuplicateUserName:

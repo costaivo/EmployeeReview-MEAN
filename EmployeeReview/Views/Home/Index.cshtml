@@ -1,6 +1,6 @@
 ﻿@using EmployeeReview.Models
 @using EmployeeReview.ViewModels
-@model EmployeeReview.ViewModels.Home
+@model EmployeeReview.ViewModels.UserChoiceView
 
 
 @{
@@ -53,13 +53,25 @@ $( "#accordion" ).accordion();
        <div id="accordion">
           
           @{
-              
-              int temp = 0, innerLoop = 0;
-              for (int i = 0; i < Model.Responsibilities.Count; i++)
+              List<int> catgOfType = new List<int>(), numCatgOfType = new List<int>();
+              int t = 0, c = 0, j = 0, temp = Model.Responsibilities.Count, innerLoop = 0;
+              for (int i = 0; i < temp; i++)
               {
-                  if (temp != Model.Responsibilities[i].CategoryID && ViewBag.step == Model.Responsibilities[i].Category.TypeID)
+                  if (t != Model.Responsibilities[i].CategoryID)
                   {
-                      temp = Model.Responsibilities[i].CategoryID;        
+                      catgOfType.Add(Model.Responsibilities[i].CategoryID);
+                      numCatgOfType.Add(c);
+                      c = 0;
+                      t = Model.Responsibilities[i].CategoryID;
+                  }
+                  c++;
+
+              }
+              for (int i = 0; i < catgOfType.Count; i++)
+              {
+                  //if (temp != Model.Responsibilities[i].CategoryID && ViewBag.step == Model.Responsibilities[i].Category.TypeID)
+                  //{
+                  //   temp = Model.Responsibilities[i].CategoryID;        
               <h3>@Html.DisplayFor(mod => Model.Responsibilities[i].Category.CategoryValue)</h3>
               <div>
 
@@ -70,227 +82,207 @@ $( "#accordion" ).accordion();
                           <th style="width: 25%; padding-top: .5em; padding-bottom: .5em;">Comments</th>
                           <th style="width: 10%; padding-top: .5em; padding-bottom: .5em;">Rate Yourself</th>
                       </tr>
-                      
-                      @for (int j = 0; j < Model.Responsibilities.Count; j++)
-                      {
-
-                          if (Model.Responsibilities[j].CategoryID == Model.Responsibilities[i].CategoryID)
+                      @{IEnumerable<Responsibility> resps = Model.Responsibilities.Where(a => a.CategoryID == catgOfType[i]);}
+                          @for (j = 0; j < resps.Count(); j++)
                           {
+                              innerLoop++;
+                              //if (model.responsibilities[j].categoryid == model.responsibilities[i].categoryid)
+                              //{
                             
                               
-                          @Html.HiddenFor(mod => Model.Responsibilities[j].ResponsibilityID)
-                          <tr>
-                              <td style="width: 45%; padding-top: .5em; padding-bottom: .5em">
+                          @Html.HiddenFor(mod => Model.Responsibilities[j+i].ResponsibilityID)
+                              <tr>
+                                  <td style="width: 45%; padding-top: .5em; padding-bottom: .5em">
 
-                                  @Html.DisplayFor(mod => Model.Responsibilities[j].ResponsibilityValue)
-                              </td>
-                              @{
+                                      @Html.DisplayFor(mod => Model.Responsibilities[j + i].ResponsibilityValue)
+                                  </td>
+                                  @*@{
                               var respID = @Html.ValueFor(mod => Model.Responsibilities[j].ResponsibilityID);
-                              }
+                              }*@
 
 
-                              
-                              
-                              @{
+                                  @{
                                 
-                                  if (j < Model.UserChoices.Count)
-                                  {<td style="width: 25%; padding-top: .5em; padding-bottom: .5em;">
-                                      @if (Model.UserChoices[j].ResponsibilityID == Model.Responsibilities[j].ResponsibilityID)
-                                      {
-                                      string co=Model.UserChoices[j].Comment.CommentValue;
-                                      @Html.TextBoxFor(mod => Model.comment[j], new { @Value=co});
-                                      @Html.ValidationMessageFor(mod => mod.comment[j]);
-                                      }
-                                      </td>
-                                  }
-                                   
-                                  if (j < Model.UserChoices.Count && Model.UserChoices[j].ResponsibilityID == Model.Responsibilities[j].ResponsibilityID)
+                             
+                              //if (j < Model.UserChoices.Count && Model.UserChoices[j].ResponsibilityID == Model.Responsibilities[j].ResponsibilityID)
+                              //{
+                                  <td>@Html.EditorFor(mod=>mod.UserChoices[j].Comment.CommentValue)</td>
+                                  int r = Model.UserChoices[j+i].Rating.RatingValue;
+
+                                  switch (r)
                                   {
-                                      int r = Model.UserChoices[j].Rating.RatingValue;
-                                      switch (r)
-                                      {
-                                          case 1:
+                                      case 1:
 
-                              <td style="width: auto; padding-top: .5em; padding-bottom: .5em;">
-                                  <div class="starRating">
+                                      <td style="width: auto; padding-top: .5em; padding-bottom: .5em;">
+                                          <div class="starRating">
 
-                                      <div>
-                                          <div>
                                               <div>
                                                   <div>
-                                                      @Html.RadioButtonFor(mod => Model.rating[j], 1, new { id = "rating1", @Checked = "checked" })
-                                                      <label for="rating1"><span>1</span></label>
+                                                      <div>
+                                                          <div>
+                                                              @Html.RadioButtonFor(mod => Model.rating[j], 1, new { id = "rating1", @Checked = "checked" })
+                                                              <label for="rating1"><span>1</span></label>
+                                                          </div>
+                                                          @Html.RadioButtonFor(mod => Model.rating[j], 2, new { id = "rating2" })
+                                                          <label for="rating2"><span>2</span></label>
+                                                      </div>
+                                                      @Html.RadioButtonFor(mod => Model.rating[j], 3, new { id = "rating3" })
+                                                      <label for="rating3"><span>3</span></label>
                                                   </div>
-                                                  @Html.RadioButtonFor(mod => Model.rating[j], 2, new { id = "rating2" })
-                                                  <label for="rating2"><span>2</span></label>
+                                                  @Html.RadioButtonFor(mod => Model.rating[j], 4, new { id = "rating4" })
+                                                  <label for="rating4"><span>4</span></label>
                                               </div>
-                                              @Html.RadioButtonFor(mod => Model.rating[j], 3, new { id = "rating3" })
-                                              <label for="rating3"><span>3</span></label>
+                                              @Html.RadioButtonFor(mod => Model.rating[j], 5, new { id = "rating5" })
+                                              <label for="rating5"><span>5</span></label>
                                           </div>
-                                          @Html.RadioButtonFor(mod => Model.rating[j], 4, new { id = "rating4" })
-                                          <label for="rating4"><span>4</span></label>
-                                      </div>
-                                      @Html.RadioButtonFor(mod => Model.rating[j], 5, new { id = "rating5" })
-                                      <label for="rating5"><span>5</span></label>
-                                  </div>
-                              </td>
+                                      </td>
                                               break;
                                           case 2:
-                                           <td style="width: auto; padding-top: .5em; padding-bottom: .5em;">
-                                  <div class="starRating">
+                                      <td style="width: auto; padding-top: .5em; padding-bottom: .5em;">
+                                          <div class="starRating">
 
-                                      <div>
-                                          <div>
                                               <div>
                                                   <div>
-                                                      @Html.RadioButtonFor(mod => Model.rating[j], 1, new { id = "rating1" })
-                                                      <label for="rating1"><span>1</span></label>
+                                                      <div>
+                                                          <div>
+                                                              @Html.RadioButtonFor(mod => Model.rating[j], 1, new { id = "rating1" })
+                                                              <label for="rating1"><span>1</span></label>
+                                                          </div>
+                                                          @Html.RadioButtonFor(mod => Model.rating[j], 2, new { id = "rating2", @Checked = "checked" })
+                                                          <label for="rating2"><span>2</span></label>
+                                                      </div>
+                                                      @Html.RadioButtonFor(mod => Model.rating[j], 3, new { id = "rating3" })
+                                                      <label for="rating3"><span>3</span></label>
                                                   </div>
-                                                  @Html.RadioButtonFor(mod => Model.rating[j], 2, new { id = "rating2", @Checked = "checked" })
-                                                  <label for="rating2"><span>2</span></label>
+                                                  @Html.RadioButtonFor(mod => Model.rating[j], 4, new { id = "rating4" })
+                                                  <label for="rating4"><span>4</span></label>
                                               </div>
-                                              @Html.RadioButtonFor(mod => Model.rating[j], 3, new { id = "rating3" })
-                                              <label for="rating3"><span>3</span></label>
+                                              @Html.RadioButtonFor(mod => Model.rating[j], 5, new { id = "rating5" })
+                                              <label for="rating5"><span>5</span></label>
                                           </div>
-                                          @Html.RadioButtonFor(mod => Model.rating[j], 4, new { id = "rating4" })
-                                          <label for="rating4"><span>4</span></label>
-                                      </div>
-                                      @Html.RadioButtonFor(mod => Model.rating[j], 5, new { id = "rating5" })
-                                      <label for="rating5"><span>5</span></label>
-                                  </div>
-                              </td>
+                                      </td>
                                               break;
 
                                           case 3:
-                                               <td style="width: auto; padding-top: .5em; padding-bottom: .5em;">
-                                  <div class="starRating">
+                                      <td style="width: auto; padding-top: .5em; padding-bottom: .5em;">
+                                          <div class="starRating">
 
-                                      <div>
-                                          <div>
                                               <div>
                                                   <div>
-                                                      @Html.RadioButtonFor(mod => Model.rating[j], 1, new { id = "rating1" })
-                                                      <label for="rating1"><span>1</span></label>
+                                                      <div>
+                                                          <div>
+                                                              @Html.RadioButtonFor(mod => Model.rating[j], 1, new { id = "rating1" })
+                                                              <label for="rating1"><span>1</span></label>
+                                                          </div>
+                                                          @Html.RadioButtonFor(mod => Model.rating[j], 2, new { id = "rating2" })
+                                                          <label for="rating2"><span>2</span></label>
+                                                      </div>
+                                                      @Html.RadioButtonFor(mod => Model.rating[j], 3, new { id = "rating3", @Checked = "checked" })
+                                                      <label for="rating3"><span>3</span></label>
                                                   </div>
-                                                  @Html.RadioButtonFor(mod => Model.rating[j], 2, new { id = "rating2" })
-                                                  <label for="rating2"><span>2</span></label>
+                                                  @Html.RadioButtonFor(mod => Model.rating[j], 4, new { id = "rating4" })
+                                                  <label for="rating4"><span>4</span></label>
                                               </div>
-                                              @Html.RadioButtonFor(mod => Model.rating[j], 3, new { id = "rating3" , @Checked = "checked"})
-                                              <label for="rating3"><span>3</span></label>
+                                              @Html.RadioButtonFor(mod => Model.rating[j], 5, new { id = "rating5" })
+                                              <label for="rating5"><span>5</span></label>
                                           </div>
-                                          @Html.RadioButtonFor(mod => Model.rating[j], 4, new { id = "rating4" })
-                                          <label for="rating4"><span>4</span></label>
-                                      </div>
-                                      @Html.RadioButtonFor(mod => Model.rating[j], 5, new { id = "rating5" })
-                                      <label for="rating5"><span>5</span></label>
-                                  </div>
-                              </td>
+                                      </td>
                                               break;
 
                                           case 4: <td style="width: auto; padding-top: .5em; padding-bottom: .5em;">
-                                  <div class="starRating">
+                                              <div class="starRating">
 
-                                      <div>
-                                          <div>
-                                              <div>
                                                   <div>
-                                                      @Html.RadioButtonFor(mod => Model.rating[j], 1, new { id = "rating1" })
-                                                      <label for="rating1"><span>1</span></label>
+                                                      <div>
+                                                          <div>
+                                                              <div>
+                                                                  @Html.RadioButtonFor(mod => Model.rating[j], 1, new { id = "rating1" })
+                                                                  <label for="rating1"><span>1</span></label>
+                                                              </div>
+                                                              @Html.RadioButtonFor(mod => Model.rating[j], 2, new { id = "rating2" })
+                                                              <label for="rating2"><span>2</span></label>
+                                                          </div>
+                                                          @Html.RadioButtonFor(mod => Model.rating[j], 3, new { id = "rating3" })
+                                                          <label for="rating3"><span>3</span></label>
+                                                      </div>
+                                                      @Html.RadioButtonFor(mod => Model.rating[j], 4, new { id = "rating4", @Checked = "checked" })
+                                                      <label for="rating4"><span>4</span></label>
                                                   </div>
-                                                  @Html.RadioButtonFor(mod => Model.rating[j], 2, new { id = "rating2" })
-                                                  <label for="rating2"><span>2</span></label>
+                                                  @Html.RadioButtonFor(mod => Model.rating[j], 5, new { id = "rating5" })
+                                                  <label for="rating5"><span>5</span></label>
                                               </div>
-                                              @Html.RadioButtonFor(mod => Model.rating[j], 3, new { id = "rating3" })
-                                              <label for="rating3"><span>3</span></label>
-                                          </div>
-                                          @Html.RadioButtonFor(mod => Model.rating[j], 4, new { id = "rating4", @Checked = "checked" })
-                                          <label for="rating4"><span>4</span></label>
-                                      </div>
-                                      @Html.RadioButtonFor(mod => Model.rating[j], 5, new { id = "rating5" })
-                                      <label for="rating5"><span>5</span></label>
-                                  </div>
-                              </td>
+                                          </td>
                                               break;
 
                                           case 5: <td style="width: auto; padding-top: .5em; padding-bottom: .5em;">
-                                  <div class="starRating">
+                                              <div class="starRating">
 
-                                      <div>
-                                          <div>
+                                                  <div>
+                                                      <div>
+                                                          <div>
+                                                              <div>
+                                                                  @Html.RadioButtonFor(mod => Model.rating[j], 1, new { id = "rating1" })
+                                                                  <label for="rating1"><span>1</span></label>
+                                                              </div>
+                                                              @Html.RadioButtonFor(mod => Model.rating[j], 2, new { id = "rating2" })
+                                                              <label for="rating2"><span>2</span></label>
+                                                          </div>
+                                                          @Html.RadioButtonFor(mod => Model.rating[j], 3, new { id = "rating3" })
+                                                          <label for="rating3"><span>3</span></label>
+                                                      </div>
+                                                      @Html.RadioButtonFor(mod => Model.rating[j], 4, new { id = "rating4" })
+                                                      <label for="rating4"><span>4</span></label>
+                                                  </div>
+                                                  @Html.RadioButtonFor(mod => Model.rating[j], 5, new { id = "rating5", @Checked = "checked" })
+                                                  <label for="rating5"><span>5</span></label>
+                                              </div>
+                                          </td>
+                                              break;
+                                          default:
+                                      <td style="width: auto; padding-top: .5em; padding-bottom: .5em;">
+                                          <div class="starRating">
+
                                               <div>
                                                   <div>
-                                                      @Html.RadioButtonFor(mod => Model.rating[j], 1, new { id = "rating1" })
-                                                      <label for="rating1"><span>1</span></label>
+                                                      <div>
+                                                          <div>
+                                                              @Html.RadioButtonFor(mod => Model.rating[j], 1, new { id = "rating1" })
+                                                              <label for="rating1"><span>1</span></label>
+                                                          </div>
+                                                          @Html.RadioButtonFor(mod => Model.rating[j], 2, new { id = "rating2" })
+                                                          <label for="rating2"><span>2</span></label>
+                                                      </div>
+                                                      @Html.RadioButtonFor(mod => Model.rating[j], 3, new { id = "rating3" })
+                                                      <label for="rating3"><span>3</span></label>
                                                   </div>
-                                                  @Html.RadioButtonFor(mod => Model.rating[j], 2, new { id = "rating2" })
-                                                  <label for="rating2"><span>2</span></label>
+                                                  @Html.RadioButtonFor(mod => Model.rating[j], 4, new { id = "rating4" })
+                                                  <label for="rating4"><span>4</span></label>
                                               </div>
-                                              @Html.RadioButtonFor(mod => Model.rating[j], 3, new { id = "rating3" })
-                                              <label for="rating3"><span>3</span></label>
+                                              @Html.RadioButtonFor(mod => Model.rating[j], 5, new { id = "rating5" })
+                                              <label for="rating5"><span>5</span></label>
                                           </div>
-                                          @Html.RadioButtonFor(mod => Model.rating[j], 4, new { id = "rating4" })
-                                          <label for="rating4"><span>4</span></label>
-                                      </div>
-                                      @Html.RadioButtonFor(mod => Model.rating[j], 5, new { id = "rating5" , @Checked = "checked"})
-                                      <label for="rating5"><span>5</span></label>
-                                  </div>
-                              </td>
+                                      </td>
                                               break;
                                       }
-                          
-                                  
+
+                                  //}
                                   }
-                                  else
-                                  {
-                                     <td style="width: 25%; padding-top: .5em; padding-bottom: .5em;">
-                                       @Html.TextAreaFor(mod => Model.comment[innerLoop], new { @rows = 1, @cols = 50 })
-                                  
-                                  @{innerLoop++;}
-                              </td>
-
-                              <td style="width: auto; padding-top: .5em; padding-bottom: .5em;">
-                                  <div class="starRating">
-
-                                      <div>
-                                          <div>
-                                              <div>
-                                                  <div>
-                                                      @Html.RadioButtonFor(mod => Model.rating[j], 1, new { id = "rating1" })
-                                                      <label for="rating1"><span>1</span></label>
-                                                  </div>
-                                                  @Html.RadioButtonFor(mod => Model.rating[j], 2, new { id = "rating2" })
-                                                  <label for="rating2"><span>2</span></label>
-                                              </div>
-                                              @Html.RadioButtonFor(mod => Model.rating[j], 3, new { id = "rating3" })
-                                              <label for="rating3"><span>3</span></label>
-                                          </div>
-                                          @Html.RadioButtonFor(mod => Model.rating[j], 4, new { id = "rating4" })
-                                          <label for="rating4"><span>4</span></label>
-                                      </div>
-                                      @Html.RadioButtonFor(mod => Model.rating[j], 5, new { id = "rating5" })
-                                      <label for="rating5"><span>5</span></label>
-                                  </div>
-                              </td>
-                              }
-                            }
-                          </tr>
 
                                   
-                                
-                                
+                              </tr>                                
+                              
                           }
-                      }
-
+                      
 
                   </table>
 
-
+                  
               </div>
              
     
-                  }
-
+                  
               }
+              
     }
     
     </div>

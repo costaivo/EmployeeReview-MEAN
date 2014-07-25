@@ -6,7 +6,7 @@ namespace EmployeeReview.Models
     {
         [Key]
         public int RatingID { get; set; }
-        [Required]
+        [Required(ErrorMessage = "This is required")]
         public int RatingValue { get; set; }
         public string Meaning { get; set; }
     }
