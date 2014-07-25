@@ -11,8 +11,10 @@ namespace EmployeeReview.Models
     {
         [Key]
         public int ChoiceID { get; set; }
+        public bool Entered { get; set; }
         public int ResponsibilityID { get; set; }
         public int RatingID { get; set; }
+        [Required(ErrorMessage = "123")]
         public int CommentID { get; set; }
         [ForeignKey("User")]
         public int UserID { get; set; }

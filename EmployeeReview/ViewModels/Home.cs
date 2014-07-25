@@ -7,13 +7,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeReview.ViewModels
 {
-    public class Home
+    public class UserChoiceView
     {
         
         public List<UserChoice> UserChoices { get;set; }
-        [Required]
+        [Required(ErrorMessage = "This is required")]
         public List<int> rating { get; set; }
-        [Required]
+        [Required(ErrorMessage="This is required")]
         public List<string> comment { get; set; }
         public List<Responsibility> Responsibilities { get; set; }
     }
