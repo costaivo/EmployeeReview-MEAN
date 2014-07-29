@@ -116,15 +116,7 @@ namespace EmployeeReview.Controllers
                     FormsService.SignIn(model.Email, false /* createPersistentCookie */);
                     db.SaveChanges();
 
-                    //var c = new EmpContext();
-                    //var r=new Role { RoleID = 1, RoleName = model.role };
-
-                    //c.Roles.Add(r);
-                    //c.SaveChanges();
-
-                    //var ur = new UserRole { UserRoleID=1,RoleID=r.RoleID,UserID=1};
-                    //c.UserRoles.Add(ur);
-                    //c.SaveChanges();
+                    
                     
                     for(int i=1;i<=db.Responsibilities.Count();i++)
                     {
