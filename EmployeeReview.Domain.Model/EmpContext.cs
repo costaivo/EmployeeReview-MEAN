@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
-using EmployeeReview.Models;
+using EmployeeReview.Domain.Model;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
 
-namespace EmployeeReview.Models
+namespace EmployeeReview.Domain.Model
 {
     public class EmpContext : DbContext
     {

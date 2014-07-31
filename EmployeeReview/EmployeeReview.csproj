@@ -155,28 +155,8 @@
     </Compile>
     <Compile Include="Infrastructure\CustomRoleProvider.cs" />
     <Compile Include="Infrastructure\CustomMembershipProvider.cs" />
-    <Compile Include="Interfaces\IFormsAuthenticationService.cs" />
-    <Compile Include="Interfaces\IMembershipService.cs" />
-    <Compile Include="Models\Account.cs" />
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\CategoryTeamMap.cs" />
-    <Compile Include="Models\Comment.cs" />
-    <Compile Include="Models\EmpContext.cs" />
-    <Compile Include="Models\Rating.cs" />
-    <Compile Include="Models\RequiredData.cs" />
-    <Compile Include="Models\Responsibility.cs" />
-    <Compile Include="Models\ResponsibilityRoleMap.cs" />
-    <Compile Include="Models\Role.cs" />
-    <Compile Include="Models\Team.cs" />
-    <Compile Include="Models\Type.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UserChoice.cs" />
-    <Compile Include="Models\UserIdentity.cs" />
-    <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\AccountMembershipService.cs" />
-    <Compile Include="Services\FormsAuthenticationService.cs" />
-    <Compile Include="ViewModels\Home.cs" />
+    <Compile Include="ViewModels\UserChoiceView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\jquery-ui.css" />

@@ -2,7 +2,7 @@
 using System.Web.Security;
 using EmployeeReview.Domain.Repository.Interfaces;
 
-namespace EmployeeReview.Services
+namespace EmployeeReview.Domain.Repository.Services
 {
     public class AccountMembershipService : IMembershipService
     {

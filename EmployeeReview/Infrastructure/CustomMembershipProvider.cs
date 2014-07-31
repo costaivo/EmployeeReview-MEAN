@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Security;
-using EmployeeReview.Models;
+using EmployeeReview.Domain.Model;
 
 
 

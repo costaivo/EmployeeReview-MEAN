@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EmployeeReview.Models
+namespace EmployeeReview.Domain.Model
 {
     public class Rating
     {

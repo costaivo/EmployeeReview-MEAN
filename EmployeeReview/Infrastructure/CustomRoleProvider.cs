@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Security;
-using EmployeeReview.Models;
+using EmployeeReview.Domain.Model;
 
 namespace EmployeeReview.Infrastructure
 {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Web.Security;
-using EmployeeReview.Interfaces;
+using EmployeeReview.Domain.Repository.Interfaces;
 
-namespace EmployeeReview.Services
+namespace EmployeeReview.Domain.Repository.Services
 {
     public class FormsAuthenticationService : IFormsAuthenticationService
     {

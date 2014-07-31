@@ -9,7 +9,7 @@ namespace EmployeeReview.Domain.Repository.Interfaces
         int MinPasswordLength { get; }
 
         bool ValidateUser(string email, string password);
-        //MembershipCreateStatus CreateUser(string email, string password, string fname, string lname);
+        MembershipCreateStatus CreateUser(string email, string password, string fname, string lname);
         bool ChangePassword(string userName, string oldPassword, string newPassword);
     }
 }

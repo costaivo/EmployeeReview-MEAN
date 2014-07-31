@@ -34,9 +34,17 @@
     <Reference Include="EmployeeReview.Domain.Repository.Interfaces">
       <HintPath>..\EmployeeReview.Domain.Repository.Interfaces\bin\Debug\EmployeeReview.Domain.Repository.Interfaces.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,9 +58,16 @@
     <Compile Include="AccountMembershipService.cs" />
     <Compile Include="FormsAuthenticationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserChoiceService.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EmployeeReview.Domain.Model\EmployeeReview.Domain.Model.csproj">
+      <Project>{e53933e5-b9d5-41da-b142-2c2b94c1b2c5}</Project>
+      <Name>EmployeeReview.Domain.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

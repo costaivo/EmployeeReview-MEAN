@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using EmployeeReview.Models;
+using EmployeeReview.Domain.Model;
 using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeReview.ViewModels
