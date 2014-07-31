@@ -1,4 +1,4 @@
-﻿using EmployeeReview.Models;
+﻿using EmployeeReview.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -21,7 +21,7 @@ namespace EmployeeReview
         protected void Application_Start()
         {
             System.Data.Entity.Database.SetInitializer(
-                new EmployeeReview.Models.RequiredData());
+                new EmployeeReview.Domain.Model.RequiredData());
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

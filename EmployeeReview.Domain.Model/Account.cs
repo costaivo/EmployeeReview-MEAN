@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EmployeeReview.Models
+namespace EmployeeReview.Domain.Model
 {
     public class Account
     {
@@ -45,7 +45,7 @@ namespace EmployeeReview.Models
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [System.Web.Mvc.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        //[System.Web.Mvc.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public bool IsActive { get; set; }
@@ -67,7 +67,7 @@ namespace EmployeeReview.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm new password")]
-        [System.Web.Mvc.Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        //[System.Web.Mvc.Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 

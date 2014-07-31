@@ -1,13 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using EmployeeReview.Models;
-using EmployeeReview.Interfaces;
-using EmployeeReview.Services;
+using EmployeeReview.Domain.Model;
+using EmployeeReview.Domain.Repository.Interfaces;
+using EmployeeReview.Domain.Repository.Services;
+using EmployeeReview.Application.Interfaces;
+using EmployeeReview.Application.Services;
+
+
 using System.Globalization;
 
 namespace EmployeeReview.Controllers
@@ -16,7 +19,9 @@ namespace EmployeeReview.Controllers
     {
         public IFormsAuthenticationService FormsService { get; set; }
         public IMembershipService MembershipService { get; set; }
-
+        public IUserChoiceRepository ChoiceService { get; set; }
+        public IInputValidation UserChoiceObj { get; set; }
+             
         public EmpContext db = new EmpContext();
 
 
@@ -24,7 +29,7 @@ namespace EmployeeReview.Controllers
         {
             if (FormsService == null) { FormsService = new FormsAuthenticationService(); }
             if (MembershipService == null) { MembershipService = new AccountMembershipService(); }
-
+            if (ChoiceService == null) { ChoiceService = new UserChoiceRepository(); }
             base.Initialize(requestContext);
         }
 
@@ -109,45 +114,15 @@ namespace EmployeeReview.Controllers
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
+                if (UserChoiceObj == null) { UserChoiceObj = new InputValidation(); }
                 var createStatus = MembershipService.CreateUser(model.Email, model.Password, model.Fname, model.Lname);
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    FormsService.SignIn(model.Email, false /* createPersistentCookie */);
-                    db.SaveChanges();
+                    FormsService.SignIn(model.Email, false);
 
-                    //var c = new EmpContext();
-                    //var r=new Role { RoleID = 1, RoleName = model.role };
-
-                    //c.Roles.Add(r);
-                    //c.SaveChanges();
-
-                    //var ur = new UserRole { UserRoleID=1,RoleID=r.RoleID,UserID=1};
-                    //c.UserRoles.Add(ur);
-                    //c.SaveChanges();
+                    UserChoiceObj.InitialiseUserChoice();
                     
-                    for(int i=1;i<=db.Responsibilities.Count();i++)
-                    {
-                        Comment c = new Comment { CommentValue = " " };
-                        db.Comments.Add(c);
-                        db.SaveChanges();
-                        var lastComment = db.Comments.Max(a => a.CommentID);
-                        var lastUser = db.Users.Max(a=>a.UserID);
-                        var t = db.Users.SingleOrDefault(a => a.UserID==lastUser).UserID;
-                        
-                        UserChoice newUser = new UserChoice
-                        {
-                            ResponsibilityID = i,
-                            RatingID = 1,
-                            UserID=t,
-                            ForUserID = t,
-                            CommentID = lastComment,
-                            Entered=false
-                        };
-
-                        db.UserChoices.Add(newUser);
-                        db.SaveChanges();
-                    }
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", ErrorCodeToString(createStatus));

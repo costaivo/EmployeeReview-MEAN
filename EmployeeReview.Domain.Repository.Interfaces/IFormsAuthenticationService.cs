@@ -1,4 +1,4 @@
-﻿namespace EmployeeReview.Interfaces
+﻿namespace EmployeeReview.Domain.Repository.Interfaces
 {
     public interface IFormsAuthenticationService
     {

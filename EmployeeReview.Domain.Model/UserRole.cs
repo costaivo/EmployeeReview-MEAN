@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace EmployeeReview.Models
+namespace EmployeeReview.Domain.Model
 {
     public class UserRole
     {

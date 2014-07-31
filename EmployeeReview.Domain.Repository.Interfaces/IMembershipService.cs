@@ -2,7 +2,7 @@
 using System.Web.Security;
 
 
-namespace EmployeeReview.Interfaces
+namespace EmployeeReview.Domain.Repository.Interfaces
 {
     public interface IMembershipService
     {

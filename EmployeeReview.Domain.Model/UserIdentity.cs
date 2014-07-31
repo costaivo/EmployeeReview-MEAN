@@ -5,7 +5,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
 
-namespace EmployeeReview.Models
+namespace EmployeeReview.Domain.Model
 {
     public class UserIdentity : IIdentity, IPrincipal
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 
-namespace EmployeeReview.Models
+namespace EmployeeReview.Domain.Model
 {
     public class RequiredData : DropCreateDatabaseIfModelChanges<EmpContext>
     {

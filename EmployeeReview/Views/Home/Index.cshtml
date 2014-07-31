@@ -1,4 +1,4 @@
-﻿@using EmployeeReview.Models
+﻿@using EmployeeReview.Domain.Model
 @using EmployeeReview.ViewModels
 @model EmployeeReview.ViewModels.UserChoiceView
 
@@ -52,7 +52,7 @@ $( "#accordion" ).accordion();
     
        
        <div id="accordion">
-          
+         
           @{
               List<int> catgOfType = new List<int>(), numCatgOfType = new List<int>();
               int t = 0, c = 0, j = 0, temp = Model.Responsibilities.Count, innerLoop = 0,cInner=0;
@@ -70,9 +70,7 @@ $( "#accordion" ).accordion();
               }
               for (int i = 0; i < catgOfType.Count; i++)
               {
-                  //if (temp != Model.Responsibilities[i].CategoryID && ViewBag.step == Model.Responsibilities[i].Category.TypeID)
-                  //{
-                  //   temp = Model.Responsibilities[i].CategoryID;        
+                        
               <h3>@Html.DisplayFor(mod => Model.Responsibilities[i].Category.CategoryValue)</h3>
               <div>
 
@@ -94,8 +92,7 @@ $( "#accordion" ).accordion();
                               else 
                               {
                                   cInner = innerLoop; 
-                              }//if (model.responsibilities[j].categoryid == model.responsibilities[i].categoryid)
-                              //{
+                              }
                             
                               
                           @Html.HiddenFor(mod => Model.Responsibilities[j+cInner].ResponsibilityID)
@@ -107,18 +104,18 @@ $( "#accordion" ).accordion();
                                   <td style="width: 45%; padding-top: .5em; padding-bottom: .5em">
 
                                       @Html.DisplayFor(mod => Model.Responsibilities[j + cInner].ResponsibilityValue)
+                                    
                                   </td>
-                                  @*@{
-                              var respID = @Html.ValueFor(mod => Model.Responsibilities[j].ResponsibilityID);
-                              }*@
+                                 
 
 
                                   @{
                                 
                              
-                              //if (j < Model.UserChoices.Count && Model.UserChoices[j].ResponsibilityID == Model.Responsibilities[j].ResponsibilityID)
-                              //{
-                                  <td>@Html.EditorFor(mod=>mod.UserChoices[j+cInner].Comment.CommentValue)</td>
+                             
+                                  <td>
+                                     
+                                      @Html.TextAreaFor(mod => mod.UserChoices[j + cInner].Comment.CommentValue, new { rows=1,cols=40})</td>
                                   int r = Model.UserChoices[j+cInner].Rating.RatingValue;
                                   switch (r)
                                   {
@@ -200,7 +197,8 @@ $( "#accordion" ).accordion();
                                       </td>
                                               break;
 
-                                          case 4: <td style="width: auto; padding-top: .5em; padding-bottom: .5em;">
+                                          case 4:
+                                      <td style="width: auto; padding-top: .5em; padding-bottom: .5em;">
                                               <div class="starRating">
 
                                                   <div>
@@ -277,7 +275,7 @@ $( "#accordion" ).accordion();
                                               break;
                                       }
 
-                                  //}
+                                  
                                   }
 
                                   

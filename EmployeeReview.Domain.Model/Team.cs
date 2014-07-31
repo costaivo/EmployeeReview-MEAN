@@ -4,13 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace EmployeeReview.Models
+namespace EmployeeReview.Domain.Model
 {
-    public class Type
+    public class Team
     {
         [Key]
-        public int TypeID { get; set; }
-        public string TypeValue { get; set; }
-        
+        public int TeamID { get; set; }
+        public string TeamName { get; set; }
     }
 }

@@ -1,56 +1,57 @@
-﻿using EmployeeReview.Models;
+﻿using EmployeeReview.Domain.Model;
 using EmployeeReview.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
-
+using EmployeeReview.Domain.Repository.Interfaces;
+using EmployeeReview.Domain.Repository.Services;
+using EmployeeReview.Application.Interfaces;
+using EmployeeReview.Application.Services;
 namespace EmployeeReview.Controllers
 {
     //home
     public class HomeController : Controller
     {
+        public IUserChoiceRepository UserChoiceObj { get; set; }
+        public IInputValidation UserChoiceService { get; set; } 
         //
         // GET: /Home/
-        private EmpContext db = new EmpContext();
+        
 
         [Authorize]
         public ActionResult Index(int step = 1,int notEntered=0)
         {
-            EmpContext ctx = new EmpContext();
-            EmpContext c1 = new EmpContext();
+            
+            if (UserChoiceObj == null) 
+            { UserChoiceObj = new UserChoiceRepository(); }
+            if (UserChoiceService == null) 
+            { UserChoiceService = new InputValidation(); }
             if (notEntered > 0)
             {
                 ViewBag.Error = string.Format("{0} invalid inputs. Please enter valid inputs.", notEntered);
             }
-            var responsibility = ctx.Responsibilities.Include(a => a.Category).Include(a => a.Category.Type).Where(a => a.Category.TypeID == step);
-
-            var user = db.Users.SingleOrDefault(a => a.Email == User.Identity.Name).UserID;
-
+            var responsibility = UserChoiceObj.GetResponsibilities(step);
+            
+             
+            var user = UserChoiceObj.GetUser(User.Identity.Name);
+            int userId = user.UserID;
             UserChoiceView viewObj = new UserChoiceView();
             viewObj.UserChoices = new List<UserChoice>();
             viewObj.Responsibilities = responsibility.ToList();
-            List<UserChoice> userChoice = db.UserChoices.Where(a => a.UserID == user && a.Responsibility.Category.TypeID == step).ToList();
+
 
             foreach(var r in responsibility)
             {
-                UserChoice userChoiceObj = c1.UserChoices.SingleOrDefault(a => a.Responsibility.ResponsibilityID == r.ResponsibilityID && a.UserID == user);
-                
-                
+                UserChoice userChoiceObj = UserChoiceObj.GetUserChoice(r.ResponsibilityID, userId);
+                    
                 viewObj.UserChoices.Add(userChoiceObj);
-                ctx.SaveChanges();
+
             }
-
-
-
 
             ViewBag.step = step;
 
-            var userName = db.Users.FirstOrDefault(a => a.Email == User.Identity.Name);
-
-
-            ViewBag.User = userName.Fname + " " + userName.Lname;
+            ViewBag.User = user.Fname + " " + user.Lname;
 
             return View(viewObj);
 
@@ -59,44 +60,38 @@ namespace EmployeeReview.Controllers
         [HttpPost]
         public ActionResult Index(UserChoiceView model)
         {
-            var user = db.Users.SingleOrDefault(a => a.Email == User.Identity.Name).UserID;
-            int notEntered = 0;
-            List<UserChoice> oldChoices=db.UserChoices.Where(a=>a.UserID==user).ToList();
+            if (UserChoiceObj == null)
+            { UserChoiceObj = new UserChoiceRepository(); }
+            if (UserChoiceService == null)
+            { UserChoiceService = new InputValidation(); }
+
+            var user = UserChoiceObj.GetUser(User.Identity.Name);
+            int step = Convert.ToInt16(Session["step"]);
+            int notEntered = 0, startChoiceId = model.UserChoices[0].ChoiceID; 
+            List<UserChoice> oldChoices=UserChoiceObj.GetUserChoices(user.UserID,step);
+            
             for (int i = 0; i < model.UserChoices.Count(); i++)
             {
                 int choiceId = model.UserChoices[i].ChoiceID;
-                UserChoice updateChoice = db.UserChoices.SingleOrDefault(a => a.ChoiceID == choiceId);
-                if (model.UserChoices[i].Comment.CommentValue != oldChoices[i].Comment.CommentValue)
-                {
-                    updateChoice.Comment.CommentValue = model.UserChoices[i].Comment.CommentValue;
-                    db.SaveChanges();
+                UserChoice updateChoice = UserChoiceObj.GetUserChoice(choiceId);
+                    
                 
-                }
-                if (model.UserChoices[i].Comment.CommentValue == "" || model.UserChoices[i].Comment.CommentValue == " ")
+                   
+                
+                if ( !UserChoiceService.UpdateUserComment(choiceId, model.UserChoices[i].Comment.CommentValue, oldChoices[i].Comment.CommentValue))
                 {
                     notEntered++;
                 }
-                if (model.UserChoices[i].RatingID == 1 || model.UserChoices[i].RatingID == 0)
+                if (!UserChoiceService.UpdateUserRating(choiceId, model.UserChoices[i].RatingID, oldChoices[i]))
                 {
-                    notEntered++;
+                    notEntered++;    
                 }
-                if (model.UserChoices[i].RatingID != oldChoices[i].RatingID && model.UserChoices[i].RatingID!=0)
-                {
-                    db.Entry(oldChoices[i]).State=EntityState.Detached;
-                    updateChoice.RatingID = model.UserChoices[i].RatingID;
-                    db.UserChoices.Attach(oldChoices[i]);
-                    db.Entry(oldChoices[i]).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
+                
                
             }
-            if (notEntered > 0) 
-            {
-                return RedirectToAction("Index", new { notEntered=notEntered});
- 
-            }
-            int step = Convert.ToInt16(Session["step"]);
-            if (step < 3)
+            
+            
+            if (step < 3 && notEntered<1 || step<1)
             {
                 ViewBag.step = step + 1;
             }
@@ -104,63 +99,13 @@ namespace EmployeeReview.Controllers
             {
                 ViewBag.step = step;
             }
-
-            return RedirectToAction("Index", new { step = @ViewBag.step });
+            if (notEntered > 0)
+            {
+                return RedirectToAction("Index", new { notEntered = notEntered,step=@ViewBag.step });
+            }
+            return RedirectToAction("Index", new { step = @ViewBag.step, });
             
-            //string comments;
-            //List<string> choices=model.UserChoices;
-            //    foreach(var ){}
-            //=model.UserChoices
-
-            //if (true)
-            //{
-            //    var tempCategory = db.Responsibilities.Include(a => a.Category).Include(a => a.Category.Type);
-            //    var home = new UserChoiceView
-            //    {
-            //        Responsibilities = tempCategory.ToList()
-            //    };
-
-
-            //    for (int i = 0; i < model.UserChoices.Count; i++)
-            //    {
-            //        Comment c = new Comment { CommentValue = model.UserChoices[i].Comment.CommentValue };
-            //        db.Comments.Add(c);
-            //        db.SaveChanges();
-            //        var lastComment = db.Comments.Max(a => a.CommentID);
-
-            //        UserChoice newUser = new UserChoice
-            //        {
-            //            ResponsibilityID = model.Responsibilities[i].ResponsibilityID,
-            //            RatingID = model.rating[i],
-            //            UserID = db.Users.SingleOrDefault(a => a.Email == User.Identity.Name).UserID,
-            //            ForUserID = db.Users.SingleOrDefault(a => a.Email == User.Identity.Name).UserID,
-            //            CommentID = lastComment
-            //        };
-
-            //        db.UserChoices.Add(newUser);
-            //        db.SaveChanges();
-            //    }
-                
-                
-            //    int step = Convert.ToInt16(Session["step"]);
-            //    if (step < 3)
-            //    {
-            //        ViewBag.step = step + 1;
-            //    }
-            //    else
-            //    {
-            //        ViewBag.step = step;
-            //    }
-
-            //    return RedirectToAction("Index", new { step = @ViewBag.step });
-            //}
-            //else { 
-            //    ModelState.AddModelError("","All inputs need to be filled.");
-            //    int step = Convert.ToInt16(Session["step"]);
-            //    ViewBag.step = step;
-            //    return RedirectToAction("Index", new { step = @ViewBag.step });
-            //    }
-
+            
         }
     }
 }

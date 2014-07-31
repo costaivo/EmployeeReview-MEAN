@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace EmployeeReview.Models
+namespace EmployeeReview.Domain.Model
 {
     public class UserChoice
     {
@@ -14,7 +14,6 @@ namespace EmployeeReview.Models
         public bool Entered { get; set; }
         public int ResponsibilityID { get; set; }
         public int RatingID { get; set; }
-        [Required(ErrorMessage = "123")]
         public int CommentID { get; set; }
         [ForeignKey("User")]
         public int UserID { get; set; }
@@ -24,9 +23,7 @@ namespace EmployeeReview.Models
         public virtual Responsibility Responsibility{get;set;}
         public virtual Rating Rating{get;set;}
         public virtual Comment Comment{get;set;}
-        [Required]
         public virtual User User {get;set;}
-        [Required]
         public virtual User ForUser { get; set; }
 
         

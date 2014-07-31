@@ -20,6 +20,12 @@ top:0%;
 
 }
 
+tr td {
+  border-bottom:1pt solid #ddd;
+  padding-top:1em;
+  padding-bottom:1em;
+}
+
 #next {
     
     
