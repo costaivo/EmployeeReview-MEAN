@@ -28,6 +28,8 @@ namespace EmployeeReview
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            Bootstrapper.Initialise();
         }
         void MvcApplication_PostAuthenticateRequest(object sender, EventArgs e)
         {

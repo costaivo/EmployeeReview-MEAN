@@ -9,7 +9,7 @@ using EmployeeReview.Domain.Repository.Interfaces;
 using EmployeeReview.Domain.Repository.Services;
 using EmployeeReview.Application.Interfaces;
 using EmployeeReview.Application.Services;
-
+using Microsoft.Practices.Unity;
 
 using System.Globalization;
 
@@ -19,7 +19,8 @@ namespace EmployeeReview.Controllers
     {
         public IFormsAuthenticationService FormsService { get; set; }
         public IMembershipService MembershipService { get; set; }
-        public IUserChoiceRepository ChoiceService { get; set; }
+       
+        [Dependency]
         public IInputValidation UserChoiceObj { get; set; }
              
         public EmpContext db = new EmpContext();
@@ -29,7 +30,6 @@ namespace EmployeeReview.Controllers
         {
             if (FormsService == null) { FormsService = new FormsAuthenticationService(); }
             if (MembershipService == null) { MembershipService = new AccountMembershipService(); }
-            if (ChoiceService == null) { ChoiceService = new UserChoiceRepository(); }
             base.Initialize(requestContext);
         }
 
@@ -114,7 +114,7 @@ namespace EmployeeReview.Controllers
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
-                if (UserChoiceObj == null) { UserChoiceObj = new InputValidation(); }
+                //if (UserChoiceObj == null) { UserChoiceObj = new InputValidation(); }
                 var createStatus = MembershipService.CreateUser(model.Email, model.Password, model.Fname, model.Lname);
 
                 if (createStatus == MembershipCreateStatus.Success)

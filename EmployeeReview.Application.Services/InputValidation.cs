@@ -7,42 +7,61 @@ using EmployeeReview.Application.Interfaces;
 using EmployeeReview.Domain.Model;
 using EmployeeReview.Domain.Repository.Interfaces;
 using EmployeeReview.Domain.Repository.Services;
-
+using Microsoft.Practices.Unity;
 
 namespace EmployeeReview.Application.Services
 {
     public class InputValidation:IInputValidation
     {
         public int notEntered;
-        public IUserChoiceRepository UserChoice = new UserChoiceRepository();
-        public bool ValidInput()
+        [Dependency]
+        public IUserChoiceRepository UserChoiceRepo{get;set;}
+        private IUnityContainer container;
+
+        public InputValidation(IUnityContainer container)
         {
-            if (notEntered > 0)
-                return false;
-            return true;
+            this.container = container;
         }
 
-        public void IncrementInvalidInput()
+        public UserChoice GetUserChoice(int choiceId)
         {
-            this.notEntered++;
+            UserChoice UserChoice = UserChoiceRepo.GetUserChoice(choiceId);
+            return UserChoice;
         }
-        public int GetInvalidInputNum()
+        public List<UserChoice> GetUserChoices(int userId, int step)
         {
-            return notEntered;
+            List<UserChoice> oldChoices = UserChoiceRepo.GetUserChoices(userId, step);
+            return oldChoices;
         }
+        public IQueryable<Responsibility> GetResponsibilities(int step)
+        {
+            IQueryable<Responsibility> r = UserChoiceRepo.GetResponsibilities(step);
+            return r;
+        }
+        public UserChoice GetUserChoice(int responsibilityId, int userId)
+        {
+            UserChoice UserChoice = UserChoiceRepo.GetUserChoice(responsibilityId, userId);
+
+            return UserChoice;
+        }
+        public User GetUser(string email)
+        {
+            User user = UserChoiceRepo.GetUser(email);
+            return user;
+        }
+
         public void InitialiseUserChoice()
         {
-            UserChoice.InitialiseUserChoice();
-            
+            UserChoiceRepo.InitialiseUserChoice();
         }
 
         public bool UpdateUserRating(int choiceId, int ratingId, UserChoice oldChoice)
         {
-            if(ratingId<=1||ratingId >6)
+            if(ratingId<1||ratingId >6)
             { return false; }
             if (ratingId != oldChoice.RatingID)
             {
-                UserChoice.UpdateUserRating(choiceId, oldChoice, ratingId);
+                UserChoiceRepo.UpdateUserRating(choiceId, oldChoice, ratingId);
                 return true;
             }
             return true;
@@ -51,7 +70,7 @@ namespace EmployeeReview.Application.Services
         {
             if (comment != oldComment)
             {
-                UserChoice.UpdateUserComment(choiceId, comment);
+                UserChoiceRepo.UpdateUserComment(choiceId, comment);
                 return true;
             }
 

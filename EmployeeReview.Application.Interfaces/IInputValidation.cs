@@ -11,13 +11,15 @@ namespace EmployeeReview.Application.Interfaces
     public interface IInputValidation
     {
         
-        bool ValidInput();
+        
         void InitialiseUserChoice();
-        void IncrementInvalidInput();
-        int GetInvalidInputNum();
         bool UpdateUserRating(int choiceId, int ratingId, UserChoice oldChoice);
         bool UpdateUserComment(int choiceId, string comment, string oldComment);
-
+        IQueryable<Responsibility> GetResponsibilities(int step);
+        UserChoice GetUserChoice(int responsibilityId, int userId);
+        User GetUser(string email);
+        List<UserChoice> GetUserChoices(int userId, int step);
+        UserChoice GetUserChoice(int choiceId);
 
     }
 }
