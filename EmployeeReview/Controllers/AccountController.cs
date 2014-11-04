@@ -1,13 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using EmployeeReview.Models;
-using EmployeeReview.Interfaces;
-using EmployeeReview.Services;
+using EmployeeReview.Domain.Model;
+using EmployeeReview.Domain.Repository.Interfaces;
+using EmployeeReview.Domain.Repository.Services;
+using EmployeeReview.Application.Interfaces;
+using EmployeeReview.Application.Services;
+
+
+using System.Globalization;
 
 namespace EmployeeReview.Controllers
 {
@@ -15,15 +19,17 @@ namespace EmployeeReview.Controllers
     {
         public IFormsAuthenticationService FormsService { get; set; }
         public IMembershipService MembershipService { get; set; }
-
-        private EmpContext db = new EmpContext();
+        public IUserChoiceRepository ChoiceService { get; set; }
+        public IInputValidation UserChoiceObj { get; set; }
+             
+        public EmpContext db = new EmpContext();
 
 
         protected override void Initialize(RequestContext requestContext)
         {
             if (FormsService == null) { FormsService = new FormsAuthenticationService(); }
             if (MembershipService == null) { MembershipService = new AccountMembershipService(); }
-
+            if (ChoiceService == null) { ChoiceService = new UserChoiceRepository(); }
             base.Initialize(requestContext);
         }
 
@@ -45,7 +51,7 @@ namespace EmployeeReview.Controllers
             {
                 if (MembershipService.ValidateUser(model.Email, model.Password))
                 {
-                    FormsService.SignIn(model.Email, model.RememberMe);
+                    SetupFormsAuthTicket(model.Email, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                     {
@@ -58,6 +64,27 @@ namespace EmployeeReview.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        private User SetupFormsAuthTicket(string userName, bool persistanceFlag)
+        {
+            User user;
+            using (var usersContext = new EmpContext())
+            {
+                user = usersContext.GetUser(userName);
+            }
+            var userId = user.UserID;
+            var userData = userId.ToString(CultureInfo.InvariantCulture);
+            var authTicket = new FormsAuthenticationTicket(1, //version
+                                userName, // user name
+                                DateTime.Now,             //creation
+                                DateTime.Now.AddMinutes(30), //Expiration
+                                persistanceFlag, //Persistent
+                                userData);
+
+            var encTicket = FormsAuthentication.Encrypt(authTicket);
+            Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
+            return user;
         }
 
         //
@@ -87,11 +114,15 @@ namespace EmployeeReview.Controllers
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
+                if (UserChoiceObj == null) { UserChoiceObj = new InputValidation(); }
                 var createStatus = MembershipService.CreateUser(model.Email, model.Password, model.Fname, model.Lname);
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    FormsService.SignIn(model.Email, false /* createPersistentCookie */);
+                    FormsService.SignIn(model.Email, false);
+
+                    UserChoiceObj.InitialiseUserChoice();
+                    
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", ErrorCodeToString(createStatus));
@@ -161,8 +192,7 @@ namespace EmployeeReview.Controllers
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {
-            // See http://go.microsoft.com/fwlink/?LinkID=177550 for
-            // a full list of status codes.
+            
             switch (createStatus)
             {
                 case MembershipCreateStatus.DuplicateUserName:

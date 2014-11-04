@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Security;
-using EmployeeReview.Models;
+using EmployeeReview.Domain.Model;
 
 
 
@@ -117,7 +117,7 @@ namespace EmployeeReview.Infrastructure
                 var user = usersContext.GetUser(email);
                 if (user != null)
                 {
-                    var memUser = new MembershipUser("CustomMembershipProvider", email, user.ID, user.Fname,
+                    var memUser = new MembershipUser("CustomMembershipProvider", email, user.UserID, user.Fname,
                                                                 string.Empty, string.Empty,
                                                                 true, false, DateTime.MinValue,
                                                                 DateTime.MinValue,
