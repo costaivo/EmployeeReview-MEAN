@@ -3,15 +3,21 @@
     <head>
         <link rel="stylesheet" href="login.css">
          <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
          <title>Registration page</title>
     </head>
-    <body class="container">
+    <body class="bdy">
+        <div class="container" style="border-radius:20px;padding:40px 60px">
         <form>
             <div class=row>
                 <div class="col-sm-12">
                     <h1 style="font-weight:bold">Registration Form</h1><br>
                 </div>
-                <div class="col-sm-12">
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
                     <h2 class="sub">User name:</h2>
                     <input type="email" name="email" required><br>
                 </div>
@@ -45,8 +51,34 @@
                 <!--    -->
             </div>
 
+            <div class="row">
+                <div class=col-sm-4>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Designation<span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Junior programmer</a></li>
+                            <li><a href="#">Programmer</a></li>
+                            <li><a href="#">Senior programmer</a></li>
+                            <li><a href="#">Other</a></li>
+                        </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2 class="sub">Birth date</h2>
+                </div>
+                <div class="col-sm-6">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class=col-sm-4>
+                    <input type="submit" value="Submit Data" onclick="check()">
+                </div>
             </div>
         </form>
+        </div>
     </body>
 </html>
 
