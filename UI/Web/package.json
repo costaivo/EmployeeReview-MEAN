@@ -1,0 +1,11 @@
+{
+  "name": "employee-review-app",
+  "version": "0.0.1",
+  "description": "Employee Review Application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Costa Ivo",
+  "license": "ISC"
+}
