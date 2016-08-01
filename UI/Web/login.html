@@ -5,12 +5,34 @@
          <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script>
+                    function checkPasswordMatch() {
+                        var password = $("#pa1").val();
+                        var confirmPassword = $("#pa2").val();
+
+                        if (password != confirmPassword)
+                         {   $("#divCheckPasswordMatch").html("Passwords do not match!");
+                            return false;
+                         }
+                        else
+                         {   $("#divCheckPasswordMatch").html("Passwords match.");
+                            return true;
+                            window.alert("done!");
+                         }
+                    }
+
+                    $(document).ready(function () {
+                    $("#txtConfirmPassword").keyup(checkPasswordMatch);
+                    });
+
+
+        </script>
 
          <title>Registration page</title>
     </head>
     <body class="bdy">
         <div class="container" style="border-radius:20px;padding:40px 60px">
-        <form>
+        <form name="demo" action="" onsubmit="return checkPasswordMatch()" method="post">
             <div class=row>
                 <div class="col-sm-12">
                     <h1 style="font-weight:bold">Registration Form</h1><br>
@@ -26,11 +48,12 @@
                 <!--     -->
                 <div class="col-sm-4">
                     <h2 class="sub">Password:</h2>
-                    <input type="password" name="password" required>
+                    <input type="password" name="password1" id="pa1" required>
                 </div>
                 <div class="col-sm-4">
                     <h2 class="sub">Re-Enter Password:</h2>
-                    <input type="password" name="password" required><br>
+                    <input type="password" name="password2" id="pa2" onChange="checkPasswordMatch();" required><br>
+                    <p class="registrationFormAlert" id="divCheckPasswordMatch"> </p>
                 </div>
             </div>
             <div class="row">
@@ -50,9 +73,17 @@
                 </div>
                 <!--    -->
             </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2 class="sub">Birth date</h2>
+                </div>
+                <div class="col-sm-6">
+                    <h2 class="sub">Date of joining</h2>
+                </div>
+            </div>
 
             <div class="row">
-                <div class=col-sm-4>
+                <div class=col-sm-6>
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Designation<span class="caret"></span></button>
                         <ul class="dropdown-menu">
@@ -63,18 +94,12 @@
                         </ul>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <h2 class="sub">Birth date</h2>
-                </div>
-                <div class="col-sm-6">
-                </div>
-            </div>
+            
 
 
             <div class="row">
                 <div class=col-sm-4>
-                    <input type="submit" value="Submit Data" onclick="check()">
+                    <input type="submit" value="Submit">
                 </div>
             </div>
         </form>
