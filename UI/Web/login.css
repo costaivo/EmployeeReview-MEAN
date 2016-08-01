@@ -1,0 +1,19 @@
+h2.sub{ 
+    font-size: 30px;
+    font-family:"'Times New Roman', Times, serif";
+    font-weight:bold;
+}
+input[text]{
+    width:90%;
+    padding:10px 20px;
+    }
+input[email]{
+    width:90%;
+    padding:10px 20px;
+    }
+input[password]{
+    width:90%;
+    padding:10px 20px;
+    }
+.container{background-color:rgba(0,255,255,0.1);
+}
