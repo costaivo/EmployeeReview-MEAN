@@ -6,23 +6,22 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <script>
-                    function checkPasswordMatch() {
-                        var password = $("#pa1").val();
-                        var confirmPassword = $("#pa2").val();
+                    function checkPasswordMatch() 
+                    {
+                        var pw1=document.getElementById('pa1').value;
+                        var pw2=document.getElementById('pa2').value;
 
-                        if (password != confirmPassword)
-                         {   $("#divCheckPasswordMatch").html("Passwords do not match!");
+                        if(pw1!=pw2)
+                        {   document.getElementById('errormsg').innerHTML="Passwords do not match";
                             return false;
-                         }
+                        }
                         else
-                         {   $("#divCheckPasswordMatch").html("Passwords match.");
+                        {   document.getElementById('errormsg').innerHTML="Passwords match!";
                             return true;
-                            window.alert("done!");
-                         }
+                        }
                     }
-
-                    $(document).ready(function () {
-                    $("#txtConfirmPassword").keyup(checkPasswordMatch);
+                    document.ready(function(){
+                            document.getElementById('pa2').keyup(checkPasswordMatch);
                     });
 
 
@@ -53,7 +52,7 @@
                 <div class="col-sm-4">
                     <h2 class="sub">Re-Enter Password:</h2>
                     <input type="password" name="password2" id="pa2" onChange="checkPasswordMatch();" required><br>
-                    <p class="registrationFormAlert" id="divCheckPasswordMatch"> </p>
+                    <p class="registrationFormAlert" id="errormsg"> </p>
                 </div>
             </div>
             <div class="row">
@@ -87,10 +86,10 @@
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Designation<span class="caret"></span></button>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Junior programmer</a></li>
-                            <li><a href="#">Programmer</a></li>
-                            <li><a href="#">Senior programmer</a></li>
-                            <li><a href="#">Other</a></li>
+                            <li><a href="">Junior programmer</a></li>
+                            <li><a href="">Programmer</a></li>
+                            <li><a href="">Senior programmer</a></li>
+                            <li><a href="">Other</a></li>
                         </ul>
                 </div>
             </div>
@@ -99,7 +98,7 @@
 
             <div class="row">
                 <div class=col-sm-4>
-                    <input type="submit" value="Submit">
+                    <input type="submit" value="Submit" id="sub">
                 </div>
             </div>
         </form>
