@@ -9,12 +9,26 @@
         <script src="public/js/bootstrap.min.js"></script>
         <script src="public/js/npm.js"></script>
 
+        <script>
+             document.getElementById('first').on('submit',function check()
+                    {   var uname=document.getElementById('usr').value;
+                        var upass=document.getElementById('pass').value;
+                        if(uname!="abc@d.com")
+                        {   window.alert("Creating new user");
+                            window.location.href='registration.html';
+                        }
+                        else if(upass!="aa")
+                        {   window.alert("invalid password");
+                            window.location.href='login.html';
+                        }  
+                    });
+        </script>
         <title>Login</title>
     </head>
     <body>
         <div id="wrapper">
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                    <a class="navbar-brand" href="login.html">Welcome</a>
+                    <a class="navbar-brand" href="login.html">Employee Review</a>
                     <ul class="nav navbar-right top-nav">
                             <!--  top menu -->
                     </ul>
@@ -37,17 +51,17 @@
                              <h1 class="page-header">Login</h1><br>
                         </div>
                     </div>
-                    <form name="demo" action="" onsubmit="" method="post">
+                    <form name="first" action="" onsubmit="" method="post">
                         <div class="row">
                             <div class="col-sm-6">
                                 <label>User name<sup style="color:red">*</sup>:</label>
-                                <input class="form-control" type="email" name="email" placeholder="email@example.com" required><br>
+                                <input class="form-control" type="email" id="usr" name="email" placeholder="email@example.com" required><br>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <label>Password<sup style="color:red">*</sup>:</label>
-                                <input class="form-control" type="password" name="password1" id="pa1" required>
+                                <input class="form-control" type="password" id="pass" name="password1" required>
                             </div>
                         </div>
                         <div class="row">
