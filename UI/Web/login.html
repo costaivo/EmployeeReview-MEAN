@@ -1,117 +1,67 @@
 <!doctype html>
 <html>
     <head>
-         <link rel="stylesheet" href="\public\cssbootstrap-theme.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <script>
-                    function checkPasswordMatch() 
-                    {
-                        var pw1=document.getElementById('pa1').value;
-                        var pw2=document.getElementById('pa2').value;
+         
+         <link rel="stylesheet" href="public/css/bootstrap.min.css">
+         <link rel="stylesheet" href="public/css/sb-admin.css">  
+            
+        <script src="public/js/bootstrap.js"></script>
+        <script src="public/js/bootstrap.min.js"></script>
+        <script src="public/js/npm.js"></script>
 
-                        if(pw1!=pw2)
-                        {   document.getElementById('errormsg').innerHTML="Passwords do not match";
-                            return false;
-                        }
-                        else
-                        {   document.getElementById('errormsg').innerHTML="Passwords match!";
-                            return true;
-                        }
-                    }
-                    function fdob()
-                    {   var x=document.getElementById('dob').value;
-                        var y=document.getElementById('doj').value;
-                    }
-                    document.ready(function(){
-                            document.getElementById('pa2').keyup(checkPasswordMatch);
-                    });
-
-
-        </script>
-
-         <title>Registration page</title>
+        <title>Login</title>
     </head>
-    <body class="bdy">
-        <div class="container" style="border-radius:20px;padding:40px 60px">
-        <form name="demo" action="" onsubmit="return checkPasswordMatch()" method="post">
-            <div class=row>
-                <div class="col-sm-12">
-                    <h1 style="font-weight:bold">Registration Form</h1><br>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    <h2 class="sub">User name<sup style="color:red">*</sup>:</h2>
-                    <input type="email" name="email" required><br>
-                </div>
-            </div>
-            <div class="row">
-                <!--     -->
-                <div class="col-sm-4">
-                    <h2 class="sub">Password<sup style="color:red">*</sup>:</h2>
-                    <input type="password" name="password1" id="pa1" required>
-                </div>
-                <div class="col-sm-4">
-                    <h2 class="sub">Re-Enter Password<sup style="color:red">*</sup>:</h2>
-                    <input type="password" name="password2" id="pa2" onChange="checkPasswordMatch();" required><br>
-                    <p class="registrationFormAlert" id="errormsg"> </p>
-                </div>
-            </div>
-            <div class="row">
-
-                <!--     -->
-                <div class="col-sm-4">
-                    <h2 class="sub">First name:</h2>
-                    <input type="text" name="Fname" >
-                </div>
-                <div class="col-sm-4">
-                    <h2 class="sub">Middle name:</h2>
-                    <input type="text" name="Mname" >
-                </div>
-                <div class="col-sm-4">
-                    <h2 class="sub">Last name:</h2>
-                    <input type="text" name="Lname" ><br>
-                </div>
-                <!--    -->
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <h2 class="sub">Birth date<sup style="color:red">*</sup>:</h2>
-                    <input type="date" id="dob"  required>
-                </div>
-                <div class="col-sm-6">
-                    <h2 class="sub">Date of joining:</h2>
-                    <input type="date" id="doj">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class=col-sm-6>
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Designation<span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Junior programmer</a></li>
-                            <li><a href="#">Programmer</a></li>
-                            <li><a href="#">Senior programmer</a></li>
-                            <li><a href="#">Other</a></li>
+    <body>
+        <div id="wrapper">
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                    <a class="navbar-brand" href="login.html">Welcome</a>
+                    <ul class="nav navbar-right top-nav">
+                            <!--  top menu -->
+                    </ul>
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav side-nav">
+                            <!-- Left menu items -->
+                            <li class="active">
+                                <a href="login.html"><i class="fa fa-fw fa-dashboard"></i>Login Page</a>
+                            </li>
+                            <li>
+                                <a href="registration.html"><i class="fa fa-fw fa-edit"></i>Registration</a>
+                            </li>
                         </ul>
                     </div>
+            </nav>
+            <div id="page-wrapper">
+                <div class="container-fluid">
+                    <div class=row>
+                        <div class="col-sm-12">
+                             <h1 class="page-header">Login</h1><br>
+                        </div>
+                    </div>
+                    <form name="demo" action="" onsubmit="" method="post">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>User name<sup style="color:red">*</sup>:</label>
+                                <input class="form-control" type="email" name="email" placeholder="email@example.com" required><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Password<sup style="color:red">*</sup>:</label>
+                                <input class="form-control" type="password" name="password1" id="pa1" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <br>
+                        </div>
+                        <div class="row">
+                            <div class=col-sm-3>
+                                <button type="submit" class="btn btn-primary">Login</button>
+                                <button type="submit" class="btn btn-primary" onclick="window.location.href='registration.html'">New Registrstion</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            
-
-
-            <div class="row">
-                <div class=col-sm-6>
-                    <input type="submit" value="Submit" id="sub" onclick="function fdob()">
-                </div>
-                <div class=col-sm-6>
-                    <p1 class="txt"><sup style="color:red">*</sup> Mandatory Fields</p1>
-                </div>
-            </div>
-        </form>
-        </div>
+         </div>
     </body>
-</html>
-
+</html>         
