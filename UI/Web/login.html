@@ -20,6 +20,10 @@
                             return true;
                         }
                     }
+                    function fdob()
+                    {   var x=document.getElementById('dob').value;
+                        var y=document.getElementById('doj').value;
+                    }
                     document.ready(function(){
                             document.getElementById('pa2').keyup(checkPasswordMatch);
                     });
@@ -39,18 +43,18 @@
             </div>
             <div class="row">
                 <div class="col-sm-4">
-                    <h2 class="sub">User name:</h2>
+                    <h2 class="sub">User name<sup style="color:red">*</sup>:</h2>
                     <input type="email" name="email" required><br>
                 </div>
             </div>
             <div class="row">
                 <!--     -->
                 <div class="col-sm-4">
-                    <h2 class="sub">Password:</h2>
+                    <h2 class="sub">Password<sup style="color:red">*</sup>:</h2>
                     <input type="password" name="password1" id="pa1" required>
                 </div>
                 <div class="col-sm-4">
-                    <h2 class="sub">Re-Enter Password:</h2>
+                    <h2 class="sub">Re-Enter Password<sup style="color:red">*</sup>:</h2>
                     <input type="password" name="password2" id="pa2" onChange="checkPasswordMatch();" required><br>
                     <p class="registrationFormAlert" id="errormsg"> </p>
                 </div>
@@ -74,10 +78,12 @@
             </div>
             <div class="row">
                 <div class="col-sm-6">
-                    <h2 class="sub">Birth date</h2>
+                    <h2 class="sub">Birth date<sup style="color:red">*</sup>:</h2>
+                    <input type="date" id="dob"  required>
                 </div>
                 <div class="col-sm-6">
-                    <h2 class="sub">Date of joining</h2>
+                    <h2 class="sub">Date of joining:</h2>
+                    <input type="date" id="doj" >
                 </div>
             </div>
 
@@ -86,19 +92,24 @@
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Designation<span class="caret"></span></button>
                         <ul class="dropdown-menu">
-                            <li><a href="">Junior programmer</a></li>
-                            <li><a href="">Programmer</a></li>
-                            <li><a href="">Senior programmer</a></li>
-                            <li><a href="">Other</a></li>
+                            <li><a href="#">Junior programmer</a></li>
+                            <li><a href="#">Programmer</a></li>
+                            <li><a href="#">Senior programmer</a></li>
+                            <li><a href="#">Other</a></li>
                         </ul>
+                    </div>
                 </div>
+>
             </div>
             
 
 
             <div class="row">
-                <div class=col-sm-4>
-                    <input type="submit" value="Submit" id="sub">
+                <div class=col-sm-6>
+                    <input type="submit" value="Submit" id="sub" onclick="function fdob()">
+                </div>
+                <div class=col-sm-6>
+                    <p1 class="txt"><sup style="color:red">*</sup> Mandatory Fields</p1>
                 </div>
             </div>
         </form>

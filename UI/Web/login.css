@@ -1,10 +1,15 @@
 body.bdy{
-    background-color:rgba(255,255,230,1);
+    background-color:rgba(255,230,230,1);
 }
 h2.sub{ 
     font-size: 30px;
     font-family:"'Times New Roman', Times, serif";
     font-weight:bold;
+}
+p1.txt{
+
+    font-size: 18px;
+    padding:40px 40px;
 }
 input[type=text]{
     width:90%;
@@ -29,7 +34,14 @@ input[type=submit]{
     font-family:"'Times New Roman', Times, serif";
     padding:10px 5px;
     }
-.container{background-color:rgba(230,249,255,1);
+input[type=date]{
+    width:50%;
+    margin:20px 0 0 0;
+    border-radius:5px;
+    font-family:"'Times New Roman', Times, serif";
+    padding:10px 5px;
+    }
+.container{background-color:rgba(230,240,255,1);
 }
 button.btn{    
     width:50%;
