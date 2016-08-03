@@ -8,31 +8,7 @@
         <script src="public/js/bootstrap.js"></script>
         <script src="public/js/bootstrap.min.js"></script>
         <script src="public/js/npm.js"></script>
-        <script>
-                    function checkPasswordMatch() 
-                    {
-                        var pw1=document.getElementById('pa1').value;
-                        var pw2=document.getElementById('pa2').value;
-
-                        if(pw1!=pw2)
-                        {   document.getElementById('errormsg').innerHTML="Passwords do not match";
-                            return false;
-                        }
-                        else
-                        {   document.getElementById('errormsg').innerHTML="Passwords match!";
-                            return true;
-                        }
-                    }
-                    function fdob()
-                    {   var x=document.getElementById('dob').value;
-                        var y=document.getElementById('doj').value;
-                    }
-                    document.ready(function(){
-                            document.getElementById('pa2').keyup(checkPasswordMatch);
-                    });
-
-
-        </script>
+        <script src="appscript.js"></script>
 
          <title>Registration page</title>
     </head>
@@ -73,12 +49,12 @@
                                     <!--     -->
                                     <div class="col-sm-4">
                                         <label>Password<sup style="color:red">*</sup>:</label>
-                                        <input class="form-control" type="password" name="password1" id="pa1" required>
+                                        <input class="form-control" type="password" name="password" id="password" required>
                                     </div>
                                     <div class="col-sm-4">
                                         <label>Re-Enter Password<sup style="color:red">*</sup>:</label>
-                                        <input class="form-control" type="password" name="password2" id="pa2" onChange="checkPasswordMatch();" required><br>
-                                        <p class="registrationFormAlert" id="errormsg"> </p>
+                                        <input class="form-control" type="password" name="confirmpassword" id="confirmpassword" onChange="checkPasswordMatch();" required><br>
+                                        <p class="registrationFormAlert" id="errormessag"> </p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -86,7 +62,7 @@
                                     <!--     -->
                                     <div class="col-sm-4">
                                         <label>First name:</label>
-                                        <input class="form-control" type="text" name="Fname" id="inputSuccess">
+                                        <input class="form-control" type="text" name="Fname">
                                     </div>
                                     <div class="col-sm-4">
                                         <label>Middle name:</label>
@@ -101,11 +77,11 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <label>Birth date<sup style="color:red">*</sup>:</label>
-                                        <input class="form-control" type="date" id="dob" placeholder="mm/dd/yy" required>
+                                        <input class="form-control" type="date" id="dataOfBirth" placeholder="mm/dd/yy" required>
                                     </div>
                                     <div class="col-sm-6">
                                         <label>Date of joining:</label>
-                                        <input class="form-control" type="date" id="doj" placeholder="mm/dd/yy"><br>
+                                        <input class="form-control" type="date" id="dateOfJoining" placeholder="mm/dd/yy"><br>
                                     </div>
                                 </div>
 
@@ -125,7 +101,7 @@
                             
                                 <div class="row">
                                     <div class=col-sm-6>
-                                        <input type="submit" class="btn btn-default" value="Submit" id="sub" onclick="function fdob()">
+                                        <input type="submit" class="btn btn-default" value="Submit">
                                     </div>
                                     <div class=col-sm-6>
                                         <label><br><sup style="color:red">*</sup> Mandatory Fields<br></label>

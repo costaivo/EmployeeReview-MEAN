@@ -8,27 +8,7 @@
         <script src="public/js/bootstrap.js"></script>
         <script src="public/js/bootstrap.min.js"></script>
         <script src="public/js/npm.js"></script>
-
-        <script>
-             function pcheck()
-                    {   var uname=document.getElementById("usr").value;
-                        var upass=document.getElementById("pass").value;
-                        if(uname=="abc@d.com" && upass=="aaa")
-                        {   window.alert("Welcome!");
-                            document.getElementById("first").action = "user1.html";
-                            return true;
-                        }
-                        else if(uname=="abc@d.com" && upass!="aaa")
-                        {   window.alert("invalid password");
-                            return false;
-                        }
-                        else
-                        {   window.alert("invalid username and password\nCreating new user");                            
-                            document.getElementById("first").action = "registration.html";
-                            return true;
-                        }  
-                    }
-        </script>
+        <script src="appscript.js"></script>
         <title>Login</title>
     </head>
     <body>
@@ -57,17 +37,17 @@
                              <h1 class="page-header">Login</h1><br>
                         </div>
                     </div>
-                    <form name="first" action="" id="first" onsubmit="return pcheck()" method="post">
+                    <form name="login" action="" id="loginform" onsubmit="return authenticate()" method="post">
                         <div class="row">
                             <div class="col-sm-6">
                                 <label>User name<sup style="color:red">*</sup>:</label>
-                                <input class="form-control" type="email" id="usr" name="email" placeholder="email@example.com" required><br>
+                                <input class="form-control" type="email" id="user" name="email" placeholder="email@example.com" required><br>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <label>Password<sup style="color:red">*</sup>:</label>
-                                <input class="form-control" type="password" id="pass" name="password1" required>
+                                <input class="form-control" type="password" id="password" name="password" required>
                             </div>
                         </div>
                         <div class="row">
