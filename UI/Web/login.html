@@ -15,19 +15,17 @@
                         var upass=document.getElementById("pass").value;
                         if(uname=="abc@d.com" && upass=="aaa")
                         {   window.alert("Welcome!");
-                            window.location="user1.html";
+                            document.getElementById("first").action = "user1.html";
                             return true;
                         }
                         else if(uname=="abc@d.com" && upass!="aaa")
                         {   window.alert("invalid password");
-                            window.location="login.html";
                             return false;
                         }
                         else
-                        {   window.alert("invalid username and password\nCreating new user");
-                            window.location="registration.html";
-                            document.getElementById("usr").innerHTML=uname;
-                            return false;
+                        {   window.alert("invalid username and password\nCreating new user");                            
+                            document.getElementById("first").action = "registration.html";
+                            return true;
                         }  
                     }
         </script>
@@ -59,7 +57,7 @@
                              <h1 class="page-header">Login</h1><br>
                         </div>
                     </div>
-                    <form name="first" action="user1.html" id="first" onsubmit="return pcheck()" method="post">
+                    <form name="first" action="" id="first" onsubmit="return pcheck()" method="post">
                         <div class="row">
                             <div class="col-sm-6">
                                 <label>User name<sup style="color:red">*</sup>:</label>
