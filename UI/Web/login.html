@@ -15,19 +15,17 @@
                         var upass=document.getElementById("pass").value;
                         if(uname=="abc@d.com" && upass=="aaa")
                         {   window.alert("Welcome!");
-                            document.getElementById(first).action=user1.html;
                             window.location="user1.html";
                             return true;
                         }
                         else if(uname=="abc@d.com" && upass!="aaa")
                         {   window.alert("invalid password");
                             window.location="login.html";
-                            document.getElementById("usr").innerHTML=uname;
                             return false;
                         }
                         else
-                        {   window.alert("invalid username and password");
-                            window.location="login.html";
+                        {   window.alert("invalid username and password\nCreating new user");
+                            window.location="registration.html";
                             document.getElementById("usr").innerHTML=uname;
                             return false;
                         }  
@@ -61,7 +59,7 @@
                              <h1 class="page-header">Login</h1><br>
                         </div>
                     </div>
-                    <form name="first" action="" id="first" onsubmit="return check()" method="post">
+                    <form name="first" action="user1.html" id="first" onsubmit="return pcheck()" method="post">
                         <div class="row">
                             <div class="col-sm-6">
                                 <label>User name<sup style="color:red">*</sup>:</label>
@@ -79,7 +77,7 @@
                         </div>
                         <div class="row">
                             <div class=col-sm-3>
-                                <button type="submit" class="btn btn-primary" onclick="pcheck()">Login</button>
+                                <button type="submit" class="btn btn-primary" >Login</button>
                                 <button type="submit" class="btn btn-primary" onclick="window.location.href='registration.html'">New Registrstion</button>
                             </div>
                         </div>
