@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+    <head>
+         
+         <link rel="stylesheet" href="public/css/bootstrap.min.css">
+         <link rel="stylesheet" href="public/css/sb-admin.css">  
+            
+        <script src="public/js/bootstrap.js"></script>
+        <script src="public/js/bootstrap.min.js"></script>
+        <script src="public/js/npm.js"></script>
+        <script src="appscript.js"></script>
+
+         <title>Registration page</title>
+    </head>
+    <body>
+        <div id="wrapper">
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                    <a class="navbar-brand" href="login.html">Employee Review</a>
+                    <ul class="nav navbar-right top-nav">
+                            <!--  top menu -->
+                    </ul>
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav side-nav">
+                            <!-- Left menu items -->
+                            <li>
+                                <a href="login.html"><i class="fa fa-fw fa-dashboard"></i>Login Page</a>
+                            </li>
+                            <li class="active">
+                                <a href="registration.html"><i class="fa fa-fw fa-edit"></i>Registration</a>
+                            </li>
+                        </ul>
+                    </div>
+            </nav>
+                <div id="page-wrapper">
+                        <div class="container-fluid">
+                            <form name="demo" action="/registrationdetails" onsubmit="return checkPasswordMatch()" method="POST">
+                                <div class=row>
+                                    <div class="col-sm-12">
+                                        <h1 class="page-header">Registration Form</h1><br>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label>User name<sup style="color:red">*</sup>:</label>
+                                        <input class="form-control" type="email" id="usr" name="email" placeholder="email@example.com" required><br>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!--     -->
+                                    <div class="col-sm-4">
+                                        <label>Password<sup style="color:red">*</sup>:</label>
+                                        <input class="form-control" type="password" name="password" id="password" required>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label>Re-Enter Password<sup style="color:red">*</sup>:</label>
+                                        <input class="form-control" type="password" name="confirmpassword" id="confirmpassword" onChange="checkPasswordMatch();" required><br>
+                                        <p class="registrationFormAlert" id="errormessag"> </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <!--     -->
+                                    <div class="col-sm-4">
+                                        <label>First name:</label>
+                                        <input class="form-control" type="text" name="firstName">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label>Middle name:</label>
+                                        <input class="form-control" type="text" name="middleName" >
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label>Last name:</label>
+                                        <input class="form-control" type="text" name="lastNname" ><br>
+                                    </div>
+                                    <!--    -->
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label>Birth date<sup style="color:red">*</sup>:</label>
+                                        <input class="form-control" type="date" id="dataOfBirth" placeholder="mm/dd/yy" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label>Date of joining:</label>
+                                        <input class="form-control" type="date" id="dateOfJoining" placeholder="mm/dd/yy"><br>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class=col-sm-6>
+                                        <label>Designation</label>
+                                        <select class="form-control">
+                                            <option>Junior Developer</option>
+                                            <option>Developer</option>
+                                            <option>Senior Developer</option>
+                                            <option>Other...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row"><br>
+                                </div>
+                            
+                                <div class="row">
+                                    <div class=col-sm-6>
+                                        <input type="submit" class="btn btn-default" value="Submit">
+                                    </div>
+                                    <div class=col-sm-6>
+                                        <label><br><sup style="color:red">*</sup> Mandatory Fields<br></label>
+                                    </div>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </body>
+</html>
