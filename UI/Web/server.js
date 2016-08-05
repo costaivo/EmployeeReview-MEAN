@@ -3,7 +3,8 @@ var express = require('express'),
 	engines = require('consolidate'),
 	MongoClient = require('mongodb').MongoClient,
 	assert = require('assert'),
-	bodyParser = require('body-parser');
+	bodyParser = require('body-parser'),
+	path = __dirname;
 	
 	app.engine('html',engines.nunjucks);
 	app.set('view engine','html');
@@ -15,7 +16,7 @@ var express = require('express'),
 		console.log('Sucessfully connected to mongodb server');
 		
 		app.get('/',function(req,res){
-			res.render('registration',{});
+			res.sendFile(path+'/views/registration.html');
 		});
 		app.post('/registrationdetails',function(req,res){
 			var username = req.body.email;
@@ -32,7 +33,7 @@ var express = require('express'),
 			});
 		});
 		
-		var server=app.listen(8000,function(){
+		var server = app.listen(8002,function(){
 			var port = server.address().port;
 			console.log('express app runnig on port %s',port);
 		});
