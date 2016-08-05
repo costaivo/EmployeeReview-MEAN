@@ -72,22 +72,22 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <label>Birth date<sup style="color:red">*</sup>:</label>
-                                        <input class="form-control" type="date" id="dataOfBirth" placeholder="mm/dd/yy" required>
+                                        <input class="form-control" type="date" id="dataOfBirth" name="dateOfBirth" placeholder="mm/dd/yy" required>
                                     </div>
                                     <div class="col-sm-6">
                                         <label>Date of joining:</label>
-                                        <input class="form-control" type="date" id="dateOfJoining" placeholder="mm/dd/yy"><br>
+                                        <input class="form-control" type="date" id="dateOfJoining" name="dateOfJoining" placeholder="mm/dd/yy"><br>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class=col-sm-6>
                                         <label>Designation</label>
-                                        <select class="form-control">
-                                            <option>Junior Developer</option>
-                                            <option>Developer</option>
-                                            <option>Senior Developer</option>
-                                            <option>Other...</option>
+                                        <select class="form-control" id="designation" name="designation">
+                                            <option value="junior developer">Junior Developer</option>
+                                            <option value="developer">Developer</option>
+                                            <option value="senior developer">Senior Developer</option>
+                                            <option value="Other">Other...</option>
                                         </select>
                                     </div>
                                 </div>

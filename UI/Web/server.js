@@ -32,15 +32,16 @@ var express = require('express'),
 			var lastName = req.body.lastName;
 			var dateOfBirth = req.body.dateOfBirth;
 			var dateOfJoining = req.body.dateOfJoining;
+			var designation = req.body.designation;
 			
-			db.collection('employee').insertOne({'username':username,'password':password,'firstName':firstName,'middleName':middleName,'lastName':lastName,'dateOfBirth':dateOfBirth,'dateOfJoining':dateOfJoining},function(err,r){
+			db.collection('employee').insertOne({'username':username,'password':password,'firstName':firstName,'middleName':middleName,'lastName':lastName,'dateOfBirth':dateOfBirth,'dateOfJoining':dateOfJoining,'designation':designation},function(err,r){
 				assert.equal(null,err);
 				console.log('Entry saved with _ID'+r.insertedId);
 			});
 			res.sendFile(path+'/views/login.html');
 		});
 		
-		var server = app.listen(8002,function(){
+		var server = app.listen(8000,function(){
 			var port = server.address().port;
 			console.log('express app running on port %s',port);
 		});
