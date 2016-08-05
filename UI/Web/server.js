@@ -1,14 +1,13 @@
 var express = require('express'),
 	app = express(),
-	engines = require('consolidate'),
+	engines = require('jade'),
 	MongoClient = require('mongodb').MongoClient,
 	assert = require('assert'),
 	bodyParser = require('body-parser'),
 	path = __dirname;
 	
-	app.engine('html',engines.nunjucks);
-	app.set('view engine','html');
-	app.set('views',__dirname+'/views');
+	app.set('view engine','jade');
+	app.use(express.static('public'));
 	app.use(bodyParser.urlencoded({extended:true}));
 	
 	MongoClient.connect('mongodb://localhost:27017/myapp',function(err,db){
@@ -16,8 +15,15 @@ var express = require('express'),
 		console.log('Sucessfully connected to mongodb server');
 		
 		app.get('/',function(req,res){
+			res.sendFile(path+'/views/login.html');
+		});
+		app.get('/login.html',function(req,res){
+			res.sendFile(path+'/views/login.html');
+		});
+		app.get('/registration.html',function(req,res){
 			res.sendFile(path+'/views/registration.html');
 		});
+		
 		app.post('/registrationdetails',function(req,res){
 			var username = req.body.email;
 			var password = req.body.password;
@@ -31,10 +37,11 @@ var express = require('express'),
 				assert.equal(null,err);
 				console.log('Entry saved with _ID'+r.insertedId);
 			});
+			res.sendFile(path+'/views/login.html');
 		});
 		
 		var server = app.listen(8002,function(){
 			var port = server.address().port;
-			console.log('express app runnig on port %s',port);
+			console.log('express app running on port %s',port);
 		});
 	});
