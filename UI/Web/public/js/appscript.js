@@ -17,22 +17,29 @@ function checkPasswordMatch()
 document.ready(function(){
                             document.getElementById('confirmpassword').keyup(checkPasswordMatch);
                     });
+function authenticate1(){
+	return true;
+}
 
 function authenticate()
                     {   var username=document.getElementById("user").value;
                         var userpass=document.getElementById("password").value;
-                        if(username=="abc@d.com" && userpass=="aaa")
-                        {   window.alert("Welcome!");
-                            document.getElementById("loginform").action = "home.html";
-                            return true;
-                        }
-                        else if(username=="abc@d.com" && userpass!="aaa")
-                        {   window.alert("invalid password");
-                            return false;
-                        }
-                        else
-                        {   window.alert("invalid username and password\nCreating new user");                            
-                            document.getElementById("loginform").action = "registration.html";
-                            return true;
-                        }  
-                    }
+						{% for usr in employee %}
+							if(username==usr.username)
+							{	if(userpass==usr.password)
+								{	document.getElementById("loginform").action = "home.html";
+									return true;
+								}
+								else
+								{	window.alert("invalid password");
+									return false;									
+								}
+							}
+							else
+							{	window.alert("invalid username and password\nCreating new user");                            
+								document.getElementById("loginform").action = "registration.html";
+								return true;								
+							}
+						{%endfor%}	
+                    }					
+					

@@ -18,10 +18,28 @@ var express = require('express'),
 			res.sendFile(path+'/views/login.html');
 		});
 		app.get('/login.html',function(req,res){
-			res.sendFile(path+'/views/login.html');
+			res.sendFile('/views/login.html');
+			
 		});
 		app.get('/registration.html',function(req,res){
 			res.sendFile(path+'/views/registration.html');
+		});
+		
+		app.post('/incomingUser',function(req,res){
+			var userName = req.body.email;
+			var password = req.body.password;
+			db.collection('employee').find({}).toArray(function(err,docs){
+				docs.forEach(function(docs){
+					if(userName == docs.username)
+					{	if(password == docs.password)
+							res.sendFile(path+'/views/home.html');
+						else
+						{	res.sendFile(path+'/views/login.html');
+						}
+					}					
+				});
+				res.sendFile(path+'/views/registration.html');
+			});
 		});
 		
 		app.post('/registrationdetails',function(req,res){
@@ -41,7 +59,7 @@ var express = require('express'),
 			res.sendFile(path+'/views/login.html');
 		});
 		
-		var server = app.listen(8000,function(){
+		var server = app.listen(8002,function(){
 			var port = server.address().port;
 			console.log('express app running on port %s',port);
 		});
