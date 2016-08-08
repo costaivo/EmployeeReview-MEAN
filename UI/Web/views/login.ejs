@@ -43,17 +43,20 @@
                             <div class="col-sm-6">
                                 <label>Password<sup style="color:red">*</sup>:</label>
                                 <input class="form-control" type="password" id="password" name="password" required>
-								<label style="color:red">Incorrect password</label>
+								<label style="color:red"><%= errorMessage %></label>
                             </div>
                         </div>
                         <div class="row">
                             <br>
                         </div>
                         <div class="row">
-                            <div class=col-sm-3>
+                            <div class="col-sm-3">
                                 <button type="submit" class="btn btn-primary" >Login</button>
                                 <button type="submit" class="btn btn-primary" onclick="window.location.href='registration.html'">New Registrstion</button>
                             </div>
+							
+							<div class="col-sm-9"><br>
+							</div>
                         </div>
                     </form>
                 </div>

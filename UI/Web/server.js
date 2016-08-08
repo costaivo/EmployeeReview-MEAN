@@ -5,7 +5,7 @@ var express = require('express'),
 	assert = require('assert'),	
 	bodyParser = require('body-parser');	
 	
-	app.set('view engine','jade');
+	app.set('view engine','ejs');
 	app.use(express.static('public'));
 	app.use(bodyParser.urlencoded({extended:true}));
 	
@@ -14,14 +14,14 @@ var express = require('express'),
 		console.log('Sucessfully connected to mongodb server');
 		
 		app.get('/',function(req,res){
-			res.sendFile(__dirname+'/views/login.html');
+			res.render(__dirname+'/views/login',{errorMessage:""});
 		});
 		app.get('/login.html',function(req,res){
-			res.sendFile(__dirname+'/views/login.html');
+			res.render(__dirname+'/views/login',{errorMessage:""});
 			
 		});
 		app.get('/registration.html',function(req,res){
-			res.sendFile(__dirname+'/views/registration.html');
+			res.render(__dirname+'/views/registration',{});
 		});
  		
 		app.post('/incomingUser',function(req,res){
@@ -31,14 +31,14 @@ var express = require('express'),
 				docs.forEach(function(docs){
 					if(userName == docs.username)
 					{	if(password == docs.password)
-						{	res.sendFile(__dirname+'/views/home.html');
+						{	res.render(__dirname+'/views/home');
 						}
 						else
-						{	res.sendFile(__dirname+'/views/loginwitherror.html');
+						{	res.render(__dirname+'/views/login',{errorMessage:"Invalid password"});
 						}
 					}
 					else
-						res.sendFile(__dirname+'/views/registration.html');
+						res.render(__dirname+'/views/registration');
 				});
 			});
 		});
@@ -57,10 +57,10 @@ var express = require('express'),
 				assert.equal(null,err);
 				console.log('Entry saved with _ID'+r.insertedId);
 			});
-			res.sendFile(__dirname+'/views/login.html');
+			res.render(__dirname+'/views/login');
 		});
 		
-		var server = app.listen(8001,function(){
+		var server = app.listen(8000,function(){
 			var port = server.address().port;
 			console.log('express app running on port %s',port);
 		});
