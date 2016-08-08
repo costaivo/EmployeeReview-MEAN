@@ -31,13 +31,14 @@ var express = require('express'),
 				docs.forEach(function(docs){
 					if(userName == docs.username)
 					{	if(password == docs.password)
-							res.sendFile(__dirname+'/views/home.html');
+						{	res.sendFile(__dirname+'/views/home.html');
+						}
 						else
-						{	
-							res.sendFile(__dirname+'/views/login.html');
+						{	res.sendFile(__dirname+'/views/loginwitherror.html');
 						}
 					}
-					res.sendFile(__dirname+'/views/registration.html');
+					else
+						res.sendFile(__dirname+'/views/registration.html');
 				});
 			});
 		});
