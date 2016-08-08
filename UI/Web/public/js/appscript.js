@@ -17,9 +17,9 @@ function checkPasswordMatch()
 document.ready(function(){
                             document.getElementById('confirmpassword').keyup(checkPasswordMatch);
                     });
-function authenticate1(){
+/*function authenticate1(){
 	return true;
-}
+}*/
 
 function authenticate()
                     {   var username=document.getElementById("user").value;

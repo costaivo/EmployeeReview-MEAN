@@ -2,9 +2,8 @@ var express = require('express'),
 	app = express(),
 	engines = require('jade'),
 	MongoClient = require('mongodb').MongoClient,
-	assert = require('assert'),
-	bodyParser = require('body-parser'),
-	path = __dirname;
+	assert = require('assert'),	
+	bodyParser = require('body-parser');	
 	
 	app.set('view engine','jade');
 	app.use(express.static('public'));
@@ -15,16 +14,16 @@ var express = require('express'),
 		console.log('Sucessfully connected to mongodb server');
 		
 		app.get('/',function(req,res){
-			res.sendFile(path+'/views/login.html');
+			res.sendFile(__dirname+'/views/login.html');
 		});
 		app.get('/login.html',function(req,res){
-			res.sendFile('/views/login.html');
+			res.sendFile(__dirname+'/views/login.html');
 			
 		});
 		app.get('/registration.html',function(req,res){
-			res.sendFile(path+'/views/registration.html');
+			res.sendFile(__dirname+'/views/registration.html');
 		});
-		
+ 		
 		app.post('/incomingUser',function(req,res){
 			var userName = req.body.email;
 			var password = req.body.password;
@@ -32,13 +31,14 @@ var express = require('express'),
 				docs.forEach(function(docs){
 					if(userName == docs.username)
 					{	if(password == docs.password)
-							res.sendFile(path+'/views/home.html');
+							res.sendFile(__dirname+'/views/home.html');
 						else
-						{	res.sendFile(path+'/views/login.html');
+						{	
+							res.sendFile(__dirname+'/views/login.html');
 						}
-					}					
+					}
+					res.sendFile(__dirname+'/views/registration.html');
 				});
-				res.sendFile(path+'/views/registration.html');
 			});
 		});
 		
@@ -56,10 +56,10 @@ var express = require('express'),
 				assert.equal(null,err);
 				console.log('Entry saved with _ID'+r.insertedId);
 			});
-			res.sendFile(path+'/views/login.html');
+			res.sendFile(__dirname+'/views/login.html');
 		});
 		
-		var server = app.listen(8002,function(){
+		var server = app.listen(8001,function(){
 			var port = server.address().port;
 			console.log('express app running on port %s',port);
 		});
