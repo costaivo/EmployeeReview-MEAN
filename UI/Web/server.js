@@ -27,20 +27,27 @@ var express = require('express'),
 		app.post('/incomingUser',function(req,res){
 			var userName = req.body.email;
 			var password = req.body.password;
-			db.collection('employee').find({}).toArray(function(err,docs){
-				docs.forEach(function(docs){
-					if(userName == docs.username)
-					{	if(password == docs.password)
-						{	res.render(__dirname+'/views/home');
+			var cursor = db.collection('employee').find({"username":userName});
+			cursor.each(function(err,data){
+				if(err)
+				{	console.log("error!!");
+					res.render(__dirname+'/views/registration',{});
+				}
+				else if(data)
+				{	if(password == data.password)
+						{	res.render(__dirname+'/views/home',{});
 						}
-						else
+					else
 						{	res.render(__dirname+'/views/login',{errorMessage:"Invalid password"});
 						}
-					}
-					else
-						res.render(__dirname+'/views/registration');
-				});
+					if(userName!=data.username)
+						{	res.render(__dirname+'/views/registration',{});
+						}
+				}
+				else
+					res.render(__dirname+'/views/registration',{});
 			});
+								
 		});
 		
 		app.post('/registrationdetails',function(req,res){
@@ -60,7 +67,7 @@ var express = require('express'),
 			res.render(__dirname+'/views/login');
 		});
 		
-		var server = app.listen(8000,function(){
+		var server = app.listen(8001,function(){
 			var port = server.address().port;
 			console.log('express app running on port %s',port);
 		});
