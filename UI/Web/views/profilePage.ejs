@@ -3,7 +3,6 @@
     <head>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/sb-admin.css" rel="stylesheet">
-        <script src="js/appscript.js"></script>
 		<title><%= user %></title>
     </head>
     <body>
@@ -33,7 +32,7 @@
                 <div class="container-fluid">
                     <div class=row>
                         <div class="col-sm-12">
-                             <h1 class="page-header">Welcome </h1><br>
+                             <h1 class="page-header">Welcome <%= firstName %></h1><br>
                         </div>
                     </div>
                     <form name="user" action="/update" onsubmit="return true" method="POST">

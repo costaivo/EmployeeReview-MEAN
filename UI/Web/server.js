@@ -21,44 +21,54 @@ var express = require('express'),
 			
 		});
 		app.get('/registration.html',function(req,res){
-			res.render(__dirname+'/views/registration',{});
+			res.render(__dirname+'/views/registration',{errorMessage:""});
 		});
  		
 		app.post('/incomingUser',function(req,res){
 			var userName = req.body.email;
 			var password = req.body.password;
-			var cursor = db.collection('employee').find({"username":userName});
-			cursor.each(function(err,data){
-				if(err)
-				{	console.log("error!!");
-					res.render(__dirname+'/views/login',{errorMessage:"",user:""});
-				}
-				else if(data)
-				{	if(password == data.password)
-						{	res.render(__dirname+'/views/profilePage',{user:userName});
+			
+			db.collection('employee').findOne({"username":userName},function(err,data){
+			 	if(data)
+			 	{	if(password == data.password)
+						{	res.render(__dirname+'/views/profilePage',{user:userName,firstName:data.firstName});
 						}
 					else
 						{	res.render(__dirname+'/views/login',{errorMessage:"Invalid password",user:userName});
 						}
-					if(userName!=data.username)
-						{	res.render(__dirname+'/views/login',{errorMessage:"Invalid Username & password",user:userName});
-						}
-				}
-				else
-					res.render(__dirname+'/views/login',{errorMessage:"Invalid Username & password",user:userName});
-			});
-								
+			 		
+			 	}
+			 	else
+			 	{
+			 		res.render(__dirname+'/views/login',{errorMessage:"Invalid Username & password",user:""})
+			 	}
+			 });								
 		});
 		
 		app.post('/registrationdetails',function(req,res){
-			var username = req.body.email;
-			var password = req.body.password;			
-			
-			db.collection('employee').insertOne({'username':username,'password':password},function(err,r){
-				assert.equal(null,err);
-				console.log('Entry saved with _ID'+r.insertedId);
-			});
-			res.render(__dirname+'/views/login',{user:username,errorMessage:""});
+			var userName = req.body.email;
+			var password = req.body.password;
+			var confirmpassword = req.body.confirmpassword;
+			db.collection('employee').findOne({"username":userName},function(err,data){
+				if(data)
+				{
+					if(userName==data.username)
+					{	res.render(__dirname+'/views/registration',{errorMessage:"Username not available"});
+					}
+					
+				}
+				else if(password!=confirmpassword)	
+					{	res.render(__dirname+'/views/registration',{errorMessage:"Passwords dosent match"});
+
+					}		
+					else
+					{	db.collection('employee').insertOne({'username':userName,'password':password},function(err,r){
+							assert.equal(null,err);
+							console.log('Entry saved with _ID'+r.insertedId);
+						});
+						res.render(__dirname+'/views/login',{user:userName,errorMessage:""});
+					}
+			});			
 		});
 
 		app.post('/update',function(req,res){
@@ -79,7 +89,7 @@ var express = require('express'),
 			res.render(__dirname+'/views/login',{user:"",errorMessage:""});
 		});
 		
-		var server = app.listen(8000,function(){
+		var server = app.listen(8001,function(){
 			var port = server.address().port;
 			console.log('express app running on port %s',port);
 		});
