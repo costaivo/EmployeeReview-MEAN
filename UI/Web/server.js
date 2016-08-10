@@ -64,7 +64,7 @@ var express = require('express'),
 					else
 					{	db.collection('employee').insertOne({'username':userName,'password':password},function(err,r){
 							assert.equal(null,err);
-							console.log('Entry saved with _ID'+r.insertedId);
+							console.log('Entry saved with _ID '+r.insertedId);
 						});
 						res.render(__dirname+'/views/login',{user:userName,errorMessage:""});
 					}
@@ -82,14 +82,14 @@ var express = require('express'),
 			var team = req.body.teamName;
 			var skill = req.body.skills;
 			
-			db.collection('employee').updateOne({'username':username},{$set:{'firstName':firstName,'middleName':middleName,'lastName':lastName,'dateOfBirth':dateOfBirth,'dateOfJoining':dateOfJoining,'designation':designation,'team':team,'skils':skill}},function(err,r){
+			db.collection('employee').updateOne({'username':username},{$set:{'firstName':firstName,'middleName':middleName,'lastName':lastName,'dateOfBirth':dateOfBirth,'dateOfJoining':dateOfJoining,'designation':designation,'team':team,'skills':skill}},function(err,r){
 				assert.equal(null,err);
 			});
 
 			res.render(__dirname+'/views/login',{user:"",errorMessage:""});
 		});
 		
-		var server = app.listen(8001,function(){
+		var server = app.listen(8000,function(){
 			var port = server.address().port;
 			console.log('express app running on port %s',port);
 		});

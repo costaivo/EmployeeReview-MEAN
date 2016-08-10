@@ -39,27 +39,27 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <label>User name:</label>
-                                <input class="form-control" type="email" id="usr" name="email" placeholder="<%= user %>" value="<%= user %>"><br>
+                                <input class="form-control" type="email" id="usr" name="email" placeholder="<%= user %>" value="<%= user %>" required><br>
                             </div>
                         </div>
                         <div class="row">                        
                             <div class="col-sm-4">
                                 <label>First name:</label>
-                                <input class="form-control" type="text" name="firstName">
+                                <input class="form-control" type="text" name="firstName" required>
                             </div>
                             <div class="col-sm-4">
                                 <label>Middle name:</label>
-                                <input class="form-control" type="text" name="middleName" >
+                                <input class="form-control" type="text" name="middleName" required>
                             </div>
                             <div class="col-sm-4">
                                 <label>Last name:</label>
-                                <input class="form-control" type="text" name="lastName" ><br>
+                                <input class="form-control" type="text" name="lastName" required ><br>
                             </div>                        
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <label>Designation</label>
-                                <select class="form-control" id="designation" name="designation">
+                                <select class="form-control" id="designation" name="designation" required>
                                     <option value="junior developer">Junior Developer</option>
                                     <option value="developer">Developer</option>
                                     <option value="senior developer">Senior Developer</option>
@@ -70,17 +70,17 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <label>Birth date:</label>
-                                <input class="form-control" type="date" id="dataOfBirth" name="dateOfBirth" placeholder="mm/dd/yy">
+                                <input class="form-control" type="date" id="dataOfBirth" name="dateOfBirth" placeholder="mm/dd/yy" required>
                             </div>
                             <div class="col-sm-6">
                                 <label>Date of joining:</label>
-                                <input class="form-control" type="date" id="dateOfJoining" name="dateOfJoining" placeholder="mm/dd/yy"><br>
+                                <input class="form-control" type="date" id="dateOfJoining" name="dateOfJoining" placeholder="mm/dd/yy" required><br>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <label>Team name:</label>
-                                <input class="form-control" type="text" name="teamName" ><br>
+                                <input class="form-control" type="text" name="teamName" required><br>
                             </div>
                             <div class="col-sm-6">
                                 <br>
