@@ -3,34 +3,40 @@
     <head>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/sb-admin.css" rel="stylesheet">
+        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <title>Login</title>
     </head>
     <body>
         <div id="wrapper">
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                    <a class="navbar-brand" href="login.html">Employee Review</a>
+                    <a class="navbar-brand" href="home.html">Employee Review</a>
                     <ul class="nav navbar-right top-nav">
                             <!--  top menu -->
                     </ul>
                     <div class="collapse navbar-collapse navbar-ex1-collapse">
                         <ul class="nav navbar-nav side-nav">
                             <!-- Left menu items -->
-                            <li class="active">
-                                <a href="login.html"><i class="fa fa-fw fa-dashboard"></i>Login Page</a>
-                            </li>
-                            <li>
-                                <a href="registration.html"><i class="fa fa-fw fa-edit"></i>Registration</a>
-                            </li>
+                           
                         </ul>
                     </div>
             </nav>
             <div id="page-wrapper">
                 <div class="container-fluid">
+                    <!-- Dashboard and Heading--> 
                     <div class=row>
                         <div class="col-sm-12">
                              <h1 class="page-header">Login</h1><br>
+                             <ol class="breadcrumb">
+                                <li>
+                                    <i class="fa fa-home"></i>  <a href="login.html">Home</a>
+                                </li>
+                                <li class="active">
+                                    <i class="fa fa-edit"></i> Login
+                                </li>
+                            </ol>
                         </div>
                     </div>
+                    <!--End of Dashboard and Heading--> 
                     <form name="login" action="/incomingUser" id="loginform" onsubmit="return true" method="POST">
                         <div class="row">
                             <div class="col-sm-6">

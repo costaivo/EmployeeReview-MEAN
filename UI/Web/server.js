@@ -14,14 +14,18 @@ var express = require('express'),
 		console.log('Sucessfully connected to mongodb server');
 		
 		app.get('/',function(req,res){
-			res.render(__dirname+'/views/login',{errorMessage:"",user:""});
+			res.render(__dirname+'/views/home',{});
+		});
+		app.get('/home.html',function(req,res){
+			res.render(__dirname+'/views/home',{});
+			
 		});
 		app.get('/login.html',function(req,res){
 			res.render(__dirname+'/views/login',{errorMessage:"",user:""});
 			
 		});
 		app.get('/registration.html',function(req,res){
-			res.render(__dirname+'/views/registration',{errorMessage:""});
+			res.render(__dirname+'/views/registration',{errorMessage:"",user:""});
 		});
  		
 		app.post('/incomingUser',function(req,res){
@@ -31,7 +35,7 @@ var express = require('express'),
 			db.collection('employee').findOne({"username":userName},function(err,data){
 			 	if(data)
 			 	{	if(password == data.password)
-						{	res.render(__dirname+'/views/profilePage',{user:userName,firstName:data.firstName});
+						{	res.render(__dirname+'/views/profilePage',{user:userName,firstName:data.firstName,middleName:data.middleName,lastName:data.lastName,dateOfBirth:data.dateOfBirth,dateOfJoining:data.dateOfJoining,designation:data.designation,team:data.team,skills:data.skills,message:null});				////////////////////////////////////
 						}
 					else
 						{	res.render(__dirname+'/views/login',{errorMessage:"Invalid password",user:userName});
@@ -53,12 +57,12 @@ var express = require('express'),
 				if(data)
 				{
 					if(userName==data.username)
-					{	res.render(__dirname+'/views/registration',{errorMessage:"Username not available"});
+					{	res.render(__dirname+'/views/registration',{errorMessage:"Username not available",user:""});
 					}
 					
 				}
 				else if(password!=confirmpassword)	
-					{	res.render(__dirname+'/views/registration',{errorMessage:"Passwords dosent match"});
+					{	res.render(__dirname+'/views/registration',{errorMessage:"Passwords dosent match",user:userName});
 
 					}		
 					else
@@ -72,7 +76,7 @@ var express = require('express'),
 		});
 
 		app.post('/update',function(req,res){
-			var username = req.body.email;
+			var userName = req.body.email;
 			var firstName = req.body.firstName;
 			var middleName = req.body.middleName;
 			var lastName = req.body.lastName;
@@ -80,16 +84,16 @@ var express = require('express'),
 			var dateOfJoining = req.body.dateOfJoining;
 			var designation = req.body.designation;
 			var team = req.body.teamName;
-			var skill = req.body.skills;
-			
-			db.collection('employee').updateOne({'username':username},{$set:{'firstName':firstName,'middleName':middleName,'lastName':lastName,'dateOfBirth':dateOfBirth,'dateOfJoining':dateOfJoining,'designation':designation,'team':team,'skills':skill}},function(err,r){
+			var skills = req.body.skills;
+			var message = "Profile updated";
+			db.collection('employee').updateOne({'username':userName},{$set:{'firstName':firstName,'middleName':middleName,'lastName':lastName,'dateOfBirth':dateOfBirth,'dateOfJoining':dateOfJoining,'designation':designation,'team':team,'skills':skills}},function(err,r){
 				assert.equal(null,err);
 			});
 
-			res.render(__dirname+'/views/login',{user:"",errorMessage:""});
+			res.render(__dirname+'/views/profilePage',{user:userName,firstName:firstName,middleName:middleName,lastName:lastName,dateOfBirth:dateOfBirth,dateOfJoining:dateOfJoining,designation:designation,team:team,skills:skills,message:message});				////////////////////////////////////
 		});
 		
-		var server = app.listen(8000,function(){
+		var server = app.listen(8001,function(){
 			var port = server.address().port;
 			console.log('express app running on port %s',port);
 		});
