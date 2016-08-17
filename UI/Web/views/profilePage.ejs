@@ -2,7 +2,8 @@
 <html>
     <head>
 		<link href="css/bootstrap.css" rel="stylesheet">
-		<link href="css/sb-admin.css" rel="stylesheet">
+        <link href="css/star.min.css" rel="stylesheet">
+		<link href="css/sb-admin.css" rel="stylesheet">        
         <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<title><%= user %></title>
     </head>
@@ -34,7 +35,7 @@
                             <h1 class="page-header">Welcome <%= firstName %></h1><br>
                             <ol class="breadcrumb">
                                 <li>
-                                    <i class="fa fa-home"></i>  <a href="login.html">Home</a>
+                                    <i class="fa fa-home"></i>  <a href="home.html">Home</a>
                                 </li>
                                 <li class="active">
                                     <i class="fa fa-edit"></i> Profile
@@ -107,7 +108,22 @@
                             </div>
                         </div>
                         <div class="row">
+                            <!--For rating --> 
+                            <div class="col-sm-3"> 
+                                <label>Ratings</label>                         
+                                <span class="rating">                                
+                                    <input type="radio" id="rating5" name="rating" value="5">   <label for="rating5">5</label>
+                                    <input type="radio" id="rating4" name="rating" value="4">   <label for="rating4">4</label>
+                                    <input type="radio" id="rating3" name="rating" value="3">   <label for="rating3">3</label>
+                                    <input type="radio" id="rating2" name="rating" value="2">   <label for="rating2">2</label>
+                                    <input type="radio" id="rating1" name="rating" value="1">   <label for="rating1">1</label>
+                                </span>
+                            </div>
+
+                        </div>
+                        <div class="row">
                             <div class=col-sm-6>
+                                <br>
                                 <input type="submit" class="btn btn-primary" value="Save">
                                 <a href="home.html" class="btn btn-default" role="button">Cancel</a>
                                 <label style="color:green"><%= message %></label>

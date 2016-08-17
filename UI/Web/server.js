@@ -85,10 +85,22 @@ var express = require('express'),
 			var designation = req.body.designation;
 			var team = req.body.teamName;
 			var skills = req.body.skills;
+			var ratings = req.body.rating;
 			var message = "Profile updated";
-			db.collection('employee').updateOne({'username':userName},{$set:{'firstName':firstName,'middleName':middleName,'lastName':lastName,'dateOfBirth':dateOfBirth,'dateOfJoining':dateOfJoining,'designation':designation,'team':team,'skills':skills}},function(err,r){
-				assert.equal(null,err);
-			});
+
+			if (ratings==undefined)
+			{	db.collection('employee').findOne({"username":userName},function(err,data){
+					ratings=data.rating;
+					db.collection('employee').updateOne({'username':userName},{$set:{'firstName':firstName,'middleName':middleName,'lastName':lastName,'dateOfBirth':dateOfBirth,'dateOfJoining':dateOfJoining,'designation':designation,'team':team,'skills':skills,'rating':ratings}},function(err,r){
+						assert.equal(null,err);				
+					});
+				});	
+			}				
+			else
+			{	db.collection('employee').updateOne({'username':userName},{$set:{'firstName':firstName,'middleName':middleName,'lastName':lastName,'dateOfBirth':dateOfBirth,'dateOfJoining':dateOfJoining,'designation':designation,'team':team,'skills':skills,'rating':ratings}},function(err,r){
+					assert.equal(null,err);				
+				});
+			}
 
 			res.render(__dirname+'/views/profilePage',{user:userName,firstName:firstName,middleName:middleName,lastName:lastName,dateOfBirth:dateOfBirth,dateOfJoining:dateOfJoining,designation:designation,team:team,skills:skills,message:message});				////////////////////////////////////
 		});
