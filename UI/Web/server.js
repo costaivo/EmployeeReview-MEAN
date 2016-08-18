@@ -1,6 +1,5 @@
 var express = require('express'),
 	app = express(),
-	engines = require('jade'),
 	MongoClient = require('mongodb').MongoClient,
 	assert = require('assert'),	
 	bodyParser = require('body-parser');	
