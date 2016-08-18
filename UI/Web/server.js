@@ -1,17 +1,26 @@
+//Employee review app
+
+//Declaring variables
 var express = require('express'),
 	app = express(),
 	MongoClient = require('mongodb').MongoClient,
 	assert = require('assert'),	
 	bodyParser = require('body-parser');	
 	
-	app.set('view engine','ejs');
-	app.use(express.static('public'));
+
+	//Setting up the app
+	app.set('view engine','ejs');	//setting view engine as ejs
+	app.use(express.static('public'));	//setting up middleware to serve static files
 	app.use(bodyParser.urlencoded({extended:true}));
 	
+	//setting up mongo client to connect to local databse(port 27017  db-> myapp)
+
 	MongoClient.connect('mongodb://localhost:27017/myapp',function(err,db){
-		assert.equal(null,err);
+		assert.equal(null,err);		//in case of error
 		console.log('Sucessfully connected to mongodb server');
 		
+		//configuring express app for various incoming requests	and rendering proper pages
+
 		app.get('/',function(req,res){
 			res.render(__dirname+'/views/home',{});
 		});
@@ -30,6 +39,8 @@ var express = require('express'),
 		app.post('/incomingUser',function(req,res){
 			var userName = req.body.email;
 			var password = req.body.password;
+
+			//User validation
 			
 			db.collection('employee').findOne({"username":userName},function(err,data){
 			 	if(data)
@@ -48,6 +59,8 @@ var express = require('express'),
 			 });								
 		});
 		
+		//new registration password check and if sucessfull saving it in database
+
 		app.post('/registrationdetails',function(req,res){
 			var userName = req.body.email;
 			var password = req.body.password;
@@ -73,6 +86,8 @@ var express = require('express'),
 					}
 			});			
 		});
+
+		//Updating details once a user has sucessfully logged in
 
 		app.post('/update',function(req,res){
 			var userName = req.body.email;
@@ -104,6 +119,8 @@ var express = require('express'),
 			res.render(__dirname+'/views/profilePage',{user:userName,firstName:firstName,middleName:middleName,lastName:lastName,dateOfBirth:dateOfBirth,dateOfJoining:dateOfJoining,designation:designation,team:team,skills:skills,message:message});				////////////////////////////////////
 		});
 		
+		// express app listening to specified port
+
 		var server = app.listen(8001,function(){
 			var port = server.address().port;
 			console.log('express app running on port %s',port);
