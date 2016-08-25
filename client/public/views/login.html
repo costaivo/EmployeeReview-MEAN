@@ -28,11 +28,11 @@
                         </div>
                     </div>
                     <!--End of Dashboard and Heading--> 
-                    <form name="login" action="/incomingUser" id="loginform" onsubmit="return true" method="POST">
+                    <form name="loginform" id="loginform" ng-submit="login()">
                         <div class="row">
                         <div class="col-sm-6">
                             <label>User name<sup style="color:red">*</sup>:</label>
-                            <input class="form-control" type="email" id="user" name="email" placeholder="email@example.com" required><br>
+                            <input class="form-control" type="email" id="email" name="email" placeholder="email@example.com" required><br>
                         </div>
                     </div>
                     <div class="row">
