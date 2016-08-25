@@ -3,6 +3,6 @@
 		$scope.message = "Welcome";
 	};
 	home.$inject = ['$scope'];
-	angular.module("employeeApp").controller("home",home);
+	angular.module("employeeApp").controller("homeController",home);
 	home.$inject = ['$scope'];
 }());

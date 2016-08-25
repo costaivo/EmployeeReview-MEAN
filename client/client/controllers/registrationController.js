@@ -26,5 +26,5 @@
 		
 	};
 	registration.$inject = ['$scope'];
-	angular.module("employeeApp").controller("registration",registration);
+	angular.module("employeeApp").controller("registrationController",registration);
 }());

@@ -3,28 +3,28 @@
 	app.config(function($routeProvider){
 			$routeProvider
 				.when('/',{
-					controller:'home',
+					controller:'homeController',
 					templateUrl:'views/home.html'
 				})
 				.when('/home',{
-					controller:'home',
+					controller:'homeController',
 					templateUrl:'views/home.html'
 				})
 				.when('/login',{
-					controller:'login',
+					controller:'loginController',
 					templateUrl:'views/login.html'
 				})
 				.when('/registration',{
-					controller:'registration',
+					controller:'registrationController',
 					templateUrl:'views/registration.html'
 				})
 
 				.when('/user',{
-					controller:'profile',
+					controller:'profileController',
 					templateUrl:'views/profile.html'
 				})
 				.when('/image',{
-					controller:'imageUploadController',
+					controller:'imageUpload',
 					templateUrl:'views/imageUpload.html'
 				})
 				.otherwise({redirectTo:'/'});

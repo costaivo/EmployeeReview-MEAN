@@ -4,11 +4,11 @@ var app        = express();
 
 	var port = process.env.PORT || 3000;
 
-	app.use(express.static("public"));
+	app.use(express.static("client"));
 	//app.use(express.static(__dirname));
 
 	app.get("/", function(req, res) {
-	    res.sendFile("./public/index.html");
+	    res.sendFile("./client/index.html");
 	});
 
 // Start Server

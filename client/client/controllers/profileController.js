@@ -16,5 +16,5 @@
 			};
 	};
 	profile.$inject=['$scope'];
-	angular.module("employeeApp").controller("profile",profile);
+	angular.module("employeeApp").controller("profileController",profile);
 }());
