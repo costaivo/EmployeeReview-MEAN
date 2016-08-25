@@ -1,0 +1,62 @@
+<div id="wrapper">
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                    <a class="navbar-brand" href="home.html">Employee Review</a>
+                    <ul class="nav navbar-right top-nav">
+                            <!--  top menu -->
+                            <li class="dropdown">
+                                <a href="login.html" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-power-off"></i> Log Out </a>                                
+                            </li>
+                            <!--  -->
+                    </ul>
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav side-nav">
+                            <!-- Left menu items -->
+                            <li class="active">
+                                <a>Profile</a>
+                            </li>
+                        </ul>
+                    </div>
+            </nav>
+            <div id="page-wrapper">
+                <div class="container-fluid">
+                    <!-- Dashboard and Heading-->   
+                    <div class=row>
+                        <div class="col-sm-12">
+                            <h1 class="page-header">Images</h1><br>
+                            <ol class="breadcrumb">
+                                <li>
+                                    <i class="fa fa-home"></i>  <a href="/#/home.html">Home</a>
+                                </li>
+                                <li class="active">
+                                    <i class="fa fa-edit"></i> Profile
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                    <!-- End of dashboard -->
+                    <div controller="imageUploadController">
+                    <form name="imaheUpload">
+                        <div >
+                            <label>Upload Image</label>
+                            
+                            <input type="file" file-model="myFile" id="fileInput" />
+                <!--            <input id="inputImage" type="file" accept="image/*" image="image">  -->
+                            <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
+
+                            <img ng-src="">
+                            <button type="button" ng-click="uploadFile()" >update</button> <br>
+
+
+
+                            
+
+                           <!-- <button type="submit" ng-click="single(inputImage)" >Add</button>                   -->
+                        </div>
+
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+

@@ -1,0 +1,83 @@
+<div id="wrapper">
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                    <a class="navbar-brand" href="#/home">Employee Review</a>
+                    <ul class="nav navbar-right top-nav">
+                            <!--  top menu -->
+                    </ul>
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav side-nav">
+                            <!-- Left menu items -->
+                           
+                        </ul>
+                    </div>
+            </nav>
+            <div id="page-wrapper">
+                <div class="container-fluid">
+                    <!-- Dashboard and Heading--> 
+                    <div class=row>
+                        <div class="col-sm-12">
+                             <h1 class="page-header">Login</h1><br>
+                             <ol class="breadcrumb">
+                                <li>
+                                    <i class="fa fa-home"></i>  <a href="#/home">Home</a>
+                                </li>
+                                <li class="active">
+                                    <i class="fa fa-edit"></i> Login
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                    <!--End of Dashboard and Heading--> 
+                    <form name="login" action="/incomingUser" id="loginform" onsubmit="return true" method="POST">
+                        <div class="row">
+                        <div class="col-sm-6">
+                            <label>User name<sup style="color:red">*</sup>:</label>
+                            <input class="form-control" type="email" id="user" name="email" placeholder="email@example.com" required><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Password<sup style="color:red">*</sup>:</label>
+                            <input class="form-control" type="password" id="password" name="password" required>
+                            <label style="color:red" id="errorMessage"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <br>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-primary" >Login</button>
+                            <button class="btn btn-default" onclick="window.location.href='#/registration'">New Registrstion</button>
+                        </div>                          
+                        <div class="col-sm-6">
+                            <br>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

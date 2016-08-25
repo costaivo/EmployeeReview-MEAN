@@ -1,0 +1,128 @@
+<div id="wrapper">
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                    <a class="navbar-brand" href="home.html">Employee Review</a>
+                    <ul class="nav navbar-right top-nav">
+                            <!--  top menu -->
+                            <li class="dropdown">
+                                <a href="login.html" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-power-off"></i> Log Out </a>                                
+                            </li>
+                            <!--  -->
+                    </ul>
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav side-nav">
+                            <!-- Left menu items -->
+                            <li class="active">
+                                <a>Profile</a>
+                            </li>
+                        </ul>
+                    </div>
+            </nav>
+            <div id="page-wrapper">
+                <div class="container-fluid">
+                    <!-- Dashboard and Heading-->   
+                    <div class=row>
+                        <div class="col-sm-12">
+                            <h1 class="page-header">Welcome {{ user.firstname }}</h1><br>
+                            <ol class="breadcrumb">
+                                <li>
+                                    <i class="fa fa-home"></i>  <a href="/#/home.html">Home</a>
+                                </li>
+                                <li class="active">
+                                    <i class="fa fa-edit"></i> Profile
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                    <!-- End of dashboard -->
+                    <form name="user" action="/update" onsubmit="return true" method="POST">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label>User name:</label>
+                                <input class="form-control" type="email" id="User" name="Uemail" placeholder="{{ user.username }}" value="{{ user.username }}" disabled><br>
+                                <div style="display:none">
+                                    <input name="email" value="{{ user.username }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">                        
+                            <div class="col-sm-3">
+                                <label>First name:</label>
+                                <input class="form-control" type="text" name="firstName" value=" {{ user.firstName }}">
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Middle name:</label>
+                                <input class="form-control" type="text" name="middleName" value="{{ user.middleName }} ">
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Last name:</label>
+                                <input class="form-control" type="text" name="lastName" value="{{ user.lastName }}"><br>
+                            </div>                        
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label>Designation</label>
+                                <select class="form-control" id="designation" name="designation" value="{{ user.designation }}">
+                                    <option value="junior developer">Junior Developer</option>
+                                    <option value="developer">Developer</option>
+                                    <option value="senior developer">Senior Developer</option>
+                                    <option value="Other">Other...</option>
+                                </select><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Birth date:</label>
+                                <input class="form-control" type="date" id="dataOfBirth" name="dateOfBirth" placeholder="mm/dd/yy" value="{{ user.dateOfBirth }}">
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Date of joining:</label>
+                                <input class="form-control" type="date" id="dateOfJoining" name="dateOfJoining" placeholder="mm/dd/yy" value="{{ user.dateOfJoining }}"><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Team name:</label>
+                                <input class="form-control" type="text" name="teamName" value=" {{ user.team }}"><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Skills:</label>
+                                <textarea class="form-control" rows="3" name="skills" > {{ user.skills }} </textarea><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!--For rating --> 
+                 <!--           <div class="col-sm-3"> 
+                                <label>Ratings</label>                         
+                                <span class="rating">                                
+                                    <input type="radio" id="rating5" name="rating" value="5">   <label for="rating5">5</label>
+                                    <input type="radio" id="rating4" name="rating" value="4">   <label for="rating4">4</label>
+                                    <input type="radio" id="rating3" name="rating" value="3">   <label for="rating3">3</label>
+                                    <input type="radio" id="rating2" name="rating" value="2">   <label for="rating2">2</label>
+                                    <input type="radio" id="rating1" name="rating" value="1">   <label for="rating1">1</label>
+                                </span>
+                            </div>
+                -->
+                        </div>
+                        <div class="row">
+                            <div class=col-sm-6>
+                                <br>
+                                <input type="submit" class="btn btn-primary" value="Save">
+                                <a href="home.html" class="btn btn-default" role="button">Cancel</a>
+                             <!--   <label style="color:green"><%= message %></label>   -->
+                            </div>
+                            <div class=col-sm-6>
+                                <label><br></label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>

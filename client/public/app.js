@@ -1,0 +1,32 @@
+(function(){
+	var app = angular.module("employeeApp",['ngRoute']);
+	app.config(function($routeProvider){
+			$routeProvider
+				.when('/',{
+					controller:'home',
+					templateUrl:'views/home.html'
+				})
+				.when('/home',{
+					controller:'home',
+					templateUrl:'views/home.html'
+				})
+				.when('/login',{
+					controller:'login',
+					templateUrl:'views/login.html'
+				})
+				.when('/registration',{
+					controller:'registration',
+					templateUrl:'views/registration.html'
+				})
+
+				.when('/user',{
+					controller:'profile',
+					templateUrl:'views/profile.html'
+				})
+				.when('/image',{
+					controller:'imageUploadController',
+					templateUrl:'views/imageUpload.html'
+				})
+				.otherwise({redirectTo:'/'});
+		});
+}());
