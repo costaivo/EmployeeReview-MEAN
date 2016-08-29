@@ -45,7 +45,10 @@ var User=function()
 					newUser.save(function(err,data){
 							if(err)
 								console.log(err);
-							console.log('Entry saved as: ',data);
+							else
+							{	console.log('Entry saved as: ',data);
+								res.status(200).json({user:data});
+							}
 					});
 					
 				}
@@ -90,6 +93,16 @@ var User=function()
 					}
 				});
 			}
+		});
+	};
+	this.getUserByEmail = function(req,res){
+		User.findOne({"username":req.params.email},function(err,data){
+			if(err)
+				console.log(err);
+			else if(data)
+				res.status(200).json({user:data});
+			else
+				res.status(404).json({message:"User not found"});
 		});
 	};
 

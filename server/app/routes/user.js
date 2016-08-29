@@ -7,5 +7,6 @@ var express= require('express'),
 	router.post("/updateProfile",userController.updateProfile);
 	router.get("/",userController.hello);
 	router.get("/echo",userController.echo);
+	router.get("/:email", userController.getUserByEmail);
 
 	module.exports= router;
