@@ -4,7 +4,7 @@
 		$scope.login=function(){
 			//take credentials
 			//add a service called authentication that will do http post(user)
-			
+			$rootScope.user={};
 			authentication.login($scope.credentials)
 				.error(function(err){
 					console.log(err.message);

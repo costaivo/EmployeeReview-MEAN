@@ -3,7 +3,6 @@
 	function authentication($http, $window){
 
 		var login = function(user){
-			//console.log(user);
 			return $http.post('http://localhost:9000/user',user).success(function(data){
 				//console.log("login Sucessfull");
 				});
