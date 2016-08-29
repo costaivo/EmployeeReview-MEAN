@@ -47,7 +47,7 @@
 		        restrict: "A",
 		        link: function (scope, el, attr) {
 		            el.datepicker({
-		                            dateFormat: 'yy-mm-dd'
+		                            dateFormat: 'mm-dd-yy'
 		                        });
 		        }
 		    };

@@ -1,5 +1,5 @@
 (function(){
-	function registration($scope, authentication, location){
+	function registrationController($scope, authentication, $location){
 		$scope.button = true;
 
 
@@ -13,7 +13,7 @@
                  if(password1!=password2)
                  {  
                     console.log("{{ errorMessage }}");                 	
-             		$scope.errorMessage="Passwords do not match"
+             		$scope.errorMessage="Incorrect password match"
 
                  }
                 else
@@ -23,10 +23,8 @@
                     authentication.register(credentials)
                     .error(function(err){
                         console.log("error" + err.message);
-                        if (err.message === "UserName Not available")
-                        {
                             $scope.usernameErrorMessage = err.message;
-                        }
+
                     })
                     .success(function(data){
                         console.log("success" + JSON.stringify(data));
@@ -37,6 +35,6 @@
 		
 		
 	};
-	registration.$inject = ['$scope', 'authentication','$location'];
-	angular.module("employeeApp").controller("registrationController",registration);
+	registrationController.$inject = ['$scope', 'authentication','$location'];
+	angular.module("employeeApp").controller("registrationController",registrationController);
 }());
