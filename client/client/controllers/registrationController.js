@@ -1,30 +1,42 @@
 (function(){
-	function registration($scope){
+	function registration($scope, authentication, location){
 		$scope.button = true;
-		$scope.checkPasswordMatch=function() 
+
+
+		$scope.register=function() 
              {
-                var password1=document.getElementById('password').value;
-                var password2=document.getElementById('confirmpassword').value;
+                var password1=$scope.credentials.password;
+                var password2=$scope.credentials.confirmPassword;
+                var credentials = $scope.credentials;
                 console.log("checking password");
 
                  if(password1!=password2)
-                 {  console.log("{{ errorMessage }}");
-                 	//document.getElementById('errormessage').innerHTML="Passwords do not match";
+                 {  
+                    console.log("{{ errorMessage }}");                 	
              		$scope.errorMessage="Passwords do not match"
-             		$scope.button = true;
-                 	return false;
+
                  }
                 else
-                 {  console.log("success"); 
+                 {  
              		$scope.errorMessage="";
-             		$scope.button = false;
-                 	//document.getElementById('errormessage').innerHTML="Passwords match!";
-                      return true;
+
+                    authentication.register(credentials)
+                    .error(function(err){
+                        console.log("error" + err.message);
+                        if (err.message === "UserName Not available")
+                        {
+                            $scope.usernameErrorMessage = err.message;
+                        }
+                    })
+                    .success(function(data){
+                        console.log("success" + JSON.stringify(data));
+                        $location.path('profile');  
+                    });
                  }
              }
 		
 		
 	};
-	registration.$inject = ['$scope'];
+	registration.$inject = ['$scope', 'authentication','$location'];
 	angular.module("employeeApp").controller("registrationController",registration);
 }());

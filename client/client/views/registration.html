@@ -13,7 +13,7 @@
             </nav>
                 <div id="page-wrapper">
                         <div class="container-fluid">
-                            <form name="demo" action="" onsubmit="return checkPasswordMatch()" method="POST">
+                            <form ng-submit="register()">
                                 <!-- Dashboard and Heading--> 
                                 <div class=row>
                                     <div class="col-sm-12">
@@ -32,24 +32,25 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <label>User name<sup style="color:red">*</sup>:</label>
-                                        <input class="form-control" type="email" id="usr" name="email" placeholder="email@example.com"  required><br>
+                                        <input class="form-control" type="email" ng-model="credentials.email" id="usr" name="email" placeholder="email@example.com"  required><br>
+                                        <label style="color:red" id="usernameErrorMessage" ng-show="usernameErrorMessage">{{usernameErrorMessage}}</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <!--     -->
                                     <div class="col-sm-4">
                                         <label>Password<sup style="color:red">*</sup>:</label>
-                                        <input class="form-control" type="password" name="password" id="password" required>
+                                        <input class="form-control" ng-model="credentials.password" type="password" name="password" id="password" required>
                                     </div>
                                     <div class="col-sm-4">
                                         <label>Re-Enter Password<sup style="color:red">*</sup>:</label>
-                                        <input class="form-control" type="password" name="confirmpassword" id="confirmpassword" ng-blur="checkPasswordMatch()"required><br>
+                                        <input class="form-control" type="password" ng-model="credentials.confirmPassword" name="confirmpassword" id="confirmpassword" required><br>
                                         <label style="color:red" id="errorMessage" ng-show="errorMessage">{{errorMessage}}</label>
                                     </div>                                    
                                 </div>
                                 <div class="row">
                                     <div class=col-sm-6>
-                                        <input type="submit" class="btn btn-primary" value="Submit" ng-disabled="button">
+                                        <input type="submit" class="btn btn-primary" value="Submit">
                                     </div>                                    
                                 </div>
                         </form>
