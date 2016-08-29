@@ -1,27 +1,26 @@
 var User=function()
 {	
 	var User = require('../models/user').User;
+	var constants = require('../libraries/constants');
 
 	this.loginUser=function(req,res){
 
 		var email=req.body.email;
 		var password=req.body.password;
 		//passport module
-		console.log(email);
-		console.log(password);
 
 		User.findOne({"username":email},function(err,data){
 				if(err)
-				{	res.status(401).json({message:"Invalid User"});	
+				{	res.status(401).json({message:constants.invalidUser});	
 				}
 				if(!data)
 				{
-					res.status(401).json({message:"Invalid User"});
+					res.status(401).json({message:constants.invalidUser});
 				}
 			 	else if(password==data.password)
 			 	{	res.status(200).json({user:data});		}
 			 	else
-			 	{	res.status(401).json({message:"Incorrect password"});	}
+			 	{	res.status(401).json({message:constants.incorrectPassword});	}
 			 });
 
 	};
@@ -52,7 +51,7 @@ var User=function()
 				}
 			 	else 
 			 	{	console.log("username exists");
-			 		res.status(401).json({message:"UserName Not available"});
+			 		res.status(401).json({message:constants.emailAlreadyTaken});
 				}
 			 	
 			 });
@@ -69,8 +68,8 @@ var User=function()
 				console.log(err);
 			}
 			if(!data)
-			{	res.status(404).json({message:"User not Found"});
-				console.log("USer not found");
+			{	res.status(404).json({message:constants.invalidUser});
+				console.log("User not found");
 			}
 			else
 			{	//update one
