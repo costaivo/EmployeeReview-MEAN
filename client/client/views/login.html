@@ -39,7 +39,7 @@
                         <div class="col-sm-6">
                             <label>Password<sup style="color:red">*</sup>:</label>
                             <input class="form-control" type="password" id="password" ng-model="credentials.password" name="password" required>
-                            <label style="color:red" id="errorMessage"></label>
+                            <label style="color:red" id="errorMessage" ng-show="errorMessage" ng-init="errorMessage=''">{{errorMessage}}</label>
                         </div>
                     </div>
                     <div class="row">

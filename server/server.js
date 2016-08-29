@@ -14,6 +14,7 @@ var user = require('./app/routes/user');
 	app.set('view engine','ejs');	//setting view engine as ejs
 	app.use(express.static('app'));	//setting up middleware to serve static files
 	app.use(bodyParser.urlencoded({extended:true}));
+	app.use(bodyParser.json());
 	app.use(cors({
 		allowedOrigins:['http://localhost:3000'],
 		//headers:[]
@@ -42,5 +43,15 @@ function mongooseLog(data) {
 }
 
 app.use('/user', user);
+
+app.get('/',function(req,res){
+	res.send("Server waiting for requests on port 9000");
+});
+//app.set('port', 9000);
+
+app.listen(9000, function () {
+    console.log( "Express server listening on port 9000" );
+});
+
 
 module.exports = app;

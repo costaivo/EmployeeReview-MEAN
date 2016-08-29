@@ -21,6 +21,6 @@ var userSchema = new mongoose.Schema({
   	rating:String
 });
 
-var user=mongoose.model('employee',userSchema);
+var user=mongoose.model('employees',userSchema);
 
 module.exports = {User:user};

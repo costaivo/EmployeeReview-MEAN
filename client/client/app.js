@@ -19,7 +19,7 @@
 					templateUrl:'views/registration.html'
 				})
 
-				.when('/user',{
+				.when('/profile',{
 					controller:'profileController',
 					templateUrl:'views/profile.html'
 				})
