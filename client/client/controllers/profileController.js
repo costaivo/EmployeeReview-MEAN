@@ -1,5 +1,5 @@
 (function(){
-	function profile($scope,$rootScope){
+	function profileController($scope,$rootScope){
 		// var user={ 
 		// 	    "_id" : "57a47403ae94ef0614d883a9", 
 		// 	    "username" : "abc@d.com", 
@@ -19,7 +19,37 @@
 		var user= $rootScope.user;
 			console.log(user);
 			$scope.firstName="try";
+
+
+
+
+        $(function () {
+            $("#birthDate").datepicker({
+                dateFormat: 'mm-dd-yy'
+            });
+        });	
+
+
+        $(function () {
+            $("#joiningDate").datepicker({
+                dateFormat: 'mm-dd-yy'
+            });
+        });	
+
 	};
-	profile.$inject=['$scope','$rootScope'];
-	angular.module("employeeApp").controller("profileController",profile);
+
+	profileController.$inject=['$scope','$rootScope'];
+	angular
+		.module("employeeApp")
+		.controller("profileController",profileController)
+	    .directive("datepicker", function () {
+		    return {
+		        restrict: "A",
+		        link: function (scope, el, attr) {
+		            el.datepicker({
+		                            dateFormat: 'yy-mm-dd'
+		                        });
+		        }
+		    };
+		});
 }());
