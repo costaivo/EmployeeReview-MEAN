@@ -4,6 +4,7 @@ var express= require('express'),
 
 	router.post("/",userController.loginUser);
 	router.post("/register",userController.register);
+	router.post("/updateProfile",userController.updateProfile);
 	router.get("/",userController.hello);
 	router.get("/echo",userController.echo);
 
