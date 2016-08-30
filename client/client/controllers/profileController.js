@@ -1,24 +1,47 @@
 (function(){
-	function profileController($scope,$rootScope){
-		// var user={ 
-		// 	    "_id" : "57a47403ae94ef0614d883a9", 
-		// 	    "username" : "abc@d.com", 
-		// 	    "password" : "aaa", 
-		// 	    "firstName" : "Aaa", 
-		// 	    "middleName" : "Bbb", 
-		// 	    "lastName" : "Ccc", 
-		// 	    "dateOfBirth" : "2000-01-01", 
-		// 	    "dateOfJoining" : "2016-01-01", 
-		// 	    "designation" : "junior developer", 
-		// 	    "team" : "MEAN stack", 
-		// 	    "skills" : "C/C++,NodeJS,HTML", 
-		// 	    "rating" : "3"
-		// 	};
-		// $scope.user=User;
+	function profileController($scope, $rootScope, authentication){
 
-		var user= $rootScope.user;
-			console.log(user);
-			$scope.firstName="try";
+		$scope.user = { "username" : "abc@d.com"};
+		var username = $scope.user.username;
+
+		authentication.getProfile(username)
+		.success(function(data)
+		{
+			console.log("data " + JSON.stringify(data));
+			var userdata = data.user;
+			$scope.user={ 
+			    "username" : userdata.username, 			    
+			    "firstName" : userdata.firstName, 
+			    "middleName" : userdata.middleName, 
+			    "lastName" : userdata.lastName, 
+			    "dateOfBirth" : userdata.dateOfBirth, 
+			    "dateOfJoining" : userdata.dateOfJoining, 
+			    "designation" : userdata.designation, 
+			    "team" : userdata.team, 
+			    "skills" : userdata.skills, 
+			    "rating" : userdata.rating
+			};
+		});
+
+
+
+        //update user profile details
+        $scope.updateUserProfile = function()
+        {        
+ 
+ 			var user= $scope.user;
+ 			console.log(user);
+            authentication.updateProfile(user)          
+            .error(function(err) {
+                console.log("error " + JSON.stringify(err));
+            })
+            .then(function(data) {                    
+                console.log(" data " + JSON.stringify(data));
+
+            });
+
+            
+        }
 
 
 
@@ -38,7 +61,7 @@
 
 	};
 
-	profileController.$inject=['$scope','$rootScope'];
+	profileController.$inject=['$scope', '$rootScope', 'authentication'];
 	angular
 		.module("employeeApp")
 		.controller("profileController",profileController)
