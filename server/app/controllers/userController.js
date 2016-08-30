@@ -7,6 +7,7 @@ var User=function()
 
 		var email=req.body.email;
 		var password=req.body.password;
+		var token;
 		//passport module
 
 		User.findOne({"username":email},function(err,data){
@@ -18,7 +19,10 @@ var User=function()
 					res.status(401).json({message:constants.invalidUser});
 				}
 			 	else if(password==data.password)
-			 	{	res.status(200).json({user:data});		}
+			 	{	//generating token
+			 		token=data.generateJwt();
+			 		res.status(200).json({token:token});
+			 	}
 			 	else
 			 	{	res.status(401).json({message:constants.incorrectPassword});	}
 			 });
@@ -26,8 +30,6 @@ var User=function()
 	};
 
 	this.register = function(req,res){
-		// var email=req.body.email;
-		// var password=req.body.password;
 
 		var newUser= new User({
 			username:req.body.email,
@@ -61,10 +63,7 @@ var User=function()
 	};
 
 	this.updateProfile=function(req,res){
-		var updateUser= new User({
-			username:req.body.email,
-			password:req.body.password
-		});
+		
 		User.findOne({"username":req.body.email},function(err,data){
 			if(err)
 			{	res.status(401).json({message:err});
