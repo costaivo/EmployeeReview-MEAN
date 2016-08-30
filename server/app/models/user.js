@@ -4,7 +4,6 @@ var mongoose = require('mongoose'),
 this.config = require('../config/config.js');
 var self = this;
 
-//var self=this;
 var userSchema = new mongoose.Schema({
     username: {
         type: String,

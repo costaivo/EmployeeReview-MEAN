@@ -10,6 +10,7 @@ var envConfig = require('./app/config/config.env.js');
 var port = require('./app/config/config.env.js').port;
 
 var user = require('./app/routes/user');
+var skill = require('./app/routes/skill');
 
 //Setting up the app
 app.set('view engine', 'ejs'); //setting view engine as ejs
@@ -48,6 +49,7 @@ function mongooseLog(data) {
 }
 
 app.use('/user', user);
+app.use('/skill', skill);
 
 app.get('/', function(req, res) {
     res.send("Server waiting for requests on port " + port);

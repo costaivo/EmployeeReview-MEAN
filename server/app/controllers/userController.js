@@ -35,7 +35,6 @@ var User = function() {
         User.findOne({ "username": req.body.email }, function(err, data) {
             if (err) {
                 res.status(401).json({ message: err });
-                console.log("error");
             }
             if (!data) { //insert new entry in database
 
