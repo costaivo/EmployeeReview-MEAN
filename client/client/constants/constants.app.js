@@ -1,4 +1,11 @@
-//constants for angular
+/*
+Description : Add Angular related constants here
+	DO NOT ADD node/express related cconstants here
+	Do not add any code or functions here
+
+Author : Nikhil U
+*/
+
 
 var constants = {
     port: 3000,
@@ -9,3 +16,4 @@ var constants = {
 
 };
 angular.module('employeeApp').constant('constants', constants);
+
