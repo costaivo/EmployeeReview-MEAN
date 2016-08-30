@@ -1,10 +1,10 @@
 (function(){
-	function profileController($scope, $rootScope, authentication){
+	function profileController($scope, $rootScope, authentication, constants){
 
-		$scope.user = { "username" : "abc@d.com"};
-		var username = $scope.user.username;
+		//$scope.user = { "username" : "abc@d.com"};
+		//var username = $scope.user.username;
 
-		authentication.getProfile(username)
+		authentication.getProfile()
 		.success(function(data)
 		{
 			console.log("data " + JSON.stringify(data));
@@ -48,20 +48,20 @@
 
         $(function () {
             $("#birthDate").datepicker({
-                dateFormat: 'mm-dd-yy'
+                dateFormat : constants.dateFormat
             });
         });	
 
 
         $(function () {
             $("#joiningDate").datepicker({
-                dateFormat: 'mm-dd-yy'
+                dateFormat: constants.dateFormat
             });
         });	
 
 	};
 
-	profileController.$inject=['$scope', '$rootScope', 'authentication'];
+	profileController.$inject=['$scope', '$rootScope', 'authentication', 'constants'];
 	angular
 		.module("employeeApp")
 		.controller("profileController",profileController)
@@ -70,7 +70,7 @@
 		        restrict: "A",
 		        link: function (scope, el, attr) {
 		            el.datepicker({
-		                            dateFormat: 'mm-dd-yy'
+		                            dateFormat: constants.dateFormat
 		                        });
 		        }
 		    };

@@ -1,40 +1,34 @@
-(function(){
-	function registrationController($scope, authentication, $location){
-		$scope.button = true;
+(function() {
+    function registrationController($scope, authentication, $location, constants) {
+        $scope.button = true;
 
 
-		$scope.register=function() 
-             {
-                var password1=$scope.credentials.password;
-                var password2=$scope.credentials.confirmPassword;
-                var credentials = $scope.credentials;
-                console.log("checking password");
+        $scope.register = function() {
+            var password1 = $scope.credentials.password;
+            var password2 = $scope.credentials.confirmPassword;
+            var credentials = $scope.credentials;            
 
-                 if(password1!=password2)
-                 {  
-                    console.log("{{ errorMessage }}");                 	
-             		$scope.errorMessage="Incorrect password match"
+            if (password1 != password2) {                
+                $scope.errorMessage = constants.msgPasswordMatchFailure;
 
-                 }
-                else
-                 {  
-             		$scope.errorMessage="";
+            } else {
+                $scope.errorMessage = "";
 
-                    authentication.register(credentials)
-                    .error(function(err){
+                authentication.register(credentials)
+                    .error(function(err) {
                         console.log("error" + err.message);
-                            $scope.usernameErrorMessage = err.message;
+                        $scope.usernameErrorMessage = constants.msgUsernameRegisterFailure;
 
                     })
-                    .success(function(data){
+                    .success(function(data) {
                         console.log("success" + JSON.stringify(data));
-                        $location.path('profile');  
+                        $location.path('profile');
                     });
-                 }
-             }
-		
-		
-	};
-	registrationController.$inject = ['$scope', 'authentication','$location'];
-	angular.module("employeeApp").controller("registrationController",registrationController);
+            }
+        }
+
+
+    };
+    registrationController.$inject = ['$scope', 'authentication', '$location', 'constants'];
+    angular.module("employeeApp").controller("registrationController", registrationController);
 }());

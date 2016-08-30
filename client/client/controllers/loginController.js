@@ -1,24 +1,27 @@
 (function() {
-    function loginController($scope, $rootScope, authentication, $location) {
+
+    function loginController($scope, $rootScope, authentication, $location, constants) {
 
         $scope.login = function() {
             //take credentials
             //add a service called authentication that will do http post(user)
-            $rootScope.user = {};
+
             authentication.login($scope.credentials)
                 .error(function(err) {
-                    console.log(err.message);
-                    $scope.errorMessage = err.message;
+
+                    $scope.errorMessage = constants.msgUsernamePasswordFailure;
                 })
                 .then(function(data) {
                     $scope.errorMessage = "";
-                    //show profile page	
-                    $rootScope.user = data.data.user;
-                    $location.path('profile');
+                    //redirect to profile page	
+                    $location.path('profile')
                 });
+
         };
 
     };
-    loginController.$inject = ['$scope', '$rootScope', 'authentication', '$location'];
+
+    loginController.$inject = ['$scope', '$rootScope', 'authentication', '$location', 'constants'];
+
     angular.module("employeeApp").controller("loginController", loginController);
 }());
