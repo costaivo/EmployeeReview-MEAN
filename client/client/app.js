@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module("employeeApp", ['ngRoute']);
+    var app = angular.module("employeeApp", ['ngRoute', 'angular-hmac-sha512']);
     app.config(function($routeProvider) {
         $routeProvider
             .when('/', {

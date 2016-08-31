@@ -1,3 +1,9 @@
+/*
+Description : This controller is to get and update user's profile data.
+Author : Darshani S
+
+*/
+
 (function(){
 	function profileController($scope, $rootScope, authentication, constants){
 

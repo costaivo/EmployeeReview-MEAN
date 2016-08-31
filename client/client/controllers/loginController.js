@@ -1,19 +1,27 @@
+/*
+Description : This controller is to handle login and logout operations.
+Author : Darshani S
+
+*/
+
 (function() {
 
-    function loginController($scope, $rootScope, authentication, $location, constants) {
+    function loginController($scope, $rootScope, authentication, $location, constants, $crypthmac) {
 
         $scope.login = function() {
-            //take credentials
-            //add a service called authentication that will do http post(user)
 
-            authentication.login($scope.credentials)
+            //send SHA512 hashed password JSON to login API
+            var credentials = {
+                "email": $scope.credentials.email,
+                "password": $crypthmac.encrypt($scope.credentials.password, "")
+            }
+
+            authentication.login(credentials)
                 .error(function(err) {
-
                     $scope.errorMessage = constants.msgUsernamePasswordFailure;
                 })
                 .then(function(data) {
                     $scope.errorMessage = "";
-                    //redirect to profile page	
                     $location.path('profile')
                 });
 
@@ -21,7 +29,7 @@
 
     };
 
-    loginController.$inject = ['$scope', '$rootScope', 'authentication', '$location', 'constants'];
+    loginController.$inject = ['$scope', '$rootScope', 'authentication', '$location', 'constants', '$crypthmac'];
 
     angular.module("employeeApp").controller("loginController", loginController);
 }());

@@ -1,18 +1,27 @@
+/*
+Description : This controller is to register a new user.
+Author : Darshani S
+
+*/
+
 (function() {
-    function registrationController($scope, authentication, $location, constants, $window) {
+    function registrationController($scope, authentication, $location, constants, $window, $crypthmac) {
         $scope.button = true;
 
 
         $scope.register = function() {
-            var password1 = $scope.credentials.password;
-            var password2 = $scope.credentials.confirmPassword;
-            var credentials = $scope.credentials;
+            var password = $scope.credentials.password;
+            var confirmPassword = $scope.credentials.confirmPassword;
 
-            if (password1 != password2) {
+            if (password != confirmPassword) {
                 $scope.errorMessage = constants.msgPasswordMatchFailure;
 
             } else {
                 $scope.errorMessage = "";
+                var credentials = {
+                    "email": $scope.credentials.email,
+                    "password": $crypthmac.encrypt($scope.credentials.password, "")
+                }
 
                 authentication
                     .register(credentials)
@@ -46,6 +55,6 @@
 
 
     };
-    registrationController.$inject = ['$scope', 'authentication', '$location', 'constants', '$window'];
+    registrationController.$inject = ['$scope', 'authentication', '$location', 'constants', '$window', '$crypthmac'];
     angular.module("employeeApp").controller("registrationController", registrationController);
 }());
