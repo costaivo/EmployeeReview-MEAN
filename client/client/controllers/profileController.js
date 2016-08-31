@@ -7,9 +7,6 @@ Author : Darshani S
 (function(){
 	function profileController($scope, $rootScope, authentication, constants){
 
-		//$scope.user = { "username" : "abc@d.com"};
-		//var username = $scope.user.username;
-
 		authentication.getProfile()
 		.success(function(data)
 		{

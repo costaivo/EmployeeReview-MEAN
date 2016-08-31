@@ -9,7 +9,7 @@ Author : Darshani S
     function loginController($scope, $rootScope, authentication, $location, constants, $crypthmac) {
 
         $scope.login = function() {
-console.log($crypthmac.encrypt($scope.credentials.password, ""));
+
             //send SHA512 hashed password JSON to login API
             var credentials = {
                 "username": $scope.credentials.username,
