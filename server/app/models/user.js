@@ -30,7 +30,7 @@ userSchema.methods.generateJwt = function() {
     expiry.setDate(expiry.getDate() + constants.normalTokenExpiry);
     return jwt.sign({
         _id: this._id,
-        email: this.username,
+        username: this.username,
         exp: parseInt(expiry.getTime() / 1000),
     }, self.config.secret); // DO NOT KEEP YOUR SECRET IN THE CODE!   
 };

@@ -14,6 +14,7 @@ router.post("/", userController.loginUser);
 router.post("/register", userController.register);
 router.post("/updateProfile", userController.updateProfile);
 router.get("/profile", auth, userController.profile);
+router.post("/forgotPassword", userController.forgotPassword);
 
 
 router.get("/", userController.hello);

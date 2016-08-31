@@ -3,7 +3,8 @@ var express = require('express'),
     assert = require('assert'),
     bodyParser = require('body-parser'),
     cors = require('express-cors'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    path = require('path');
 
 var app = express();
 var envConfig = require('./app/config/config.env.js');
@@ -13,20 +14,21 @@ var user = require('./app/routes/user');
 var skill = require('./app/routes/skill');
 
 //Setting up the app
-app.set('view engine', 'ejs'); //setting view engine as ejs
+app.set('views', path.join(__dirname, 'app/views'));
+app.set('view engine', 'jade'); //setting view engine as jade
 app.use(express.static('app')); //setting up middleware to serve static files
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors({
     allowedOrigins: ['http://localhost:3000'],
     //headers:[]
-    headers:[
+    headers: [
         'x-access-token', 'Content-Type',
-       'Authorization',  'Bearer'
-       ]
+        'Authorization', 'Bearer'
+    ]
 }));
 
-//MongoClient.connect('mongodb:.....'function(err,db)){		};	
+//MongoClient.connect('mongodb:.....'function(err,db)){     };  
 
 mongoose.connect(envConfig.mongoUrl, function(err) {
     if (err) mongooseLog('Mongoose Error:' + err);

@@ -1,18 +1,34 @@
 var User = function() {
     var User = require('../models/user').User;
     var constants = require('../libraries/constants');
+    var nodeMailer = require('nodemailer');
+    var path = require('path');
+    var EmailTemplate = require('email-templates').EmailTemplate;
+    var templatesDir = path.resolve(__dirname, '../..', 'public/templates/emailTemplates');
+
+
     this.config = require('../config/config.js');
     var self = this;
 
+    this.transporter = nodeMailer.createTransport({
+        host: 'smtp.gmail.com',
+        secure: true,
+        port: 465,
+        auth: {
+            user: 'presley.cci@gmail.com',
+            pass: 'Slaay1988cc'
+        }
+    });
+
     this.loginUser = function(req, res) {
 
-        var email = req.body.email;
+        var username = req.body.username;
         var password = req.body.password;
         var token;
         //passport module
 
-        User.findOne({ "username": email }, function(err, data) {
-            if (err) {
+        User.findOne({ "username": username }, function(error, data) {
+            if (error) {
                 res.status(401).json({ message: constants.invalidUser });
             }
             if (!data) {
@@ -28,19 +44,19 @@ var User = function() {
     this.register = function(req, res) {
 
         var newUser = new User({
-            username: req.body.email,
+            username: req.body.username,
             password: req.body.password
         });
 
-        User.findOne({ "username": req.body.email }, function(err, data) {
-            if (err) {
-                res.status(401).json({ message: err });
+        User.findOne({ "username": req.body.username }, function(error, data) {
+            if (error) {
+                res.status(401).json({ message: error });
             }
             if (!data) { //insert new entry in database
 
-                newUser.save(function(err, data) {
-                    if (err)
-                        console.log(err);
+                newUser.save(function(error, data) {
+                    if (error)
+                        console.log(error);
                     else {
                         console.log('Entry saved as: ', data);
                         res.status(200).json({ user: data });
@@ -57,10 +73,10 @@ var User = function() {
 
     this.updateProfile = function(req, res) {
 
-        User.findOne({ "username": req.body.email }, function(err, data) {
-            if (err) {
-                res.status(401).json({ message: err });
-                console.log(err);
+        User.findOne({ "username": req.body.username }, function(error, data) {
+            if (error) {
+                res.status(401).json({ message: error });
+                console.log(error);
             }
             if (!data) {
                 res.status(404).json({ message: constants.invalidUser });
@@ -74,9 +90,9 @@ var User = function() {
                 data.designation = req.body.designation;
                 data.team = req.body.team;
                 data.skills = req.body.skills;
-                data.save(function(err) {
-                    if (err)
-                        console.log(err);
+                data.save(function(error) {
+                    if (error)
+                        console.log(error);
                     else {
                         console.log("Updated");
                         res.status(200).json({ message: constants.userUpdated });
@@ -88,15 +104,14 @@ var User = function() {
 
     this.profile = function(req, res) {
         if (!req.payload._id) {
-            console.log("Token error in profile API");
             res.status(401).json({
                 message: constants.unAuthorizedAccess
             });
         } else {
             //find user and send data
-            User.findOne({ "username": req.payload.email }, function(err, data) {
-                if (err)
-                    console.log(err);
+            User.findOne({ "username": req.payload.username }, function(error, data) {
+                if (error)
+                    console.log(error);
                 else if (data)
                     res.status(200).json({ user: data });
                 else
@@ -105,12 +120,50 @@ var User = function() {
         }
     };
 
+    this.forgotPassword = function(req, res) {
+        User.findOne({ "username": req.body.username }, function(error, userInfo) {
+            if (error) {
+                console.log(error);
+            }
+            if (!userInfo) {
+                return res.status(404).json({ message: constants.emailDoesntExist });
+            }
+            if (userInfo) {
+                var token = userInfo.generateJwt();
+                var mailOptions = {
+                    username: userInfo.username,
+                    name: {
+                        first: userInfo.firstName,
+                        last: userInfo.lastName
+                    },
+                    appHost: self.config.appHost,
+                    token: token
+                };
+
+                var emailTemplate = new EmailTemplate(path.join(templatesDir, 'forgotPassword'));
+
+                emailTemplate.render(mailOptions, function(error, results) {
+                    if (error) return res.status(500).json({ message: constants.emailNotSent });
+                    self.transporter.sendMail({
+                        from: constants.fromEmailID, // sender address
+                        to: mailOptions.username, // list of receivers
+                        subject: constants.resetPasswordMessage,
+                        html: results.html
+                    }, function(error, responseStatus) {
+                        if (error) res.status(500).json({ message: constants.emailNotSent });
+                        res.status(200).json({ message: constants.emailSent });
+                    })
+                });
+            }
+        })
+    };
+
 
 
     this.getUserByEmail = function(req, res) {
-        User.findOne({ "username": req.params.email }, function(err, data) {
-            if (err)
-                console.log(err);
+        User.findOne({ "username": req.params.email }, function(error, data) {
+            if (error)
+                console.log(error);
             else if (data)
                 res.status(200).json({ user: data });
             else
