@@ -19,7 +19,7 @@ Author : Darshani S
             } else {
                 $scope.errorMessage = "";
                 var credentials = {
-                    "email": $scope.credentials.email,
+                    "username": $scope.credentials.username,
                     "password": $crypthmac.encrypt($scope.credentials.password, "")
                 }
 
@@ -48,7 +48,6 @@ Author : Darshani S
                         });
 
                         console.log("success" + JSON.stringify(data));
-                        //$location.path('profile');
                     });
             }
         }
