@@ -15,7 +15,7 @@ router.post("/register", userController.register);
 router.post("/updateProfile", auth, userController.updateProfile);
 router.get("/profile", auth, userController.profile);
 router.post("/forgotPassword", userController.forgotPassword); //.. forgotPassword send email
-router.post('/setNewPassword', auth, userController.setNewPassword); //.. Set new Password Password API
+router.post('/setNewPassword', auth, userController.setNewPassword); //.. Set new Password API
 
 
 router.get("/", userController.hello);

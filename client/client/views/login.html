@@ -32,7 +32,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <label>User name<sup style="color:red">*</sup>:</label>
-                        <input class="form-control" type="email" id="email" ng-model="credentials.userName" name="email" placeholder="email@example.com" required>
+                        <input class="form-control" type="email" id="email" ng-model="credentials.userName" name="email" placeholder="email@example.com" ng-change="enterEmail=true;" ng-init="enterEmail=false;" required>
                         <br>
                     </div>
                 </div>
@@ -41,6 +41,9 @@
                         <label>Password<sup style="color:red">*</sup>:</label>
                         <input class="form-control" type="password" id="password" ng-model="credentials.password" name="password" required>
                         <label style="color:red" id="errorMessage" ng-show="errorMessage" ng-init="errorMessage=''">{{errorMessage}}</label>
+                        <a href="#/login" ng-click="sendForgotEmail()">
+                            <label style="color:blue" ng-show="enterEmail">Forgot Password ?</label>
+                        </a>
                     </div>
                 </div>
                 <div class="row">

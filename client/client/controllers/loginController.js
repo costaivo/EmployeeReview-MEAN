@@ -26,6 +26,20 @@ Author : Darshani S
                 });
 
         };
+        $scope.sendForgotEmail = function() {
+            authentication
+                .resetUserPasswordEmail($scope.credentials.userName)
+                .success(function(data) {
+                    console.log("Data : " + JSON.stringify(data));
+                    swal({ html: true, title: "", text: data.message });
+                    $location.path('login')
+                })
+                .error(function(err) {
+                    console.log(err);
+                    swal({ html: true, title: "", text: error.message });
+                    $location.path('login')
+                })
+        };
 
     };
 

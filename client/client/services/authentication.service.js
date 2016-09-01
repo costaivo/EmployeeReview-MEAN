@@ -45,6 +45,11 @@
             });
         };
 
+        var resetUserPasswordEmail = function(userName) {
+            var userNameJson = '{"userName": "' + userName + '"}';
+            return $http.post(constants.baseUrl + constants.port + '/user/forgotPassword', userNameJson).success(function(data) {});
+        };
+
 
         return {
             login: login,
@@ -53,7 +58,8 @@
             getProfile: getProfile,
             getToken: getToken,
             saveToken: saveToken,
-            logout: logout
+            logout: logout,
+            resetUserPasswordEmail: resetUserPasswordEmail
         }
     };
     authentication.$inject = ['$http', '$window', 'constants'];
