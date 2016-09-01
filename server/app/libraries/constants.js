@@ -23,4 +23,6 @@ module.exports = Object.freeze({
     resetPasswordMessage: "Reset Your Password - Employee App",
     emailDoesntExist: "No account with the entered email address exists.",
 
+    userPasswordUpdated: "Your password has been updated!",
+
 });

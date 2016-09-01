@@ -22,12 +22,12 @@ var User = function() {
 
     this.loginUser = function(req, res) {
 
-        var username = req.body.username;
+        var userName = req.body.userName;
         var password = req.body.password;
         var token;
         //passport module
 
-        User.findOne({ "username": username }, function(error, data) {
+        User.findOne({ "userName": userName }, function(error, data) {
             if (error) {
                 res.status(401).json({ message: constants.invalidUser });
             }
@@ -44,11 +44,11 @@ var User = function() {
     this.register = function(req, res) {
 
         var newUser = new User({
-            username: req.body.username,
+            userName: req.body.userName,
             password: req.body.password
         });
 
-        User.findOne({ "username": req.body.username }, function(error, data) {
+        User.findOne({ "userName": req.body.userName }, function(error, data) {
             if (error) {
                 res.status(401).json({ message: error });
             }
@@ -64,7 +64,7 @@ var User = function() {
                 });
 
             } else {
-                console.log("username exists");
+                console.log("userName exists");
                 res.status(401).json({ message: constants.emailAlreadyTaken });
             }
 
@@ -73,7 +73,7 @@ var User = function() {
 
     this.updateProfile = function(req, res) {
 
-        User.findOne({ "username": req.body.username }, function(error, data) {
+        User.findOne({ "userName": req.body.userName }, function(error, data) {
             if (error) {
                 res.status(401).json({ message: error });
                 console.log(error);
@@ -109,7 +109,7 @@ var User = function() {
             });
         } else {
             //find user and send data
-            User.findOne({ "username": req.payload.username }, function(error, data) {
+            User.findOne({ "userName": req.payload.userName }, function(error, data) {
                 if (error)
                     console.log(error);
                 else if (data)
@@ -121,7 +121,7 @@ var User = function() {
     };
 
     this.forgotPassword = function(req, res) {
-        User.findOne({ "username": req.body.username }, function(error, userInfo) {
+        User.findOne({ "userName": req.body.userName }, function(error, userInfo) {
             if (error) {
                 console.log(error);
             }
@@ -131,7 +131,7 @@ var User = function() {
             if (userInfo) {
                 var token = userInfo.generateJwt();
                 var mailOptions = {
-                    username: userInfo.username,
+                    userName: userInfo.userName,
                     name: {
                         first: userInfo.firstName,
                         last: userInfo.lastName
@@ -146,7 +146,7 @@ var User = function() {
                     if (error) return res.status(500).json({ message: constants.emailNotSent });
                     self.transporter.sendMail({
                         from: constants.fromEmailID, // sender address
-                        to: mailOptions.username, // list of receivers
+                        to: mailOptions.userName, // list of receivers
                         subject: constants.resetPasswordMessage,
                         html: results.html
                     }, function(error, responseStatus) {
@@ -158,10 +158,33 @@ var User = function() {
         })
     };
 
+    this.setNewPassword = function(req, res) {
+        if (!req.payload._id) {
+            res.status(401).json({ message: constants.unAuthorizedAccess });
+        } else {
+            User.findOne({ "userName": req.payload.userName }, function(error, data) {
+                if (error)
+                    console.log(error);
+                else if (data) {
+                    data.password = req.body.password;
+                    data.save(function(error) {
+                        if (error)
+                            console.log(error);
+                        else {
+                            res.status(200).json({ message: constants.userPasswordUpdated });
+                        }
+                    });
+                } else {
+                    res.status(404).json({ message: constants.userNotFound });
+                }
+            });
+
+        }
+    };
 
 
     this.getUserByEmail = function(req, res) {
-        User.findOne({ "username": req.params.email }, function(error, data) {
+        User.findOne({ "userName": req.params.email }, function(error, data) {
             if (error)
                 console.log(error);
             else if (data)

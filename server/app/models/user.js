@@ -5,7 +5,7 @@ this.config = require('../config/config.js');
 var self = this;
 
 var userSchema = new mongoose.Schema({
-    username: {
+    userName: {
         type: String,
         unique: true,
         required: true
@@ -30,7 +30,7 @@ userSchema.methods.generateJwt = function() {
     expiry.setDate(expiry.getDate() + constants.normalTokenExpiry);
     return jwt.sign({
         _id: this._id,
-        username: this.username,
+        userName: this.userName,
         exp: parseInt(expiry.getTime() / 1000),
     }, self.config.secret); // DO NOT KEEP YOUR SECRET IN THE CODE!   
 };
