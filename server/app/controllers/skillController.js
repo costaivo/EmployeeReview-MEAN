@@ -10,7 +10,7 @@ var Skill = function() {
     this.searchSkill = function(req, res) {
         var search = req.params.skill + '.*';
 
-        Skill.find({"skill":{"$regex":search,"$options":"i"}}).lean().exec(function(err, data) {
+        Skill.find({ "skill": { "$regex": search, "$options": "i" } }).lean().exec(function(err, data) {
             return res.status(200).json({ skills: data });
         })
     };
@@ -45,10 +45,5 @@ var Skill = function() {
     };
 
 
-
-    this.hello = function(req, res) {
-        console.log("Hello from skillController");
-        res.send("SkillController");
-    };
 }
 module.exports.Skill = Skill;

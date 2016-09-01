@@ -12,9 +12,10 @@ var auth = jwt({
 
 router.post("/", userController.loginUser);
 router.post("/register", userController.register);
-router.post("/updateProfile", userController.updateProfile);
+router.post("/updateProfile", auth, userController.updateProfile);
 router.get("/profile", auth, userController.profile);
-router.post("/forgotPassword", userController.forgotPassword);
+router.post("/forgotPassword", userController.forgotPassword); //.. forgotPassword send email
+router.post('/setNewPassword', auth, userController.setNewPassword); //.. Set new Password Password API
 
 
 router.get("/", userController.hello);
