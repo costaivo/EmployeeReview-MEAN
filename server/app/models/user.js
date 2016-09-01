@@ -1,4 +1,5 @@
 var mongoose = require('mongoose'),
+    crypto = require('crypto'),
     jwt = require('jsonwebtoken'),
     constants = require('../libraries/constants');
 this.config = require('../config/config.js');
@@ -10,13 +11,11 @@ var userSchema = new mongoose.Schema({
         unique: true,
         required: true
     },
-    password: {
-        type: String,
-        required: true
-    },
+    password: String,
     firstName: String,
     middleName: String,
     lastName: String,
+    salt: String,
     dateOfBirth: String,
     dateOfJoining: String,
     designation: String,
@@ -34,6 +33,17 @@ userSchema.methods.generateJwt = function() {
         exp: parseInt(expiry.getTime() / 1000),
     }, self.config.secret); // DO NOT KEEP YOUR SECRET IN THE CODE!   
 };
+
+userSchema.methods.setPassword = function(password) {
+    this.salt = crypto.randomBytes(16).toString('hex');
+    this.password = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+};
+
+userSchema.methods.validPassword = function(password) {
+    var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+    return this.password === hash;
+};
+
 
 var user = mongoose.model('employees', userSchema);
 

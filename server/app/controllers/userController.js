@@ -1,6 +1,7 @@
 var User = function() {
     var User = require('../models/user').User;
     var constants = require('../libraries/constants');
+    var crypto = require('crypto');
     var nodeMailer = require('nodemailer');
     var path = require('path');
     var EmailTemplate = require('email-templates').EmailTemplate;
@@ -21,19 +22,16 @@ var User = function() {
     });
 
     this.loginUser = function(req, res) {
-
-        var userName = req.body.userName;
-        var password = req.body.password;
         var token;
         //passport module
 
-        User.findOne({ "userName": userName }, function(error, data) {
+        User.findOne({ "userName": req.body.userName }, function(error, data) {
             if (error) {
                 res.status(401).json({ message: constants.invalidUser });
             }
             if (!data) {
                 res.status(401).json({ message: constants.invalidUser });
-            } else if (password == data.password) { //generating token
+            } else if (data.validPassword(req.body.password)) {
                 token = data.generateJwt();
                 res.status(200).json({ token: token });
             } else { res.status(401).json({ message: constants.incorrectPassword }); }
@@ -42,64 +40,62 @@ var User = function() {
     };
 
     this.register = function(req, res) {
-
-        var newUser = new User({
-            userName: req.body.userName,
-            password: req.body.password
-        });
-
         User.findOne({ "userName": req.body.userName }, function(error, data) {
             if (error) {
                 res.status(401).json({ message: error });
             }
-            if (!data) { //insert new entry in database
-
+            if (data) {
+                res.status(401).json({ message: constants.emailAlreadyTaken });
+            } else {
+                var newUser = new User();
+                newUser.userName = req.body.userName;
+                newUser.setPassword(req.body.password);
                 newUser.save(function(error, data) {
                     if (error)
                         console.log(error);
                     else {
                         console.log('Entry saved as: ', data);
-                        res.status(200).json({ user: data });
+                        res.status(200).json({ userID: data._id });
                     }
                 });
-
-            } else {
-                console.log("userName exists");
-                res.status(401).json({ message: constants.emailAlreadyTaken });
             }
 
         });
     };
 
     this.updateProfile = function(req, res) {
-
-        User.findOne({ "userName": req.body.userName }, function(error, data) {
-            if (error) {
-                res.status(401).json({ message: error });
-                console.log(error);
-            }
-            if (!data) {
-                res.status(404).json({ message: constants.invalidUser });
-                console.log("User not found");
-            } else { //update one
-                data.firstName = req.body.firstName;
-                data.middleName = req.body.middleName;
-                data.lastName = req.body.lastName;
-                data.dateOfBirth = req.body.birthDate;
-                data.dateOfJoining = req.body.joiningDate;
-                data.designation = req.body.designation;
-                data.team = req.body.team;
-                data.skills = req.body.skills;
-                data.save(function(error) {
-                    if (error)
-                        console.log(error);
-                    else {
-                        console.log("Updated");
-                        res.status(200).json({ message: constants.userUpdated });
-                    }
-                });
-            }
-        });
+        if (!req.payload._id) {
+            res.status(401).json({
+                message: constants.unAuthorizedAccess
+            });
+        } else {
+            User.findOne({ "userName": req.payload.userName }, function(error, data) {
+                if (error) {
+                    res.status(401).json({ message: error });
+                    console.log(error);
+                }
+                if (!data) {
+                    res.status(404).json({ message: constants.invalidUser });
+                    console.log("User not found");
+                } else { //update one
+                    data.firstName = req.body.firstName;
+                    data.middleName = req.body.middleName;
+                    data.lastName = req.body.lastName;
+                    data.dateOfBirth = req.body.birthDate;
+                    data.dateOfJoining = req.body.joiningDate;
+                    data.designation = req.body.designation;
+                    data.team = req.body.team;
+                    data.skills = req.body.skills;
+                    data.save(function(error) {
+                        if (error)
+                            console.log(error);
+                        else {
+                            res.status(200).json({ message: constants.userUpdated });
+                        }
+                    });
+                }
+            });
+        }
     };
 
     this.profile = function(req, res) {
@@ -166,7 +162,7 @@ var User = function() {
                 if (error)
                     console.log(error);
                 else if (data) {
-                    data.password = req.body.password;
+                    data.setPassword(req.body.password);
                     data.save(function(error) {
                         if (error)
                             console.log(error);
