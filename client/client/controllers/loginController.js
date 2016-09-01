@@ -12,7 +12,7 @@ Author : Darshani S
 
             //send SHA512 hashed password JSON to login API
             var credentials = {
-                "username": $scope.credentials.username,
+                "userName": $scope.credentials.userName,
                 "password": $crypthmac.encrypt($scope.credentials.password, "")
             }
 

@@ -19,7 +19,7 @@ Author : Darshani S
             } else {
                 $scope.errorMessage = "";
                 var credentials = {
-                    "username": $scope.credentials.username,
+                    "userName": $scope.credentials.userName,
                     "password": $crypthmac.encrypt($scope.credentials.password, "")
                 }
 

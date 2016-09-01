@@ -27,7 +27,11 @@
         };
 
         var updateProfile = function(userDetails) {
-            return $http.post(constants.baseUrl + constants.port + '/user/updateProfile', userDetails).success(function(data) {
+            return $http.post(constants.baseUrl + constants.port + '/user/updateProfile', userDetails, {
+                headers: {
+                    Authorization: 'Bearer ' + getToken()
+                }
+            }).success(function(data) {
                 console.log("user profile updated Sucessfull");
             });
         };

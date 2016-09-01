@@ -12,7 +12,7 @@ Author : Darshani S
                 console.log("data " + JSON.stringify(data));
                 var userdata = data.user;
                 $scope.user = {
-                    "username": userdata.username,
+                    "userName": userdata.userName,
                     "firstName": userdata.firstName,
                     "middleName": userdata.middleName,
                     "lastName": userdata.lastName,
@@ -67,12 +67,10 @@ Author : Darshani S
 
                 $scope.availableSkills = response.data.skills;
 
-				if ($scope.availableSkills.length > 0) 
-                {
-                    for (var i = 0; i < $scope.availableSkills.length; i++) 
-                    {
-                        $scope.availableSkillArray.push($scope.availableSkills[i].skill);                 
-                    } 
+                if ($scope.availableSkills.length > 0) {
+                    for (var i = 0; i < $scope.availableSkills.length; i++) {
+                        $scope.availableSkillArray.push($scope.availableSkills[i].skill);
+                    }
                 }
 
                 console.log("data " + JSON.stringify($scope.availableSkillArray));
