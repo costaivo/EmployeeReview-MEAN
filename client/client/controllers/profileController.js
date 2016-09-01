@@ -58,30 +58,26 @@ Author : Darshani S
 
 
 
+        $scope.availableSkillArray = [];
         user.getSkills()
             .error(function(error) {
                 console.log("error " + JSON.stringify(error));
             })
             .then(function(response) {
-                $scope.availableSkillArray = [];
 
-                $scope.availableSkills = response.data.skills;
 
-                if ($scope.availableSkills.length > 0) {
-                    for (var i = 0; i < $scope.availableSkills.length; i++) {
-                        $scope.availableSkillArray.push($scope.availableSkills[i].skill);
+                var availableSkills = response.data.skills;
+
+                if (availableSkills.length > 0) {
+                    for (var i = 0; i < availableSkills.length; i++) {
+                        $scope.availableSkillArray.push(availableSkills[i].skill);
                     }
                 }
-
-                console.log("data " + JSON.stringify($scope.availableSkillArray));
-
-
-
             });
 
-        $scope.userSkillArray = ['JAVA'];
-
-
+        this.availableSkillsArray = $scope.availableSkillArray;
+        this.userSkillArray = ['JAVA'];
+        
     };
 
     profileController.$inject = ['$scope', '$rootScope', 'authentication', 'constants', 'user'];

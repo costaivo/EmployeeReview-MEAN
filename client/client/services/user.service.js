@@ -3,7 +3,7 @@
     function user($http, $window, constants) {
 
         var getSkills = function() {
-            return $http.get(constants.baseUrl + constants.port + '/skill/all', {
+            return $http.get(constants.baseUrl + constants.port + '/skill', {
                 // headers: {
                 //     Authorization: 'Bearer ' + getToken()
                 // }

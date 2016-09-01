@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module("employeeApp", ['ngRoute', 'angular-hmac-sha512']);
+    var app = angular.module("employeeApp", ['ngRoute', 'angular-hmac-sha512', 'angular.chips','ui.bootstrap']);
     app.config(function($routeProvider) {
         $routeProvider
             .when('/', {
@@ -20,7 +20,7 @@
             })
 
         .when('/profile', {
-                controller: 'profileController',
+                controller: 'profileController as typeahead',
                 templateUrl: 'views/profile.html'
             })
             .when('/image', {
