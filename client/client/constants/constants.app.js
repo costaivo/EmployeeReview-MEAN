@@ -8,7 +8,8 @@ Author : Nikhil U
 
 
 var constants = {
-    port: 3000,
+    port: 9000,
+    baseUrl: 'http://localhost:',
     dateFormat: 'mm-dd-yy',
     msgUsernamePasswordFailure: 'Incorrect username or password!',
     msgPasswordMatchFailure: 'Incorrect password match!',

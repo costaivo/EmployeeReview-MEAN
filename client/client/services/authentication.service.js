@@ -1,6 +1,6 @@
 (function() {
 
-    function authentication($http, $window) {
+    function authentication($http, $window, constants) {
 
         var saveToken = function(token) {
             $window.localStorage['mean-token'] = token;
@@ -11,7 +11,7 @@
         };
 
         var login = function(user) {
-            return $http.post('http://localhost:9000/user', user).success(function(data) {
+            return $http.post(constants.baseUrl + constants.port + '/user', user).success(function(data) {
                 saveToken(data.token);
             });
         };
@@ -21,20 +21,20 @@
         };
 
         var register = function(userDetails) {
-            return $http.post('http://localhost:9000/user/register', userDetails).success(function(data) {
+            return $http.post(constants.baseUrl + constants.port + '/user/register', userDetails).success(function(data) {
                 console.log("registration Sucessfull");
             });
         };
 
         var updateProfile = function(userDetails) {
-            return $http.post('http://localhost:9000/user/updateProfile', userDetails).success(function(data) {
+            return $http.post(constants.baseUrl + constants.port + '/user/updateProfile', userDetails).success(function(data) {
                 console.log("user profile updated Sucessfull");
             });
         };
 
 
         var getProfile = function() {
-            return $http.get('http://localhost:9000/user/profile', {
+            return $http.get(constants.baseUrl + constants.port + '/user/profile', {
                 headers: {
                     Authorization: 'Bearer ' + getToken()
                 }
@@ -52,6 +52,6 @@
             logout: logout
         }
     };
-    authentication.$inject = ['$http', '$window'];
+    authentication.$inject = ['$http', '$window', 'constants'];
     angular.module("employeeApp").service('authentication', authentication);
 }());
