@@ -34,8 +34,16 @@
                     </ol>
                 </div>
             </div>
+
             <!-- End of dashboard -->
             <form ng-submit="updateUserProfile()">
+                <div>
+                    <img src="" style="width:100px; height:100px;" />
+                    <br>
+                    <input type="file" file-model="myFile" id="fileInput" />    
+                    <button type="button" class="btn btn-link" ng-click="uploadFile()">update</button>
+                    <br>
+                </div>
                 <div class="row">
                     <div class="col-sm-2">
                         <label>User name:</label>

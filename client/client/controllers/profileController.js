@@ -7,7 +7,7 @@ Author : Darshani S
 (function() {
 
 
-    function profileController($scope, $rootScope, authentication, constants, user) {
+    function profileController($scope, $rootScope, authentication, constants, user, fileUpload) {
 
         var vm = this;
         var userdata = "";
@@ -43,6 +43,22 @@ Author : Darshani S
                     };
                 });
         }
+
+
+
+        $scope.uploadFile = function(){  
+            var fu1 = document.getElementById("fileInput");   
+            var file = $scope.myFile;
+            console.log('file is ' + file);
+            console.log('');
+            if(file != undefined)
+            {                
+                var uploadUrl = constants.baseUrl + constants.port + '/user/addPicture';
+                var fileUploadURL= fileUpload.uploadFileToUrl(file, uploadUrl);
+                
+                console.log("fileUploadURL " + fileUploadURL);
+            }
+        };
 
 
         user.getSkills()
@@ -99,7 +115,7 @@ Author : Darshani S
 
     };
 
-    profileController.$inject = ['$scope', '$rootScope', 'authentication', 'constants', 'user'];
+    profileController.$inject = ['$scope', '$rootScope', 'authentication', 'constants', 'user', 'fileUpload'];
     angular
         .module("employeeApp")
         .controller("profileController", profileController)

@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module("employeeApp", ['ngRoute', 'angular-hmac-sha512', 'angular.chips', 'ui.bootstrap']);
+    var app = angular.module("employeeApp", ['ngRoute', 'angular-hmac-sha512', 'angular.chips', 'ui.bootstrap', 'ngFileUpload']);
     app.config(function($routeProvider) {
         $routeProvider
             .when('/', {
@@ -32,4 +32,21 @@
             })
             .otherwise({ redirectTo: '/' });
     });
+
+    app.directive('fileModel', ['$parse', function ($parse) {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+                var model = $parse(attrs.fileModel);
+                var modelSetter = model.assign;
+                
+                element.bind('change', function(){
+                    scope.$apply(function(){
+                        modelSetter(scope, element[0].files[0]);
+                    });
+                });
+            }
+        };
+    }]);
+
 }());
