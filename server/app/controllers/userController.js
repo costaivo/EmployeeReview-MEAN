@@ -1,3 +1,9 @@
+/*
+Description : This controller is to handle user related requests such as login, update-profile, register etc.
+    Add all user related functions here.            
+Author : Nikhil U
+
+*/
 var User = function() {
     var User = require('../models/user').User;
     var constants = require('../libraries/constants');
@@ -109,9 +115,22 @@ var User = function() {
             User.findOne({ "userName": req.payload.userName }, function(error, data) {
                 if (error)
                     console.log(error);
-                else if (data)
-                    res.status(200).json({ user: data });
-                else
+                else if (data) {
+                    var user = {
+                        userName: data.userName,
+                        firstName: data.firstName,
+                        middleName: data.middleName,
+                        lastName: data.lastName,
+                        dateOfBirth: data.dateOfBirth,
+                        dateOfJoining: data.dateOfJoining,
+                        profilePic: data.profilePic,
+                        designation: data.designation,
+                        team: data.team,
+                        skills: data.skills,
+                        rating: data.rating
+                    };
+                    res.status(200).json({ user: user });
+                } else
                     res.status(404).json({ message: constants.userNotFound });
             });
         }

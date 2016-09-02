@@ -25,4 +25,7 @@ module.exports = Object.freeze({
 
     userPasswordUpdated: "Your password has been updated!",
 
+    //Skill
+    skillPresentInDatabase: "skills already present in database",
+
 });

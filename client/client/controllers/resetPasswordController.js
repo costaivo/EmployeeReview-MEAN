@@ -1,3 +1,9 @@
+/*
+Description : This controller will reset user password.        
+Author : Nikhil U
+
+*/
+
 (function() {
     function resetPasswordController($scope, $http, $routeParams, constants, $crypthmac, $location) {
 
