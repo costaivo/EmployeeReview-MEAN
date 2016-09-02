@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module("employeeApp", ['ngRoute', 'angular-hmac-sha512', 'angular.chips','ui.bootstrap']);
+    var app = angular.module("employeeApp", ['ngRoute', 'angular-hmac-sha512', 'angular.chips', 'ui.bootstrap']);
     app.config(function($routeProvider) {
         $routeProvider
             .when('/', {
@@ -18,10 +18,13 @@
                 controller: 'registrationController',
                 templateUrl: 'views/registration.html'
             })
-
-        .when('/profile', {
+            .when('/profile', {
                 controller: 'profileController as typeahead',
                 templateUrl: 'views/profile.html'
+            })
+            .when('/resetPassword/:token', {
+                controller: 'resetPasswordController',
+                templateUrl: 'views/resetPassword.html'
             })
             .when('/image', {
                 controller: 'imageUpload',
