@@ -96,7 +96,17 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <label>Skills:</label>
-                        <textarea class="form-control" rows="3" name="skills"> {{ user.skills }} </textarea>
+                        <div>
+                            <chips ng-model="typeahead.userSkillArray">
+                                <chip-tmpl>
+                                    <div class="default-chip">
+                                        {{chip}}
+                                        <span class="glyphicon glyphicon-remove" remove-chip></span>
+                                    </div>
+                                </chip-tmpl>
+                                <input ng-model-control ng-model="typeaheadmodel" uib-typeahead="skill for skill in typeahead.availableSkillsArray | filter:$viewValue"></input>
+                            </chips>
+                        </div>
                         <br>
                     </div>
                     <div class="col-sm-6">

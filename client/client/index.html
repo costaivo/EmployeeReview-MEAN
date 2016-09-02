@@ -1,44 +1,40 @@
 <!doctype html>
 <html ng-app="employeeApp">
-	<head>
 
-		<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" /> <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script> 
-		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> 
-		
+<head>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src="assets/js/angular.js"></script>
+    <script src="assets/js/angular-route.js"></script>
+    <script type='text/javascript' src="assets/js/angular-hmac-sha512.js"></script>
+    <script src="assets/js/angular-chips.min.js"></script>
+    <script src="assets/js/ui-bootstrap.js"></script>
+    <script src="assets/js/ui-bootstrap-tpls.js"></script>
+    <link href="assets/css/main.css" rel="stylesheet" />
+    <link href="assets/css/ui-bootstrap-csp.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="assets/js/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
+    
+    <script src="app.js"></script>
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/sb-admin.css" rel="stylesheet">
+    <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="assets/css/customcss.css" />
+</head>
 
-		<script src="assets/js/angular.js"></script>	
-		<script src="assets/js/angular-route.js"></script>
-		<script type='text/javascript' src="assets/js/angular-hmac-sha512.js"></script>
+<body>
+    <div ng-view>
+    </div>
+    <script src="controllers/homeController.js"></script>
+    <script src="controllers/profileController.js"></script>
+    <script src="controllers/loginController.js"></script>
+    <script src="controllers/registrationController.js"></script>
+    <script src="controllers/imageUpload.js"></script>
+    <script src="services/authentication.service.js"></script>
+    <script src="services/user.service.js"></script>
+    <script src="constants/constants.app.js"></script>
+</body>
 
-		<script src="https://cdn.rawgit.com/mohbasheer/angular-chips/master/dist/angular-chips.min.js"></script>	
-		<script src="https://cdn.rawgit.com/angular-ui/bootstrap-bower/master/ui-bootstrap.js"></script>		
-		<script src="https://cdn.rawgit.com/angular-ui/bootstrap-bower/master/ui-bootstrap-tpls.js"></script>	
-        <link rel="stylesheet" href="https://cdn.rawgit.com/mohbasheer/angular-chips/master/dist/main.css" />
-        <link rel="stylesheet" href="https://cdn.rawgit.com/angular-ui/bootstrap-bower/master/ui-bootstrap-csp.css" />
-         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" /> 
-
-		
-		<script src="assets/js/sweetalert.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
-		<!--	<script src="scripts/imageupload.js"></script>	-->
-		<script src="app.js"></script>		
-
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet">
-        <link href="assets/css/sb-admin.css" rel="stylesheet">
-        <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">	   
-        <link rel="stylesheet" href="assets/css/customcss.css" />
-	</head>
-	<body>
-		<div ng-view>
-		</div>
-
-		<script src="controllers/homeController.js"></script>
-		<script src="controllers/profileController.js"></script>	
-		<script src="controllers/loginController.js"></script>
-		<script src="controllers/registrationController.js"></script>
-		<script src="controllers/imageUpload.js"></script>
-		<script src="services/authentication.service.js"></script>	
-		<script src="services/user.service.js"></script>	
-		<script src="constants/constants.app.js"></script>
-	</body>
 </html>
