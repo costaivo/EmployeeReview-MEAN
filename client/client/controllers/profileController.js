@@ -5,25 +5,62 @@ Author : Darshani S
 */
 
 (function() {
+
+
     function profileController($scope, $rootScope, authentication, constants, user) {
 
-        authentication.getProfile()
-            .success(function(data) {
-                console.log("data " + JSON.stringify(data));
-                var userdata = data.user;
-                $scope.user = {
-                    "userName": userdata.userName,
-                    "firstName": userdata.firstName,
-                    "middleName": userdata.middleName,
-                    "lastName": userdata.lastName,
-                    "dateOfBirth": userdata.dateOfBirth,
-                    "dateOfJoining": userdata.dateOfJoining,
-                    "designation": userdata.designation,
-                    "team": userdata.team,
-                    "skills": userdata.skills,
-                    "rating": userdata.rating
-                };
+        var vm = this;
+        var userdata = "";
+        var userSkillsArray = '';
+        $scope.availableSkillArray = [];
+
+        $scope.loadProfileData = function() {
+
+            authentication.getProfile()
+                .success(function(data) {
+
+                    console.log("data " + JSON.stringify(data));
+
+                    userdata = data.user;
+
+                    //Process the Skills data
+                    if (userdata.skills) {
+                        userSkillsArray = userdata.skills;
+                        vm.userSkillArray = userSkillsArray.split(",");
+                    }
+
+                    $scope.user = {
+                        "userName": userdata.userName,
+                        "firstName": userdata.firstName,
+                        "middleName": userdata.middleName,
+                        "lastName": userdata.lastName,
+                        "dateOfBirth": userdata.dateOfBirth,
+                        "dateOfJoining": userdata.dateOfJoining,
+                        "designation": userdata.designation,
+                        "team": userdata.team,
+                        "skills": "",
+                        "rating": userdata.rating
+                    };
+                });
+        }
+
+
+        user.getSkills()
+            .error(function(error) {
+                console.log("error " + JSON.stringify(error));
+            })
+            .then(function(response) {
+
+                var availableSkills = response.data.skills;
+
+                if (availableSkills.length > 0) {
+                    for (var i = 0; i < availableSkills.length; i++) {
+                        $scope.availableSkillArray.push(availableSkills[i].skill);
+                    }
+                }
             });
+
+        vm.availableSkillsArray = $scope.availableSkillArray;
 
 
 
@@ -31,7 +68,8 @@ Author : Darshani S
         $scope.updateUserProfile = function() {
 
             var userData = $scope.user;
-            console.log(userData);
+            userData.skills = vm.userSkillArray.join(',');
+
             authentication.updateProfile(userData)
                 .error(function(error) {
                     console.log("error " + JSON.stringify(error));
@@ -58,26 +96,7 @@ Author : Darshani S
 
 
 
-        $scope.availableSkillArray = [];
-        user.getSkills()
-            .error(function(error) {
-                console.log("error " + JSON.stringify(error));
-            })
-            .then(function(response) {
 
-
-                var availableSkills = response.data.skills;
-
-                if (availableSkills.length > 0) {
-                    for (var i = 0; i < availableSkills.length; i++) {
-                        $scope.availableSkillArray.push(availableSkills[i].skill);
-                    }
-                }
-            });
-
-        this.availableSkillsArray = $scope.availableSkillArray;
-        this.userSkillArray = ['JAVA'];
-        
     };
 
     profileController.$inject = ['$scope', '$rootScope', 'authentication', 'constants', 'user'];
