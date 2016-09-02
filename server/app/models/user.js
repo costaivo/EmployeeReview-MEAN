@@ -18,6 +18,7 @@ var userSchema = new mongoose.Schema({
     salt: String,
     dateOfBirth: String,
     dateOfJoining: String,
+    profilePic: String,
     designation: String,
     team: String,
     skills: String,

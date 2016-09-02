@@ -1,6 +1,7 @@
 var User = function() {
     var User = require('../models/user').User;
     var constants = require('../libraries/constants');
+    var fs = require('fs');
     var crypto = require('crypto');
     var nodeMailer = require('nodemailer');
     var path = require('path');
@@ -178,6 +179,43 @@ var User = function() {
         }
     };
 
+    this.uploadProfilePic = function(req, res) {
+
+        if (!req.payload._id) {
+            res.status(401).json({
+                message: constants.constUnAuthorizedAccess
+            });
+        } else {
+            User.findOne({ "userName": req.payload.userName }, function(error, data) {
+                var userId = data._id;
+                var sourcePath = req.file.path;
+                var extension = req.file.originalname.split(".");
+                extension = extension[extension.length - 1];
+                var path = './public/images/users/' + data._id;
+                if (!fs.existsSync(path)) {
+                    fs.mkdirSync(path);
+                }
+
+                var destPath = "/images/users/" + userId + "/" + userId + "_ppic." + extension;
+                var source = fs.createReadStream(sourcePath);
+                var dest = fs.createWriteStream('./public' + destPath);
+                source.pipe(dest);
+
+                source.on('end', function() {
+                    data.profilePic = destPath;
+                    data.save(function(error) {
+                        if (error)
+                            console.log(error);
+                        else {
+                            res.status(200).json({ image: destPath, userId: data._id });
+                        }
+                    });
+
+                });
+            });
+
+        }
+    };
 
     this.getUserByEmail = function(req, res) {
         User.findOne({ "userName": req.params.email }, function(error, data) {

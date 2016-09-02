@@ -1,0 +1,8 @@
+#ignore node modules folder
+node_modules
+images
+temp
+
+#ignore VS code setting files
+.vscode
+
