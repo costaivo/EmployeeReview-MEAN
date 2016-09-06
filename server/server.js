@@ -13,6 +13,7 @@ var port = require('./app/config/config.env.js').port;
 
 var user = require('./app/routes/user');
 var skill = require('./app/routes/skill');
+var task = require('./app/routes/task');
 
 //Setting up the app
 app.set('views', path.join(__dirname, 'app/views'));
@@ -51,17 +52,18 @@ function mongooseLog(data) {
     return console.log(data);
 }
 
-app.use(function(req, res, next){
-  console.log(  "\033[34m \033[1m" + req.method , 
-                "\033[36m \033[1m REQUEST URL: " + "\033[32m "+req.url , 
-                "\033[36m \033[1m REQUEST TIME: " + "\033[32m "+ new Date() + "\033[31m ");
-  next();
+app.use(function(req, res, next) {
+    console.log("\033[34m \033[1m" + req.method,
+        "\033[36m \033[1m REQUEST URL: " + "\033[32m " + req.url,
+        "\033[36m \033[1m REQUEST TIME: " + "\033[32m " + new Date() + "\033[31m ");
+    next();
 });
 
-app.use(multer({dest: './public/temp/'}).single('file'));
+app.use(multer({ dest: './public/temp/' }).single('file'));
 
 app.use('/user', user);
 app.use('/skill', skill);
+app.use('/task', task);
 
 app.get('/', function(req, res) {
     res.send("Server waiting for requests on port " + port);

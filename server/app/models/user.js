@@ -22,7 +22,8 @@ var userSchema = new mongoose.Schema({
     designation: String,
     team: String,
     skills: String,
-    rating: String
+    rating: String,
+    userLevel: { type: Number, min: 0, max: 10, default: 0 }
 });
 
 userSchema.methods.generateJwt = function() {
