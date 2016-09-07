@@ -18,9 +18,9 @@ var auth = jwt({
     userProperty: 'payload'
 });
 
-router.get("/", auth, skillController.allSkills); //.. API to fetch all skills
-router.get("/:skill", auth, skillController.searchSkill); //.. API to search for a skill in databse
-router.post("/addOne", auth, skillController.addSkill); //.. API to add a skill in database
+router.get("/", auth, skillController.allSkills); // API to fetch all skills
+router.get("/:skill", auth, skillController.searchSkill); // API to search for a skill in databse
+router.post("/addOne", auth, skillController.addSkill); // API to add a skill in database
 
 
 module.exports = router;
