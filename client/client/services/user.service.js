@@ -4,9 +4,9 @@
 
         var getSkills = function() {
             return $http.get(constants.baseUrl + constants.port + '/skill', {
-                // headers: {
-                //     Authorization: 'Bearer ' + getToken()
-                // }
+                headers: {
+                    Authorization: 'Bearer ' + $window.localStorage['mean-token']
+                }
             });
         };
 
