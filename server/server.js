@@ -14,6 +14,7 @@ var port = require('./app/config/config.env.js').port;
 var user = require('./app/routes/user');
 var skill = require('./app/routes/skill');
 var task = require('./app/routes/task');
+var project = require('./app/routes/project');
 
 //Setting up the app
 app.set('views', path.join(__dirname, 'app/views'));
@@ -65,6 +66,7 @@ app.use(multer({ dest: './public/temp/' }).single('file'));
 app.use('/user', user);
 app.use('/skill', skill);
 app.use('/task', task);
+app.use('/project', project);
 
 app.get('/', function(req, res) {
     res.send("Server waiting for requests on port " + port);

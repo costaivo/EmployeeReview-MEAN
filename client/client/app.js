@@ -22,6 +22,10 @@
                 controller: 'profileController as typeahead',
                 templateUrl: 'views/profile.html'
             })
+            .when('/task', {
+                controller: 'taskController',
+                templateUrl: 'views/task.html'
+            })
             .when('/resetPassword/:token', {
                 controller: 'resetPasswordController',
                 templateUrl: 'views/resetPassword.html'
@@ -33,15 +37,15 @@
             .otherwise({ redirectTo: '/' });
     });
 
-    app.directive('fileModel', ['$parse', function ($parse) {
+    app.directive('fileModel', ['$parse', function($parse) {
         return {
             restrict: 'A',
             link: function(scope, element, attrs) {
                 var model = $parse(attrs.fileModel);
                 var modelSetter = model.assign;
-                
-                element.bind('change', function(){
-                    scope.$apply(function(){
+
+                element.bind('change', function() {
+                    scope.$apply(function() {
                         modelSetter(scope, element[0].files[0]);
                     });
                 });
