@@ -22,6 +22,8 @@ var taskSchema = new mongoose.Schema({
         default: Date.now
     },
     supervisorRating: String,
+    taskName: String,
+    description: String,
     userRating: String,
     comments: [{
         userId: String,

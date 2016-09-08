@@ -1,10 +1,10 @@
-<div id="wrapper" ng-init="loadProfileData()">
+<div id="wrapper" ng-init="getProjects()">
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <a class="navbar-brand" href="#/home">Employee Review</a>
         <ul class="nav navbar-right top-nav">
             <!--  top menu -->
             <li class="dropdown">
-                <a href="login.html" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-power-off"></i> Log Out </a>
+                <a href="#/login.html" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-power-off"></i> Log Out </a>
             </li>
             <!--  -->
         </ul>
@@ -40,7 +40,7 @@
             <!-- End of dashboard -->
             <div class="row">
                 <!-- body of page -->
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">
@@ -50,18 +50,70 @@
                         <div class="panel-body">
                             <div id="morris-area-chart">
                                 <label>Please Select a project</label>
-                                <select class="form-control" id="project" name="project" ng-model="project">
-                                    <option ng-repeat="x in projects" value="{{x.project}}">{{x.project}}</option>
+                                <select class="form-control" id="projectId" name="projectId" ng-model="projectId" ng-change="getTaskDetails()">
+                                    <option ng-repeat="project in projects" value="{{project._id}}">{{project.projectName}}
+                                    </option>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-6">
+                    <div ng-show="projectId">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div>
+                                    <h3 class="panel-title">Task Name<span class="badge" style="float: right">Last updated</span></h3>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                    <a href="" class="list-group-item" ng-repeat="task in tasks">
+                                        <span class="badge">{{task.updatedAt | date}}</span> {{task.taskName}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div ng-show="project">
-                <div class="row">
+            <div>
+                <div class="row" ng-show="projectId">
                     <div class="col-sm-12">
-                        Blah
+                        <!-- <p>Add New Task</p> -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                <!-- <i class="fa fa-bar-chart-o fa-fw"></i> -->
+                                 Add Task</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="morris-area-chart">
+                                    <!-- <p>task details</p> -->
+                                    <form ng-submit="addTask()">
+                                        <label>Task name</label>
+                                        <input class="form-control" ng-model="taskName" name="taskName" id="taskName" required>
+                                        <label>Description</label>
+                                        <textarea class="form-control" ng-model="description" name="description" id="description" rows="3"></textarea>
+                                        <br>
+                                        <label>Ratings</label>
+                                        <span class="rating">                                
+                                            <input type="radio" id="rating5" name="rating" value="5" ng-model="rating">   <label for="rating5">5</label>
+                                            <input type="radio" id="rating4" name="rating" value="4" ng-model="rating">   <label for="rating4">4</label>
+                                            <input type="radio" id="rating3" name="rating" value="3" ng-model="rating">   <label for="rating3">3</label>
+                                            <input type="radio" id="rating2" name="rating" value="2" ng-model="rating">   <label for="rating2">2</label>
+                                            <input type="radio" id="rating1" name="rating" value="1" ng-model="rating">   <label for="rating1">1</label>
+                                            <input type="radio" id="rating0" name="rating" value="0" ng-model="rating" checked>
+                                            <br>
+                                        </span>
+                                        <br>
+                                        <br>
+                                        <input type="submit" class="btn btn-primary" value="Save">
+                                        <a href="#/profile" class="btn btn-default" role="button">Cancel</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -4,7 +4,7 @@
         <ul class="nav navbar-right top-nav">
             <!--  top menu -->
             <li class="dropdown">
-                <a href="login.html" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-power-off"></i> Log Out </a>
+                <a href="#/login.html" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-power-off"></i> Log Out </a>
             </li>
             <!--  -->
         </ul>
@@ -12,7 +12,10 @@
             <ul class="nav navbar-nav side-nav">
                 <!-- Left menu items -->
                 <li class="active">
-                    <a>Profile</a>
+                    <a href="#/profile">Profile</a>
+                </li>
+                <li>
+                    <a href="#/task">Task</a>
                 </li>
             </ul>
         </div>
@@ -34,16 +37,13 @@
                     </ol>
                 </div>
             </div>
-
             <!-- End of dashboard -->
             <form ng-submit="updateUserProfile()">
-                <div>                    
-                    <img class="ng-cloak" ngf-thumbnail="myFile" ng-show = "!myFile === null" style="width:100px; height:100px;" />
-
-                    <img class="ng-cloak" ng-src="{{user.profilePic}}" ng-show = "myFile === null" style="width:100px; height:100px;"/>
-
+                <div>
+                    <img class="ng-cloak" ngf-thumbnail="myFile" ng-show="!myFile === null" style="width:100px; height:100px;" />
+                    <img class="ng-cloak" ng-src="{{user.profilePic}}" ng-show="myFile === null" style="width:100px; height:100px;" />
                     <br>
-                    <input type="file" file-model="myFile" id="fileInput"/>    
+                    <input type="file" file-model="myFile" id="fileInput" />
                     <button type="button" class="btn btn-link" ng-click="uploadFile()">update</button>
                     <br>
                 </div>
@@ -89,7 +89,7 @@
                         <label>Birth date:(MM-DD-YY)</label>
                         <input class="form-control inputDate" type="text" id="birthDate" name="birthDate" ng-model="user.dateOfBirth" placeholder="MM-DD-YY">
                     </div>
-<!--                     <div class="col-sm-3">
+                    <!--                     <div class="col-sm-3">
                         <label>Date of joining:(MM-DD-YY)</label>
                         <input class="form-control inputDate" type="text" id="joiningDate" name="joiningDate" ng-model="user.dateOfJoining" placeholder="MM-DD-YY">
                     </div> -->

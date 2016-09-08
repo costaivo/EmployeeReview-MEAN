@@ -6,18 +6,15 @@ var task = function() {
 
     this.addTask = function(req, res) {
         this.newTask = new task({
-            creatorId: req.body._id,
-            projectId: "1"
+            creatorId: req.payload._id,
+            projectId: req.body.projectId
         });
         newTask.createdAt = new Date();
         newTask.updatedAt = new Date();
 
         newTask.userRating = req.body.userRating;
-        newTask.comments.push({
-            comment: req.body.comment,
-            userId: req.body._id,
-            commentedAt: new Date()
-        });
+        newTask.taskName = req.body.taskName;
+        newTask.description = req.body.description;
         newTask.save(function(error, data) {
             if (error)
                 console.log(error);
@@ -49,6 +46,16 @@ var task = function() {
                         res.status(200).json({ commentAddedBy: req.body._id });
                     }
                 });
+            }
+        });
+    };
+
+    this.details = function(req, res) {
+        task.find({ "projectId": req.params.projectId, "creatorId": req.payload._id }).lean().exec(function(error, task) {
+            if (error)
+                res.status(200).json({ message: error });
+            else {
+                res.status(200).json({ tasks: task });
             }
         });
     };
