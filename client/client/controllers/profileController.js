@@ -8,10 +8,12 @@ Author : Darshani S
 
 
     function profileController($scope, $rootScope, authentication, constants, user, fileUpload) {
-
+            $scope.myFile = null;
+            
         var vm = this;
         var userdata = "";
         var userSkillsArray = '';
+        var userProfilePic = '';
         $scope.availableSkillArray = [];
 
         $scope.loadProfileData = function() {
@@ -28,6 +30,12 @@ Author : Darshani S
                         userSkillsArray = userdata.skills;
                         vm.userSkillArray = userSkillsArray.split(",");
                     }
+                    if (userdata.profilePic) {
+                        userProfilePic = constants.baseUrl + constants.port + userdata.profilePic;
+                    } else {
+                        userProfilePic = constants.baseUrl + constants.port + "/images/users/newUser/Avatar-Blank.gif";
+                    }
+
 
                     $scope.user = {
                         "userName": userdata.userName,
@@ -39,25 +47,28 @@ Author : Darshani S
                         "designation": userdata.designation,
                         "team": userdata.team,
                         "skills": "",
-                        "rating": userdata.rating
+                        "rating": userdata.rating,
+                        "profilePic": userProfilePic
                     };
                 });
         }
 
 
 
-        $scope.uploadFile = function(){  
-            var fu1 = document.getElementById("fileInput");   
+        $scope.uploadFile = function() {
             var file = $scope.myFile;
-            console.log('file is ' + file);
-            console.log('');
-            if(file != undefined)
-            {                
+
+            if (file != undefined) {
                 var uploadUrl = constants.baseUrl + constants.port + '/user/addPicture';
-                var fileUploadURL= fileUpload.uploadFileToUrl(file, uploadUrl);
-                
+                var fileUploadURL = fileUpload.uploadFileToUrl(file, uploadUrl);
+
                 console.log("fileUploadURL " + fileUploadURL);
             }
+
+                        console.log('file is ' + file);
+            console.log('');
+
+
         };
 
 

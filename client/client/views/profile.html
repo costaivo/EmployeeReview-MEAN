@@ -20,7 +20,7 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <!-- Dashboard and Heading-->
-            <div class=row>
+            <div class="row">
                 <div class="col-sm-12">
                     <h1 class="page-header">Welcome {{ user.firstName }}</h1>
                     <br>
@@ -37,10 +37,13 @@
 
             <!-- End of dashboard -->
             <form ng-submit="updateUserProfile()">
-                <div>
-                    <img src="" style="width:100px; height:100px;" />
+                <div>                    
+                    <img class="ng-cloak" ngf-thumbnail="myFile" ng-show = "!myFile === null" style="width:100px; height:100px;" />
+
+                    <img class="ng-cloak" ng-src="{{user.profilePic}}" ng-show = "myFile === null" style="width:100px; height:100px;"/>
+
                     <br>
-                    <input type="file" file-model="myFile" id="fileInput" />    
+                    <input type="file" file-model="myFile" id="fileInput"/>    
                     <button type="button" class="btn btn-link" ng-click="uploadFile()">update</button>
                     <br>
                 </div>
@@ -86,10 +89,10 @@
                         <label>Birth date:(MM-DD-YY)</label>
                         <input class="form-control inputDate" type="text" id="birthDate" name="birthDate" ng-model="user.dateOfBirth" placeholder="MM-DD-YY">
                     </div>
-                    <div class="col-sm-3">
+<!--                     <div class="col-sm-3">
                         <label>Date of joining:(MM-DD-YY)</label>
                         <input class="form-control inputDate" type="text" id="joiningDate" name="joiningDate" ng-model="user.dateOfJoining" placeholder="MM-DD-YY">
-                    </div>
+                    </div> -->
                 </div>
                 <div class="row">
                     <div class="col-sm-3">
