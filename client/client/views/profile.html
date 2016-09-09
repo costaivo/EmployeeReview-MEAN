@@ -40,10 +40,12 @@
             <!-- End of dashboard -->
             <form ng-submit="updateUserProfile()">
                 <div>
-                    <img class="ng-cloak" ngf-thumbnail="myFile" ng-show="!myFile === null" style="width:100px; height:100px;" />
-                    <img class="ng-cloak" ng-src="{{user.profilePic}}" ng-show="myFile === null" style="width:100px; height:100px;" />
-                    <br>
-                    <input type="file" file-model="myFile" id="fileInput" />
+                    <div class="fileUpload">
+                        <img class="ng-cloak" ngf-thumbnail="myFile" ng-show="!myFile === null" style="width:100px; height:100px;" />
+                        <img class="ng-cloak" ng-src="{{user.profilePic}}" ng-show="myFile === null" style="width:100px; height:100px;" />
+                        <br>
+                        <input type="file" class="upload" file-model="myFile" id="fileInput" />
+                    </div>
                     <button type="button" class="btn btn-link" ng-click="uploadFile()">update</button>
                     <br>
                 </div>
@@ -83,9 +85,10 @@
                         </select>
                         <br>
                     </div>
-                </div>              
+                </div>
                 <div class="row">
                     <div class="col-sm-3">
+                        <label>Birth Date:</label>(MM-DD-YY)
                         <input class="form-control inputDate" type="text" placeholder="MM-DD-YY" id="birthDate" name="birthDate" ng-model="user.dateOfBirth">
                     </div>
                     <!--                     <div class="col-sm-3">
@@ -93,6 +96,7 @@
                         <input class="form-control inputDate" type="text" id="joiningDate" name="joiningDate" ng-model="user.dateOfJoining" placeholder="MM-DD-YY">
                     </div> -->
                 </div>
+                <br>
                 <div class="row">
                     <div class="col-sm-3">
                         <label>Team name:</label>
