@@ -10,6 +10,7 @@ Author : Nikhil U
 var constants = {
     port: 9000,
     baseUrl: 'http://localhost:',
+    blankAvatar: '/images/users/newUser/Avatar-Blank.gif',
     dateFormat: 'mm-dd-yy',
     msgUsernamePasswordFailure: 'Incorrect username or password!',
     msgPasswordMatchFailure: 'Passwords do not match!',

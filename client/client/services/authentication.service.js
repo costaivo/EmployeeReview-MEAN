@@ -27,7 +27,7 @@
         };
 
         var updateProfile = function(userDetails) {
-            return $http.post(constants.baseUrl + constants.port + '/user/updateProfile', userDetails, {
+            return $http.put(constants.baseUrl + constants.port + '/user/updateProfile', userDetails, {
                 headers: {
                     Authorization: 'Bearer ' + getToken()
                 }

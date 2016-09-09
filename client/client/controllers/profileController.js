@@ -8,8 +8,8 @@ Author : Darshani S
 
 
     function profileController($scope, $rootScope, authentication, constants, user, fileUpload) {
-            $scope.myFile = null;
-            
+        $scope.myFile = null;
+
         var vm = this;
         var userdata = "";
         var userSkillsArray = '';
@@ -33,9 +33,10 @@ Author : Darshani S
                     if (userdata.profilePic) {
                         userProfilePic = constants.baseUrl + constants.port + userdata.profilePic;
                     } else {
-                        userProfilePic = constants.baseUrl + constants.port + "/images/users/newUser/Avatar-Blank.gif";
+                        userProfilePic = constants.baseUrl + constants.port + constants.blankAvatar;
                     }
 
+                    $scope.firstName = userdata.firstName;
 
                     $scope.user = {
                         "userName": userdata.userName,
@@ -65,7 +66,7 @@ Author : Darshani S
                 console.log("fileUploadURL " + fileUploadURL);
             }
 
-                        console.log('file is ' + file);
+            console.log('file is ' + file);
             console.log('');
 
 
@@ -95,8 +96,10 @@ Author : Darshani S
         $scope.updateUserProfile = function() {
 
             var userData = $scope.user;
-            userData.skills = vm.userSkillArray.join(',');
-
+            if (vm.userSkillArray != undefined) {
+                userData.skills = vm.userSkillArray.join(',');
+            }
+            console.log("userData " + JSON.stringify(userData));
             authentication.updateProfile(userData)
                 .error(function(error) {
                     console.log("error " + JSON.stringify(error));
