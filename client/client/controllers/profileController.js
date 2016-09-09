@@ -110,22 +110,11 @@ Author : Darshani S
                 });
         }
 
-
-        $(function() {
-            $("#birthDate").datepicker({
-                dateFormat: constants.dateFormat
-            });
-        });
-
-
-        $(function() {
-            $("#joiningDate").datepicker({
-                dateFormat: constants.dateFormat
-            });
-        });
-
-
-
+  
+        $('#birthDate').datepicker({
+            format: constants.dateFormat
+        });  
+            
 
     };
 
@@ -133,14 +122,4 @@ Author : Darshani S
     angular
         .module("employeeApp")
         .controller("profileController", profileController)
-        .directive("datepicker", function() {
-            return {
-                restrict: "A",
-                link: function(scope, el, attr) {
-                    el.datepicker({
-                        dateFormat: constants.dateFormat
-                    });
-                }
-            };
-        });
 }());

@@ -48,7 +48,7 @@
                     <br>
                 </div>
                 <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <label>User name:</label>
                         <input class="form-control" type="email" id="User" name="email" ng-model="user.userName" disabled>
                         <br>
@@ -73,7 +73,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <label>Designation</label>
                         <select class="form-control" id="designation" name="designation" ng-model="user.designation">
                             <option value="junior developer">Junior Developer</option>
@@ -83,11 +83,10 @@
                         </select>
                         <br>
                     </div>
-                </div>
+                </div>              
                 <div class="row">
                     <div class="col-sm-3">
-                        <label>Birth date:(MM-DD-YY)</label>
-                        <input class="form-control inputDate" type="text" id="birthDate" name="birthDate" ng-model="user.dateOfBirth" placeholder="MM-DD-YY">
+                        <input class="form-control inputDate" type="text" placeholder="MM-DD-YY" id="birthDate" name="birthDate" ng-model="user.dateOfBirth">
                     </div>
                     <!--                     <div class="col-sm-3">
                         <label>Date of joining:(MM-DD-YY)</label>
