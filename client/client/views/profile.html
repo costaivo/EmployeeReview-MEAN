@@ -125,28 +125,15 @@
                     </div>
                     <div class="col-sm-6">
                         <br>
+                        <br>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newSkills" data-backdrop="static">Add </button>
                     </div>
-                </div>
-                <div class="row">
-                    <!--For rating -->
-                    <!--           <div class="col-sm-3"> 
-                                <label>Ratings</label>                         
-                                <span class="rating">                                
-                                    <input type="radio" id="rating5" name="rating" value="5">   <label for="rating5">5</label>
-                                    <input type="radio" id="rating4" name="rating" value="4">   <label for="rating4">4</label>
-                                    <input type="radio" id="rating3" name="rating" value="3">   <label for="rating3">3</label>
-                                    <input type="radio" id="rating2" name="rating" value="2">   <label for="rating2">2</label>
-                                    <input type="radio" id="rating1" name="rating" value="1">   <label for="rating1">1</label>
-                                </span>
-                            </div>
-                -->
                 </div>
                 <div class="row">
                     <div class=col-sm-6>
                         <br>
                         <input type="submit" class="btn btn-primary" value="Save">
-                        <a href="home.html" class="btn btn-default" role="button">Cancel</a>
-                        <!--   <label style="color:green"><%= message %></label>   -->
+                        <a href="#/home" class="btn btn-default" role="button">Cancel</a>
                     </div>
                     <div class=col-sm-6>
                         <label>
@@ -155,6 +142,32 @@
                     </div>
                 </div>
             </form>
+            <div class="modal fade" id="newSkills" role="dialog">
+                <form ng-submit="addSkill()">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-xs-6">
+                                        <label for="skills">Skills</label>
+                                        <input type="text" id="skills" name="skills" ng-model="skills" required>
+                                        <label style="color:red" id="skillAlreadyExists" ng-show="skillAlreadyExists" ng-init="skillAlreadyExists=''">{{skillAlreadyExists}}</label>
+                                        <div>
+                                            <br>
+                                            <button class="btn btn-default" type="submit">Save</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

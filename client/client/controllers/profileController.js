@@ -110,11 +110,28 @@ Author : Darshani S
                 });
         }
 
-  
+
         $('#birthDate').datepicker({
             format: constants.dateFormat
-        });  
-            
+        });
+
+
+
+        $scope.addSkill = function() {
+            var skill = {
+                "skill": $scope.skills
+            }
+            console.log(skill);
+            user.addSkill(skill)
+                .error(function(error) {
+                    console.log("error " + JSON.stringify(error));
+                    $scope.skillAlreadyExists = constants.msgSkillAlreadyExist;
+                })
+                .then(function(response) {
+                    console.log("newly added skill " + JSON.stringify(response));
+                });
+        }
+
 
     };
 
