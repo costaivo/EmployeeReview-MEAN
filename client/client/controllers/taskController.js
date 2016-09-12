@@ -33,28 +33,30 @@ Author : Nikhil U
             }
             if ((skip <= count) && paginate) {
                 paginate = false;
-                $http.get(constants.baseUrl + constants.port + '/task/' + $scope.projectId + '?skip=' + skip, {
-                    headers: {
-                        Authorization: 'Bearer ' + $window.localStorage['mean-token']
-                    }
-                }).success(function(response) {
-                    var tasks = response.tasks;
-                    count = response.total;
-                    if (tasks.length == 0) {
+                if (projectId != undefined) {
+                    $http.get(constants.baseUrl + constants.port + '/task/' + $scope.projectId + '?skip=' + skip, {
+                        headers: {
+                            Authorization: 'Bearer ' + $window.localStorage['mean-token']
+                        }
+                    }).success(function(response) {
+                        var tasks = response.tasks;
+                        count = response.total;
+                        if (tasks.length == 0) {
 
-                    } else {
+                        } else {
 
-                        if (skip <= count) {
-                            skip = skip + 3;
-                            for (var i = 0; i < tasks.length; i++) {
-                                $scope.tasks.push(tasks[i]);
+                            if (skip <= count) {
+                                skip = skip + 3;
+                                for (var i = 0; i < tasks.length; i++) {
+                                    $scope.tasks.push(tasks[i]);
+                                }
                             }
                         }
-                    }
-                    paginate = true;
-                }).error(function(error) {
-                    console.log(error);
-                });
+                        paginate = true;
+                    }).error(function(error) {
+                        console.log(error);
+                    });
+                }
             }
         };
 
