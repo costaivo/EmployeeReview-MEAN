@@ -10,9 +10,18 @@
             });
         };
 
+        var addSkill = function(skill) {
+            return $http.post(constants.baseUrl + constants.port + '/skill/addOne',skill, {
+                headers: {
+                    Authorization: 'Bearer ' + $window.localStorage['mean-token']
+                }
+            });
+        };
+
 
         return {
-            getSkills: getSkills
+            getSkills: getSkills,
+            addSkill: addSkill
         };
     };
 

@@ -8,8 +8,8 @@ Author : Darshani S
 
 
     function profileController($scope, $rootScope, authentication, constants, user, fileUpload) {
-            $scope.myFile = null;
-            
+        $scope.myFile = null;
+
         var vm = this;
         var userdata = "";
         var userSkillsArray = '';
@@ -33,9 +33,10 @@ Author : Darshani S
                     if (userdata.profilePic) {
                         userProfilePic = constants.baseUrl + constants.port + userdata.profilePic;
                     } else {
-                        userProfilePic = constants.baseUrl + constants.port + "/images/users/newUser/Avatar-Blank.gif";
+                        userProfilePic = constants.baseUrl + constants.port + constants.blankAvatar;
                     }
 
+                    $scope.firstName = userdata.firstName;
 
                     $scope.user = {
                         "userName": userdata.userName,
@@ -65,38 +66,42 @@ Author : Darshani S
                 console.log("fileUploadURL " + fileUploadURL);
             }
 
-                        console.log('file is ' + file);
+            console.log('file is ' + file);
             console.log('');
 
 
         };
 
 
-        user.getSkills()
-            .error(function(error) {
-                console.log("error " + JSON.stringify(error));
-            })
-            .then(function(response) {
 
-                var availableSkills = response.data.skills;
+        $scope.getSkillS = function() {
+            user.getSkills()
+                .error(function(error) {
+                    console.log("error " + JSON.stringify(error));
+                })
+                .then(function(response) {
 
-                if (availableSkills.length > 0) {
-                    for (var i = 0; i < availableSkills.length; i++) {
-                        $scope.availableSkillArray.push(availableSkills[i].skill);
+                    var availableSkills = response.data.skills;
+
+                    if (availableSkills.length > 0) {
+                        for (var i = 0; i < availableSkills.length; i++) {
+                            $scope.availableSkillArray.push(availableSkills[i].skill);
+                        }
                     }
-                }
-            });
+                });
 
-        vm.availableSkillsArray = $scope.availableSkillArray;
-
+            vm.availableSkillsArray = $scope.availableSkillArray;
+        }
 
 
         //update user profile details
         $scope.updateUserProfile = function() {
 
             var userData = $scope.user;
-            userData.skills = vm.userSkillArray.join(',');
-
+            if (vm.userSkillArray != undefined) {
+                userData.skills = vm.userSkillArray.join(',');
+            }
+            console.log("userData " + JSON.stringify(userData));
             authentication.updateProfile(userData)
                 .error(function(error) {
                     console.log("error " + JSON.stringify(error));
@@ -108,20 +113,37 @@ Author : Darshani S
         }
 
 
-        $(function() {
-            $("#birthDate").datepicker({
-                dateFormat: constants.dateFormat
-            });
+        $('#birthDate').datepicker({
+            format: constants.dateFormat
         });
 
 
-        $(function() {
-            $("#joiningDate").datepicker({
-                dateFormat: constants.dateFormat
-            });
-        });
+
+        $scope.addSkill = function() {
+            var skill = {
+                "skill": $scope.skills
+            }
+            console.log(skill);
+            user.addSkill(skill)
+                .error(function(error) {
+                    console.log("error " + JSON.stringify(error));
+                    $scope.skillAlreadyExists = constants.msgSkillAlreadyExist;
+                })
+                .then(function(response) {
+                    console.log("newly added skill " + JSON.stringify(response));
+                    $scope.skillAlreadyExists = '';
+                    $scope.skillAddedSuccessfully = constants.msgSkillAddedSuccessfully;
+                    $scope.availableSkillArray=[];
+                    $scope.getSkillS();
+                    $scope.skills = "";
+                });
 
 
+            $scope.clearSkill = function() {
+                $scope.skillAlreadyExists = '';
+                $scope.skillAddedSuccessfully = '';
+            }
+        }
 
 
     };
@@ -130,14 +152,4 @@ Author : Darshani S
     angular
         .module("employeeApp")
         .controller("profileController", profileController)
-        .directive("datepicker", function() {
-            return {
-                restrict: "A",
-                link: function(scope, el, attr) {
-                    el.datepicker({
-                        dateFormat: constants.dateFormat
-                    });
-                }
-            };
-        });
 }());

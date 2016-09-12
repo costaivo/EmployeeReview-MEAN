@@ -20,12 +20,12 @@
             </ul>
         </div>
     </nav>
-    <div id="page-wrapper">
+    <div id="page-wrapper" ng-init="getSkillS()">
         <div class="container-fluid">
             <!-- Dashboard and Heading-->
             <div class="row">
                 <div class="col-sm-12">
-                    <h1 class="page-header">Welcome {{ user.firstName }}</h1>
+                    <h1 class="page-header">Welcome {{ firstName }}</h1>
                     <br>
                     <ol class="breadcrumb">
                         <li>
@@ -40,15 +40,17 @@
             <!-- End of dashboard -->
             <form ng-submit="updateUserProfile()">
                 <div>
-                    <img class="ng-cloak" ngf-thumbnail="myFile" ng-show="!myFile === null" style="width:100px; height:100px;" />
-                    <img class="ng-cloak" ng-src="{{user.profilePic}}" ng-show="myFile === null" style="width:100px; height:100px;" />
-                    <br>
-                    <input type="file" file-model="myFile" id="fileInput" />
+                    <div class="fileUpload">
+                        <img class="ng-cloak" ngf-thumbnail="myFile" ng-show="!myFile === null" style="width:100px; height:100px;" />
+                        <img class="ng-cloak" ng-src="{{user.profilePic}}" ng-show="myFile === null" style="width:100px; height:100px;" />
+                        <br>
+                        <input type="file" class="upload" file-model="myFile" id="fileInput" />
+                    </div>
                     <button type="button" class="btn btn-link" ng-click="uploadFile()">update</button>
                     <br>
                 </div>
                 <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <label>User name:</label>
                         <input class="form-control" type="email" id="User" name="email" ng-model="user.userName" disabled>
                         <br>
@@ -73,7 +75,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <label>Designation</label>
                         <select class="form-control" id="designation" name="designation" ng-model="user.designation">
                             <option value="junior developer">Junior Developer</option>
@@ -86,14 +88,15 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-3">
-                        <label>Birth date:(MM-DD-YY)</label>
-                        <input class="form-control inputDate" type="text" id="birthDate" name="birthDate" ng-model="user.dateOfBirth" placeholder="MM-DD-YY">
+                        <label>Birth Date:</label>(MM-DD-YY)
+                        <input class="form-control inputDate" type="text" placeholder="MM-DD-YY" id="birthDate" name="birthDate" ng-model="user.dateOfBirth">
                     </div>
                     <!--                     <div class="col-sm-3">
                         <label>Date of joining:(MM-DD-YY)</label>
                         <input class="form-control inputDate" type="text" id="joiningDate" name="joiningDate" ng-model="user.dateOfJoining" placeholder="MM-DD-YY">
                     </div> -->
                 </div>
+                <br>
                 <div class="row">
                     <div class="col-sm-3">
                         <label>Team name:</label>
@@ -122,28 +125,15 @@
                     </div>
                     <div class="col-sm-6">
                         <br>
+                        <br>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newSkills" data-backdrop="static">Add </button>
                     </div>
-                </div>
-                <div class="row">
-                    <!--For rating -->
-                    <!--           <div class="col-sm-3"> 
-                                <label>Ratings</label>                         
-                                <span class="rating">                                
-                                    <input type="radio" id="rating5" name="rating" value="5">   <label for="rating5">5</label>
-                                    <input type="radio" id="rating4" name="rating" value="4">   <label for="rating4">4</label>
-                                    <input type="radio" id="rating3" name="rating" value="3">   <label for="rating3">3</label>
-                                    <input type="radio" id="rating2" name="rating" value="2">   <label for="rating2">2</label>
-                                    <input type="radio" id="rating1" name="rating" value="1">   <label for="rating1">1</label>
-                                </span>
-                            </div>
-                -->
                 </div>
                 <div class="row">
                     <div class=col-sm-6>
                         <br>
                         <input type="submit" class="btn btn-primary" value="Save">
-                        <a href="home.html" class="btn btn-default" role="button">Cancel</a>
-                        <!--   <label style="color:green"><%= message %></label>   -->
+                        <a href="#/home" class="btn btn-default" role="button">Cancel</a>
                     </div>
                     <div class=col-sm-6>
                         <label>
@@ -152,6 +142,34 @@
                     </div>
                 </div>
             </form>
+            <div class="modal fade" id="newSkills" role="dialog" ng-init="clearSkill()">
+                <form ng-submit="addSkill()">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <label>Add skills</label>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-xs-6">
+                                        Skill :
+                                        <input type="text" id="skills" name="skills" ng-model="skills" ng-change="clearSkill()" required>
+                                        <label style="color:red" id="skillAlreadyExists" ng-show="skillAlreadyExists" ng-init="skillAlreadyExists=''">{{skillAlreadyExists}}</label>
+                                        <label style="color:blue" id="skillAddedSuccessfully" ng-show="skillAddedSuccessfully" ng-init="skillAddedSuccessfully=''">{{skillAddedSuccessfully}}</label>
+                                        <div>
+                                            <br>
+                                            <button class="btn btn-default" type="submit">Save</button>
+                                            <button type="button" class="btn btn-default" ng-click="clearSkill()" data-dismiss="modal">cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
