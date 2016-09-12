@@ -19,15 +19,8 @@ var auth = jwt({
 });
 
 router.get("/", taskController.hello); //.. API to 
-router.put("/task", auth, taskController.addTask);
+router.put("/add", auth, taskController.addTask);
 router.put("/comment", taskController.addComment);
 router.get("/:projectId", auth, taskController.details); // API to get task details by searching Project ID
-
-//router.put("/task", auth, taskController.addTask);
-
-
-// router.get("/:skill", auth, skillController.searchSkill); //.. API to 
-// router.post("/addOne", auth, skillController.addSkill); //.. API to 
-
 
 module.exports = router;

@@ -50,7 +50,8 @@
                         <div class="panel-body">
                             <div id="morris-area-chart">
                                 <label>Please Select a project</label>
-                                <select class="form-control" id="projectId" name="projectId" ng-model="projectId" ng-change="getTaskDetails()">
+                                <select class="form-control" id="projectId" name="projectId" ng-model="projectId" ng-change="scrollingPaginate()">
+                                    <!-- getTaskDetails(); -->
                                     <option ng-repeat="project in projects" value="{{project._id}}">{{project.projectName}}
                                     </option>
                                 </select>
@@ -67,10 +68,12 @@
                                 </div>
                             </div>
                             <div class="panel-body">
-                                <div class="list-group">
-                                    <a href="" class="list-group-item" ng-repeat="task in tasks">
-                                        <span class="badge">{{task.updatedAt | date}}</span> {{task.taskName}}
-                                    </a>
+                                <div infinite-scroll="scrollingPaginate()" infinite-scroll-distance="2" style="overflow-y: scroll; height:140px;">
+                                    <div class="list-group">
+                                        <a href="" class="list-group-item" ng-repeat="task in tasks">
+                                            <span class="badge">{{task.updatedAt | date}}</span> {{task.taskName}}
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

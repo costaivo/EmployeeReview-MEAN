@@ -89,7 +89,6 @@ var User = function() {
                     data.middleName = req.body.middleName;
                     data.lastName = req.body.lastName;
                     data.dateOfBirth = req.body.dateOfBirth;
-                    data.dateOfJoining = req.body.dateOfJoining;
                     data.designation = req.body.designation;
                     data.team = req.body.team;
                     data.skills = req.body.skills;

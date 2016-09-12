@@ -15,20 +15,9 @@
             return $http.get(constants.baseUrl + constants.port + '/project/all').success(function(data) {});
         };
 
-        var getTaskDetails = function(projectId) {
-            return $http.get(constants.baseUrl + constants.port + '/task/' + projectId, {
-                headers: {
-                    Authorization: 'Bearer ' + getToken()
-                }
-            }).success(function(data) {});
-        };
-
-
-
 
         return {
-            getAllProjects: getAllProjects,
-            getTaskDetails: getTaskDetails
+            getAllProjects: getAllProjects
         }
     };
     project.$inject = ['$http', '$window', 'constants'];

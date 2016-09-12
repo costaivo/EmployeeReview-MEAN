@@ -29,6 +29,10 @@ module.exports = Object.freeze({
     skillPresentInDatabase: "skills already present in database",
 
     //project
-    projectAlreadyPresent: "Project already exists in database"
+    projectAlreadyPresent: "Project already exists in database",
+
+    //task
+    taskcreated: "New task has been created",
+    taskNotCreated: "Unable to create task"
 
 });

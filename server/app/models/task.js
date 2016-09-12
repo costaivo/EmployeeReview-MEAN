@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
     jwt = require('jsonwebtoken'),
+    mongoosePaginate = require('mongoose-paginate'),
     constants = require('../libraries/constants');
 this.config = require('../config/config.js');
 var self = this;
@@ -33,6 +34,7 @@ var taskSchema = new mongoose.Schema({
     }]
 
 });
+taskSchema.plugin(mongoosePaginate);
 
 var task = mongoose.model('tasks', taskSchema);
 module.exports = { Task: task };

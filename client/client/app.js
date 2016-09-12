@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module("employeeApp", ['ngRoute', 'angular-hmac-sha512', 'angular.chips', 'ui.bootstrap', 'ngFileUpload']);
+    var app = angular.module("employeeApp", ['ngRoute', 'angular-hmac-sha512', 'angular.chips', 'ui.bootstrap', 'ngFileUpload', 'infinite-scroll']);
     app.config(function($routeProvider) {
         $routeProvider
             .when('/', {

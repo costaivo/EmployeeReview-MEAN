@@ -1,6 +1,7 @@
 var task = function() {
     var task = require('../models/task').Task;
     var constants = require('../libraries/constants');
+    var mongoosePaginate = require('mongoose-paginate');
     var User = require('../models/user').User;
 
 
@@ -17,10 +18,9 @@ var task = function() {
         newTask.description = req.body.description;
         newTask.save(function(error, data) {
             if (error)
-                console.log(error);
+                res.status(401).json({ message: constants.taskNotCreated });
             else {
-                console.log('Entry saved as: ', data);
-                res.status(200).json({ taskID: data._id });
+                res.status(200).json({ taskID: data._id, message: constants.taskcreated });
             }
         });
     };
@@ -51,11 +51,18 @@ var task = function() {
     };
 
     this.details = function(req, res) {
-        task.find({ "projectId": req.params.projectId, "creatorId": req.payload._id }).lean().exec(function(error, task) {
-            if (error)
-                res.status(200).json({ message: error });
-            else {
-                res.status(200).json({ tasks: task });
+        var skip = JSON.parse(req.query.skip);
+        var options = {
+            sort: { updatedAt: -1 },
+            lean: true,
+            offset: skip,
+            limit: 3
+        };
+        task.paginate({ "projectId": req.params.projectId, "creatorId": req.payload._id }, options).then(function(task, error) {
+            if (error) {
+                res.status(404).json({ message: error });
+            } else {
+                res.status(200).json({ tasks: task.docs, total: task.total });
             }
         });
     };
