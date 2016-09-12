@@ -16,7 +16,8 @@ var constants = {
     msgPasswordMatchFailure: 'Passwords do not match!',
     msgUsernameRegisterFailure: 'Username is already registered! Please choose different Username.',
     msgUserRegisteredSuccess: 'User registered successfully!',
-    msgSkillAlreadyExist: 'Skill already exists!'
+    msgSkillAlreadyExist: 'Skill already exists!',
+    msgSkillAddedSuccessfully: 'Skill successfully added!'
 
 };
 angular.module('employeeApp').constant('constants', constants);

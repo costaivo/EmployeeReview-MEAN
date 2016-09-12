@@ -73,23 +73,25 @@ Author : Darshani S
         };
 
 
-        user.getSkills()
-            .error(function(error) {
-                console.log("error " + JSON.stringify(error));
-            })
-            .then(function(response) {
 
-                var availableSkills = response.data.skills;
+        $scope.getSkillS = function() {
+            user.getSkills()
+                .error(function(error) {
+                    console.log("error " + JSON.stringify(error));
+                })
+                .then(function(response) {
 
-                if (availableSkills.length > 0) {
-                    for (var i = 0; i < availableSkills.length; i++) {
-                        $scope.availableSkillArray.push(availableSkills[i].skill);
+                    var availableSkills = response.data.skills;
+
+                    if (availableSkills.length > 0) {
+                        for (var i = 0; i < availableSkills.length; i++) {
+                            $scope.availableSkillArray.push(availableSkills[i].skill);
+                        }
                     }
-                }
-            });
+                });
 
-        vm.availableSkillsArray = $scope.availableSkillArray;
-
+            vm.availableSkillsArray = $scope.availableSkillArray;
+        }
 
 
         //update user profile details
@@ -129,7 +131,18 @@ Author : Darshani S
                 })
                 .then(function(response) {
                     console.log("newly added skill " + JSON.stringify(response));
+                    $scope.skillAlreadyExists = '';
+                    $scope.skillAddedSuccessfully = constants.msgSkillAddedSuccessfully;
+                    $scope.availableSkillArray=[];
+                    $scope.getSkillS();
+                    $scope.skills = "";
                 });
+
+
+            $scope.clearSkill = function() {
+                $scope.skillAlreadyExists = '';
+                $scope.skillAddedSuccessfully = '';
+            }
         }
 
 
