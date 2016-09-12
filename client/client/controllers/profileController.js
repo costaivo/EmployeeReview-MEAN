@@ -7,7 +7,7 @@ Author : Darshani S
 (function() {
 
 
-    function profileController($scope, $rootScope, authentication, constants, user, fileUpload) {
+    function profileController($scope, $rootScope, authentication, constants, user, fileUpload, $window) {
         $scope.myFile = null;
 
         var vm = this;
@@ -105,9 +105,27 @@ Author : Darshani S
             authentication.updateProfile(userData)
                 .error(function(error) {
                     console.log("error " + JSON.stringify(error));
+                    swal({
+                        title: "",
+                        text: constants.msgUserProfileUpdateFailure,
+                        type: "info",
+                        html: true,
+                        showCancelButton: false,
+                        closeOnConfirm: true,
+                        showLoaderOnConfirm: false,
+                    });
                 })
                 .then(function(data) {
                     console.log(" data " + JSON.stringify(data));
+                    swal({
+                        title: "",
+                        text: constants.msgUserProfileUpdateSuccess,
+                        type: "info",
+                        html: true,
+                        showCancelButton: false,
+                        closeOnConfirm: true,
+                        showLoaderOnConfirm: false,
+                    });
 
                 });
         }
@@ -133,7 +151,7 @@ Author : Darshani S
                     console.log("newly added skill " + JSON.stringify(response));
                     $scope.skillAlreadyExists = '';
                     $scope.skillAddedSuccessfully = constants.msgSkillAddedSuccessfully;
-                    $scope.availableSkillArray=[];
+                    $scope.availableSkillArray = [];
                     $scope.getSkillS();
                     $scope.skills = "";
                 });
@@ -148,7 +166,7 @@ Author : Darshani S
 
     };
 
-    profileController.$inject = ['$scope', '$rootScope', 'authentication', 'constants', 'user', 'fileUpload'];
+    profileController.$inject = ['$scope', '$rootScope', 'authentication', 'constants', 'user', 'fileUpload', '$window'];
     angular
         .module("employeeApp")
         .controller("profileController", profileController)

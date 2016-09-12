@@ -17,7 +17,9 @@ var constants = {
     msgUsernameRegisterFailure: 'Username is already registered! Please choose different Username.',
     msgUserRegisteredSuccess: 'User registered successfully!',
     msgSkillAlreadyExist: 'Skill already exists!',
-    msgSkillAddedSuccessfully: 'Skill successfully added!'
+    msgSkillAddedSuccessfully: 'Skill successfully added!',
+    msgUserProfileUpdateSuccess: 'User profile successfully updated!',
+    msgUserProfileUpdateFailure: 'Error updating user profile. Try again!'
 
 };
 angular.module('employeeApp').constant('constants', constants);
