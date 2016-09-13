@@ -13,6 +13,9 @@ Author : Nikhil U
         var projectId = "";
         var count = 0;
 
+        if ($window.localStorage['projectId'] != undefined) {
+            $scope.projectId = $window.localStorage['projectId'];
+        }
 
         $scope.getProjects = function() {
             project.getAllProjects()
@@ -30,6 +33,9 @@ Author : Nikhil U
                 count = 0;
                 projectId = $scope.projectId;
                 $scope.tasks = [];
+                if (projectId != undefined) {
+                    $window.localStorage['projectId'] = projectId;
+                }
             }
             if ((skip <= count) && paginate) {
                 paginate = false;
@@ -73,7 +79,6 @@ Author : Nikhil U
 
             task.addTask(taskDetails).success(function(data) {
                     swal({ html: true, title: "", text: data.message }, function() {
-                        $window.location.reload();
                     });
                 })
                 .error(function(error) {
